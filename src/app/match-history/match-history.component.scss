@@ -1,0 +1,63 @@
+.match-history {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  
+    .match-cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+  
+      mat-card {
+        width: 300px;
+        margin-bottom: 20px;
+      }
+      
+      .winner {
+        color: green;
+      }
+  
+      .loser {
+        color: red;
+      }
+  
+      .hero-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+    }
+  }
+  .mat-row {
+    margin-bottom: 10px; /* space between rows */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* optional shadow */
+  }
+  .alternate-rows{
+    border: 1px solid #ccc; /* Light gray border */
+    
+  }
+  .alternate-rows tr {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .alternate-rows td:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+  
+  .alternate-rows td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  .alternate-rows tr:nth-child(even) {
+    background-color: #f5f5f5; /* Light gray */
+    
+  }
+  
+  .alternate-rows tr:nth-child(odd) {
+    background-color: #ffffff; /* White */
+  }
+  
+  

@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "npm: start",
+        "type": "npm",
+        "script": "start",
+        "path": "frontend",
+        "problemMatcher": [],
+        "detail": "ng serve"
+      }
+    ]
+  }  
