@@ -12,8 +12,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+
 import { HomeComponent } from './home/home.component';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { MatchHistoryComponent } from './match-history/match-history.component';
@@ -36,13 +36,12 @@ import { SecondsToMinutesPipe } from "../utils/seconds-to-minutes.pipe";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatIconModule,
     MatTableModule,
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
     MatGridListModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
     RouterModule,
     AppRoutingModule,
     SecondsToMinutesPipe

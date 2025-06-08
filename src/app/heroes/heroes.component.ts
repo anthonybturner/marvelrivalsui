@@ -10,6 +10,9 @@ import { IHero, IHeroResolvedData } from './data/models/hero-resolved-data';  //
   styleUrl: './heroes.component.scss'
 })
 export class HeroesComponent {
+handleAbilityIconError(_t34: HeroAbility,$event: ErrorEvent) {
+throw new Error('Method not implemented.');
+}
   heroes: IHero[] = [];
 
   ngUnsubscribe = new Subject();  // Subject to manage unsubscription
