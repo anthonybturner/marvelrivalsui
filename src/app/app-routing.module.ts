@@ -14,9 +14,10 @@ const routes: Routes = [
   },  // Default route (Home)
   { path: 'home', component: DashboardComponent, title: "Home - Rivals Watch" },  // Default route (Home)
   { path: 'news', component: NewsComponent },  // Default route (Home)
-  { path: 'heroes', component: HomeComponent },  // Default route (Home)
+  { path: 'heroes',loadChildren: () => import('./heroes/heroes.module').then(m => m.HeroesModule)},
   { path: 'matches', component: MatchHistoryComponent, resolve:{ resolvedData: MatchHistoryResolver}},  // Default route (Home)
-  { path: '', redirectTo:'/dashboard', pathMatch: 'full'},  // Default route (Home)
+  { path: '', redirectTo:'/dashboard', pathMatch: 'full'},
+  { path: 'heroes', loadChildren: () => import('./heroes/heroes.module').then(m => m.HeroesModule) },  // Default route (Home)
   // You can add more routes as needed
 ];
 
