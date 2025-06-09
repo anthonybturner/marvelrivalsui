@@ -1,22 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
-import { HeroesRoutingModule } from './heroes-routing.module';
-import { HeroesComponent } from './heroes.component';
-import { HeroResolver } from './services/hero-resolver';
-
+import { HeroRoutingModule } from './hereo-routing.module';
+import { HeroComponent } from './hero.component';
+import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    HeroesComponent
+    HeroComponent
   ],
   imports: [
     CommonModule,
-    HeroesRoutingModule
-  ],
-  providers: [
-    HeroResolver
-  ]
-
+    HeroRoutingModule,
+    SharedModule,
+    ScrollingModule
+]
 })
 export class HeroesModule { }
