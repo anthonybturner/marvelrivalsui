@@ -1,13 +1,26 @@
 .hero-container {
   padding: 16px;
 }
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  width: 100%;
+  align-items: start;
 
-.hero-card {
-  height: auto !important;
-  width: 75%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.hero-card {
+  width: 100%;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;      // Prevent content fr om overflowing
+}
+.hero-card:has(mat-expansion-panel.mat-expanded) {
+  z-index: 20 !important;
+  position: relative;
+}
 .hero-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -17,6 +30,9 @@
     border-radius: 9px;
     .bio{
       margin-top: 8px;
+      height: 180px;           // Set your desired fixed height
+      overflow-y: auto;       // Enable vertical scrolling if content overflows
+
     }
     .name{
       text-align: center;
@@ -54,6 +70,7 @@ img[mat-card-image] {
   max-height: 500px; /* Optional max height with scroll */
   overflow-y: auto; /* Add scroll if content is very long */
 }
+
 /* Role-specific chip colors */
 mat-chip.role-vanguard {
   background-color: #3f51b5 !important;
@@ -131,6 +148,9 @@ mat-accordion {
 .mat-line {
   display: flex;
   flex-direction: column;
+}
+.ability{
+  display: flex;
 }
 
 .ability-type {

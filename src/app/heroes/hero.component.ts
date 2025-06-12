@@ -30,6 +30,10 @@ export class HeroComponent implements OnInit, OnDestroy {
     }
   }
 
+  getDescription(ability: any): string{
+    return ability.description + "(" + (ability.additional_fields?.['Team-Up Bonus'] || 'NoBonus') + ")" ;
+  }
+
   handleImageError(event: Event, type: 'hero' | 'ability') {
     const img = event.target as HTMLImageElement;
     img.src = type === 'hero' 

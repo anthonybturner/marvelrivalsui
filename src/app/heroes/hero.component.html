@@ -1,86 +1,76 @@
 <div class="hero-container">
-  <!-- Loading State -->
-  <mat-grid-list cols="5" rowHeight="2:5" gutterSize="74px">
-    <mat-grid-tile *ngFor="let hero of heroes">
-      <mat-card class="hero-card" [routerLink]="['/heroes', hero.id]">
-        <!-- Hero Header -->
-        <mat-card-header>
-          <img mat-card-avatar 
-               [src]="getImageUrl(hero.imageUrl, 'hero')" 
-               [alt]="hero.name + ' portrait'"
-               (error)="handleImageError($event, 'hero')">
-          <mat-card-title>{{ hero.name | titlecase}}</mat-card-title>
-          <mat-card-subtitle>
-            <mat-chip-set>
-              <mat-chip [color]="getRoleColor(hero.role)" selected>
-                {{ hero.role }}
-              </mat-chip>
-            </mat-chip-set>
-          </mat-card-subtitle>
-        </mat-card-header>
+    <!-- Loading State -->
+    <div class="hero-grid">
+        <mat-card class="hero-card" *ngFor="let hero of heroes" [routerLink]="['/heroes', hero.id]">
+            <!-- Hero Header -->
+            <mat-card-header>
+                <img mat-card-avatar [src]="getImageUrl(hero.imageUrl, 'hero')" [alt]="hero.name + ' portrait'"
+                    (error)="handleImageError($event, 'hero')">
+                <mat-card-title>{{ hero.name | titlecase}}</mat-card-title>
+                <mat-card-subtitle>
+                    <mat-chip-set>
+                        <mat-chip [color]="getRoleColor(hero.role)" selected>
+                            {{ hero.role }}
+                        </mat-chip>
+                    </mat-chip-set>
+                </mat-card-subtitle>
+            </mat-card-header>
 
-        <!-- Hero Image -->
-        <img mat-card-image 
-             [src]="getImageUrl(hero.imageUrl, 'hero')" 
-             [alt]="hero.name + ' full portrait'"
-             (error)="handleImageError($event, 'hero')">
+            <!-- Hero Image -->
+            <img mat-card-image [src]="getImageUrl(hero.imageUrl, 'hero')" [alt]="hero.name + ' full portrait'"
+                (error)="handleImageError($event, 'hero')">
 
-        <!-- Hero Details -->
-        <mat-card-content>
-          <!-- Difficulty Rating -->
-          <div class="difficulty-rating">
-            <span>Difficulty:</span>
-            <mat-icon *ngFor="let star of [1,2,3,4,5]">
-              {{ star <= +hero.difficulty ? 'star' : 'star_border' }}
-            </mat-icon>
-          </div>
-
-            <div class="hero-details">
-                <h2 class="name">{{hero.real_name}}</h2>
-                <h3 class="attack">{{hero.attack_type}}</h3>
-                <div  class="team">
-                    Team  -<span *ngFor="let team of hero.team">
-                        {{team}}
-                    </span>
+            <!-- Hero Details -->
+            <mat-card-content>
+                <!-- Difficulty Rating -->
+                <div class="difficulty-rating">
+                    <span>Difficulty:</span>
+                    <mat-icon *ngFor="let star of [1,2,3,4,5]">
+                        {{ star <= +hero.difficulty ? 'star' : 'star_border' }} </mat-icon>
                 </div>
-                <div class="bio">
-                    {{hero.bio}}
+
+                <div class="hero-details">
+                    <h2 class="name">{{hero.real_name}}</h2>
+                    <h3 class="attack">{{hero.attack_type}}</h3>
+                    <div class="team">
+                        Team -<span *ngFor="let team of hero.team">
+                            {{team}}
+                        </span>
+                    </div>
+                    <div class="bio">
+                        {{hero.bio}}
+                    </div>
                 </div>
-            </div>
-          <!-- Abilities -->
-          <mat-accordion (click)="$event.stopPropagation()">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Abilities ({{ hero.abilities.length }})
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-            <cdk-virtual-scroll-viewport itemSize="80" style="height: 300px;">
-                <mat-list >
-                    <mat-list-item *cdkVirtualFor="let ability of hero.abilities">
-                        <img mat-list-icon matTooltip="{{ 'Ability' }}"
-                            [src]="getImageUrl(ability.icon, 'ability')" 
-                            [alt]="ability.name + ' icon'"
-                            (error)="handleImageError($event, 'ability')">
-                        <mat-icon matTooltip="{{ 'Team Up Ability' }}" *ngIf="ability.isCollab">groups</mat-icon>
-                        <div mat-line>
-                            {{ ability.name }}
-                            <div *ngIf="ability.isCollab">
-                                <span>{{ability.additional_fields?.["Team-Up Bonus"] || "No Bonus"}}</span><br/>
-                            </div>
-                        </div>
-                        <div mat-line class="ability-type">{{ ability.type }}</div>
-                    </mat-list-item>
-                </mat-list>
-            </cdk-virtual-scroll-viewport>
-                </mat-expansion-panel>
+                <!-- Abilities -->
+                <mat-accordion (click)="$event.stopPropagation()">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Abilities ({{ hero.abilities.length }})
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <cdk-virtual-scroll-viewport itemSize="80" style="height: 300px;">
+                            <mat-list>
+                                <mat-list-item *cdkVirtualFor="let ability of hero.abilities">
+                                    <div class="ability" *ngIf="ability.isCollab">
+                                        <mat-icon  [matTooltip]="getDescription(ability)" >groups</mat-icon> &nbsp;{{ability.name}}
+                                    </div>
+                                    <div class="ability" *ngIf="!ability.isCollab">
+                                        <img mat-list-icon [matTooltip]="getDescription(ability)"
+                                            [src]="getImageUrl(ability.icon, 'ability')" [alt]="ability.name + ' icon'"
+                                            (error)="handleImageError($event, 'ability')"> &nbsp; {{ability.name}}
+                                    </div>
+                                   
+                                    <div mat-line class="ability-type">{{ ability.type }}</div>
+                                </mat-list-item>
+                            </mat-list>
+                        </cdk-virtual-scroll-viewport>
+                    </mat-expansion-panel>
 
-          </mat-accordion>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+                </mat-accordion>
+            </mat-card-content>
+        </mat-card>
 
-  <!-- Loading Spinner -->
-  <mat-spinner *ngIf="isLoading" diameter="50" class="loading-spinner"></mat-spinner>
-</div>
+        <!-- Loading Spinner -->
+        <mat-spinner *ngIf="isLoading" diameter="50" class="loading-spinner"></mat-spinner>
+    </div>

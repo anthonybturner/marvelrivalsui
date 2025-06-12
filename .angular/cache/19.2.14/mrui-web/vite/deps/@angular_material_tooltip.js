@@ -3,24 +3,24 @@ import {
   ScrollDispatcher,
   ScrollingModule,
   ViewportRuler
-} from "./chunk-QMPBPJ6Q.js";
+} from "./chunk-FKKEC6FR.js";
+import {
+  _isTestEnvironment
+} from "./chunk-NWPPBAQ6.js";
+import {
+  coerceBooleanProperty,
+  coerceCssPixelValue
+} from "./chunk-IBYU652R.js";
+import {
+  supportsScrollBehavior
+} from "./chunk-2O4WY5GE.js";
 import {
   ComponentPortal,
   DomPortalOutlet,
   PortalModule,
   TemplatePortal
-} from "./chunk-Q2FL6KLH.js";
-import "./chunk-F7GB6CG4.js";
-import {
-  _isTestEnvironment
-} from "./chunk-FLDWVBUB.js";
-import {
-  supportsScrollBehavior
-} from "./chunk-2O4WY5GE.js";
-import {
-  coerceBooleanProperty,
-  coerceCssPixelValue
-} from "./chunk-PCQEEKRW.js";
+} from "./chunk-YKZIEZUA.js";
+import "./chunk-4W7JABOH.js";
 import {
   A11yModule,
   AriaDescriber,
@@ -34,22 +34,22 @@ import {
   coerceArray,
   hasModifierKey,
   normalizePassiveListenerOptions
-} from "./chunk-DKSH3GG4.js";
+} from "./chunk-4H5N4AG7.js";
 import {
   Platform,
   coerceNumberProperty
-} from "./chunk-FIAFOSWS.js";
+} from "./chunk-N27ZOMPL.js";
 import {
   BidiModule,
   Directionality
-} from "./chunk-H3T65ING.js";
+} from "./chunk-UQWNYCER.js";
 import {
   Location,
   NgClass
-} from "./chunk-FJ2LSRVL.js";
+} from "./chunk-GBANFASH.js";
 import {
   DOCUMENT
-} from "./chunk-3B7WPXDT.js";
+} from "./chunk-QZ2E34AJ.js";
 import {
   ANIMATION_MODULE_TYPE,
   ApplicationRef,
@@ -99,17 +99,19 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-MTES5EJZ.js";
+} from "./chunk-5QXQOMPN.js";
 import {
   Subject,
   Subscription,
-  __spreadProps,
-  __spreadValues,
   filter,
   merge,
   takeUntil,
   takeWhile
-} from "./chunk-S35MAB2V.js";
+} from "./chunk-P6U2JBMQ.js";
+import {
+  __spreadProps,
+  __spreadValues
+} from "./chunk-WDMUDEB6.js";
 
 // node_modules/@angular/cdk/fesm2022/overlay-module-BUj0D19H.mjs
 var scrollBehaviorSupported = supportsScrollBehavior();

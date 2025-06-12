@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () => import('./heroes/heroes.module').then(m=> m.HeroesModule),
     title: 'Heroes'
  },
+  {
+    path: 'hero-board',
+    loadChildren: () => import('./hero-board/hero-board.module').then(m=> m.HeroBoardModule),
+    title: 'Players'
+ },
  {
     path: '',
     pathMatch: 'full',
