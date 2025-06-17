@@ -13,6 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select'; // For hero selection dropdown
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -21,12 +23,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule
@@ -36,12 +40,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule

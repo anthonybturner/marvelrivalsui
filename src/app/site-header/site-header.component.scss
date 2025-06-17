@@ -9,30 +9,22 @@
     border-bottom: 2px solid #818285;
   }
   
-  .left {
+.site-header-toolbar{
+  flex: 1 1 auto;
+}
+  .site-header-content {
     display: flex;
     align-items: center;
-  }
-  
-  .left * {
-    margin-right: 25px;
-  }
-  
-  .logo {
-    height: 65px;
-  }
-    
-  .right {
-    display: flex;
-    align-items: center;
-    margin-right: 25px;
-  }
-  
-  .right * {
-    margin-left: 25px;
-  }
-  
-  .right img {
-    height: 40px;
-    cursor: pointer;
-  }
+    width: 100%;
+    .logo {
+      height: 48px;
+      margin-right: 24px;
+    }
+    .spacer {
+      flex: 1 1 auto;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+    }
+}

@@ -1,0 +1,31 @@
+.hero-container {
+  padding: 16px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  width: 100%;
+  align-items: start;
+}
+
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  overflow: visible;      // Prevent content from overflowing
+}
+.hero-card:has(mat-expansion-panel.mat-expanded) {
+  z-index: 20 !important;
+  position: relative;
+}
+.hero-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.loading-spinner {
+  margin: 20px auto;
+}

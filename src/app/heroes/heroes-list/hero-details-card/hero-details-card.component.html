@@ -1,0 +1,48 @@
+<div class="hero-details-container">
+    <div class="hero-header-col">
+        <!-- Hero Header -->
+        <mat-card-header>
+            <mat-card-title>{{ hero.name | titlecase}}</mat-card-title>
+            <mat-card-subtitle>
+                <mat-chip-set>
+                    <mat-chip [color]="getRoleColor(hero.role)" selected>
+                        {{ hero.role }}
+                    </mat-chip>
+                </mat-chip-set>
+            </mat-card-subtitle>
+        </mat-card-header>
+    </div>
+    <!-- Hero Image -->
+    <img mat-card-image [src]="getImageUrl(hero.imageUrl, 'hero')" [alt]="hero.name + ' full portrait'"
+        (error)="handleImageError($event, 'hero')">
+
+    <div class="hero-content-col">
+        <!-- Hero Details -->
+        <mat-card-content>
+            <div class="difficulty-rating">
+                <span>Difficulty:</span>
+                <mat-icon *ngFor="let star of [1,2,3,4,5]">
+                    {{ star <= +hero.difficulty ? 'star' : 'star_border' }} </mat-icon>
+            </div>
+            <div class="hero-details">
+                <img mat-card-avatar [src]="getImageUrl(hero.imageUrl, 'hero')" [alt]="hero.name + ' portrait'" (error)="handleImageError($event, 'hero')">
+                <div class="name">
+                    Name: {{hero.real_name}}
+                </div>
+
+                <div class="attack">Fight Type: {{hero.attack_type}}</div>
+                <div class="team">
+                    Team:
+                    <span *ngFor="let team of hero.team">
+                        {{team}}
+                    </span>
+                </div>
+                <div class="bio">
+                    {{hero.bio}}
+                </div>
+            </div>
+            <!-- Hero Abilities -->
+            <mr-hero-abilities-card [abilities]="hero.abilities"></mr-hero-abilities-card>
+        </mat-card-content>
+    </div>
+</div>

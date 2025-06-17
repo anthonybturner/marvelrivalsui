@@ -1,4 +1,7 @@
 import {
+  MatFormFieldModule
+} from "./chunk-IRT3SLHQ.js";
+import {
   MAT_ERROR,
   MAT_FORM_FIELD,
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -14,50 +17,19 @@ import {
   getMatFormFieldDuplicatedHintError,
   getMatFormFieldMissingControlError,
   getMatFormFieldPlaceholderConflictError
-} from "./chunk-YTDBYKWE.js";
-import "./chunk-NWPPBAQ6.js";
+} from "./chunk-7R6XK6N4.js";
+import "./chunk-6UKAD7VL.js";
 import "./chunk-IBYU652R.js";
+import "./chunk-42FJBLFI.js";
 import "./chunk-2O4WY5GE.js";
-import {
-  MatCommonModule,
-  ObserversModule
-} from "./chunk-4H5N4AG7.js";
-import "./chunk-N27ZOMPL.js";
-import "./chunk-UQWNYCER.js";
-import "./chunk-GBANFASH.js";
-import "./chunk-QZ2E34AJ.js";
-import {
-  NgModule,
-  setClassMetadata,
-  ɵɵdefineInjector,
-  ɵɵdefineNgModule
-} from "./chunk-5QXQOMPN.js";
+import "./chunk-UAJKNWNV.js";
+import "./chunk-GLDHGOJA.js";
+import "./chunk-DZSIGRT2.js";
+import "./chunk-MDXHKTUQ.js";
+import "./chunk-OB5M4LNC.js";
+import "./chunk-OMEFH3MO.js";
 import "./chunk-P6U2JBMQ.js";
-import "./chunk-WDMUDEB6.js";
-
-// node_modules/@angular/material/fesm2022/module-BXZhw7pQ.mjs
-var MatFormFieldModule = class _MatFormFieldModule {
-  static ɵfac = function MatFormFieldModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatFormFieldModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _MatFormFieldModule,
-    imports: [MatCommonModule, ObserversModule, MatFormField, MatLabel, MatError, MatHint, MatPrefix, MatSuffix],
-    exports: [MatFormField, MatLabel, MatHint, MatError, MatPrefix, MatSuffix, MatCommonModule]
-  });
-  static ɵinj = ɵɵdefineInjector({
-    imports: [MatCommonModule, ObserversModule, MatCommonModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatFormFieldModule, [{
-    type: NgModule,
-    args: [{
-      imports: [MatCommonModule, ObserversModule, MatFormField, MatLabel, MatError, MatHint, MatPrefix, MatSuffix],
-      exports: [MatFormField, MatLabel, MatHint, MatError, MatPrefix, MatSuffix, MatCommonModule]
-    }]
-  }], null, null);
-})();
+import "./chunk-O6F7RUPP.js";
 
 // node_modules/@angular/material/fesm2022/form-field.mjs
 var matFormFieldAnimations = {

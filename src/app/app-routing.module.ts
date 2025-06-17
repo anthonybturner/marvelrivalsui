@@ -8,13 +8,13 @@ const routes: Routes = [
     title: 'Dashboards'
  },
  {
-    path: 'heroes',
-    loadChildren: () => import('./heroes/heroes.module').then(m=> m.HeroesModule),
+    path: 'heroes-list',
+    loadChildren: () => import('./heroes/heroes-list/heroes-list.module').then(m=> m.HeroesModule),
     title: 'Heroes'
  },
   {
-    path: 'hero-board',
-    loadChildren: () => import('./hero-board/hero-board.module').then(m=> m.HeroBoardModule),
+    path: 'leader-board',
+    loadChildren: () => import('./leader-board/leader-board.module').then(m=> m.HeroBoardModule),
     title: 'Players'
  },
  {

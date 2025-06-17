@@ -1,0 +1,54 @@
+.hero-details-container{
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-details{
+    padding: 4px;
+    border-radius: 9px;
+    h2{
+      text-decoration: underline;
+    }
+    .bio{
+      background: #ccc;
+      border-radius: 9px;
+      margin-top: 8px;
+      height: auto;  
+      width: 100%;         // Set your desired fixed height
+      overflow-y: auto;       // Enable vertical scrolling if content overflows
+    }
+    .name{
+      padding:inherit;
+    }
+   
+    .attack, .team, .bio{
+        padding: 4px;
+    }
+}
+
+img[mat-card-image] {
+  width: 100%; /* Image fills card width */
+  height: auto; /* Fixed height */
+  object-fit: cover; /* Ensures no distortion */
+  object-position: top; /* Focus on faces */
+}
+
+.difficulty-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* Role-specific chip colors */
+mat-chip.role-vanguard {
+  background-color: #3f51b5 !important;
+  color: white !important;
+}
+
+mat-chip.role-assassin {
+  background-color: #f44336 !important;
+  color: white !important;
+}

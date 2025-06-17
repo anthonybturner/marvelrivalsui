@@ -1,27 +1,32 @@
 import {
+  ErrorStateMatcher,
+  _ErrorStateTracker
+} from "./chunk-M7ZSM5J6.js";
+import {
   MAT_FORM_FIELD,
   MatFormFieldControl
-} from "./chunk-YTDBYKWE.js";
+} from "./chunk-7R6XK6N4.js";
 import {
   FormGroupDirective,
   NG_VALUE_ACCESSOR,
   NgControl,
   NgForm,
   Validators
-} from "./chunk-NMA3S6RC.js";
+} from "./chunk-CHOGV6BX.js";
 import {
   MatRippleLoader
-} from "./chunk-H2DQMAXE.js";
+} from "./chunk-UCPHXFQH.js";
 import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatRippleModule
-} from "./chunk-6DMZMXBC.js";
-import "./chunk-NWPPBAQ6.js";
-import "./chunk-IBYU652R.js";
-import "./chunk-2O4WY5GE.js";
+} from "./chunk-Z2OHDYGJ.js";
 import {
   _StructuralStylesLoader
-} from "./chunk-A3UNG3WS.js";
+} from "./chunk-JY72SZPF.js";
+import "./chunk-6UKAD7VL.js";
+import "./chunk-IBYU652R.js";
+import "./chunk-42FJBLFI.js";
+import "./chunk-2O4WY5GE.js";
 import {
   BACKSPACE,
   DELETE,
@@ -37,15 +42,15 @@ import {
   _IdGenerator,
   _VisuallyHiddenLoader,
   hasModifierKey
-} from "./chunk-4H5N4AG7.js";
-import "./chunk-N27ZOMPL.js";
+} from "./chunk-UAJKNWNV.js";
+import "./chunk-GLDHGOJA.js";
 import {
   Directionality
-} from "./chunk-UQWNYCER.js";
-import "./chunk-GBANFASH.js";
+} from "./chunk-DZSIGRT2.js";
+import "./chunk-MDXHKTUQ.js";
 import {
   DOCUMENT
-} from "./chunk-QZ2E34AJ.js";
+} from "./chunk-OB5M4LNC.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -56,7 +61,6 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Injectable,
   InjectionToken,
   Injector,
   Input,
@@ -83,7 +87,6 @@ import {
   ɵɵcontentQuery,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
-  ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵelement,
@@ -103,7 +106,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-5QXQOMPN.js";
+} from "./chunk-OMEFH3MO.js";
 import {
   Subject,
   merge,
@@ -111,79 +114,7 @@ import {
   switchMap,
   takeUntil
 } from "./chunk-P6U2JBMQ.js";
-import "./chunk-WDMUDEB6.js";
-
-// node_modules/@angular/material/fesm2022/error-options-Dm2JJUbF.mjs
-var ShowOnDirtyErrorStateMatcher = class _ShowOnDirtyErrorStateMatcher {
-  isErrorState(control, form) {
-    return !!(control && control.invalid && (control.dirty || form && form.submitted));
-  }
-  static ɵfac = function ShowOnDirtyErrorStateMatcher_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ShowOnDirtyErrorStateMatcher)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _ShowOnDirtyErrorStateMatcher,
-    factory: _ShowOnDirtyErrorStateMatcher.ɵfac
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ShowOnDirtyErrorStateMatcher, [{
-    type: Injectable
-  }], null, null);
-})();
-var ErrorStateMatcher = class _ErrorStateMatcher {
-  isErrorState(control, form) {
-    return !!(control && control.invalid && (control.touched || form && form.submitted));
-  }
-  static ɵfac = function ErrorStateMatcher_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ErrorStateMatcher)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _ErrorStateMatcher,
-    factory: _ErrorStateMatcher.ɵfac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ErrorStateMatcher, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/material/fesm2022/error-state-Dtb1IHM-.mjs
-var _ErrorStateTracker = class {
-  _defaultMatcher;
-  ngControl;
-  _parentFormGroup;
-  _parentForm;
-  _stateChanges;
-  /** Whether the tracker is currently in an error state. */
-  errorState = false;
-  /** User-defined matcher for the error state. */
-  matcher;
-  constructor(_defaultMatcher, ngControl, _parentFormGroup, _parentForm, _stateChanges) {
-    this._defaultMatcher = _defaultMatcher;
-    this.ngControl = ngControl;
-    this._parentFormGroup = _parentFormGroup;
-    this._parentForm = _parentForm;
-    this._stateChanges = _stateChanges;
-  }
-  /** Updates the error state based on the provided error state matcher. */
-  updateErrorState() {
-    const oldState = this.errorState;
-    const parent = this._parentFormGroup || this._parentForm;
-    const matcher = this.matcher || this._defaultMatcher;
-    const control = this.ngControl ? this.ngControl.control : null;
-    const newState = matcher?.isErrorState(control, parent) ?? false;
-    if (newState !== oldState) {
-      this.errorState = newState;
-      this._stateChanges.next();
-    }
-  }
-};
+import "./chunk-O6F7RUPP.js";
 
 // node_modules/@angular/material/fesm2022/chips.mjs
 var _c0 = ["*", [["mat-chip-avatar"], ["", "matChipAvatar", ""]], [["mat-chip-trailing-icon"], ["", "matChipRemove", ""], ["", "matChipTrailingIcon", ""]]];

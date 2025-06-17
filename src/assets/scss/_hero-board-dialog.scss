@@ -1,0 +1,28 @@
+mat-card img.hero-portrait {
+    width: 25%;
+    height: auto;
+}
+
+.hero-details-card {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.hero-details-flex {
+    display: flex;
+    align-items: flex-start;
+    background: #d9d9d9;
+    border-radius: 5px;
+}
+
+.hero-header-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 12px;
+}
+
+.hero-content-col {
+    flex: 1;
+}
