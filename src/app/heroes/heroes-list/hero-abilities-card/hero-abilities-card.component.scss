@@ -1,0 +1,171 @@
+mat-expansion-panel {
+    position: relative;
+    z-index: 2;
+    /* Higher than the tile */
+    margin-bottom: 100px;
+    /* Space for expanded content */
+}
+
+.mat-expansion-panel-content {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Visual depth */
+    position: relative;
+    z-index: 20;
+    /* Highest priority */
+}
+
+/* Add to your component's CSS */
+mat-accordion {
+    overflow: visible !important;
+    /* Override any hidden overflow */
+}
+
+.abilities-accordion {
+    margin-top: 16px;
+
+    mat-expansion-panel {
+        box-shadow: none;
+        border-radius: 0;
+
+        &-header {
+            padding: 0 16px;
+            height: 48px !important;
+            /* Fixed header height */
+        }
+    }
+}
+
+.ability {
+    display: flex;
+}
+
+.ability-type {
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, 0.7);
+    /* Lighter text for secondary info */
+    margin-top: 4px;
+}
+
+.ability-type {
+    &-ultimate {
+        color: #ff4081;
+        /* Pink for ultimates */
+    }
+
+    &-normal {
+        color: #64dd17;
+        /* Green for normal */
+    }
+}
+
+.ability-list {
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    /* Scroll if many abilities */
+
+    mat-list-item {
+        height: 72px;
+        /* Standard Material list item height */
+
+        img[mat-list-icon] {
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            object-fit: contain;
+        }
+
+        .ability-type {
+            font-size: 0.8em;
+            color: rgba(0, 0, 0, 0.6);
+            /* Secondary text color */
+        }
+    }
+
+    mat-expansion-panel {
+        .mat-expansion-panel-content {
+            overflow: visible !important;
+        }
+    }
+
+    .ability-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+
+        .ability-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+        }
+
+        .ability-details {
+            flex: 1;
+        }
+    }
+}
+
+.ability-list-container {
+    max-height: 400px;
+    /* Adjust based on your needs */
+    overflow-y: auto;
+    /* Enable scrolling if needed */
+    padding: 0 16px;
+    /* Match Material card padding */
+}
+
+mat-expansion-panel {
+    overflow: visible;
+}
+
+mat-expansion-panel {
+    position: relative;
+    z-index: 2;
+    /* Ensure panel appears above other elements */
+}
+
+/* In your component's CSS */
+.mat-mdc-list-item img[mat-list-icon] {
+    /* Add background for transparent icons */
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 4px;
+
+    /* Force white icons to be visible */
+    filter: brightness(1) invert(1);
+    /* Or recolor if needed */
+    /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%); */
+}
+
+.mat-mdc-list-item img[mat-list-icon] {
+    width: 24px;
+    height: 24px;
+    background-color: #000;
+    padding: 0;
+}
+
+/* Custom list item styling */
+.mat-mdc-list-item {
+    height: auto !important;
+    padding: 8px 0;
+    border-radius: 4px;
+    border-bottom: 1px solid #000;
+}
+
+.mat-line {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-grid-tile {
+    overflow: visible !important;
+    transition: z-index 0.3s ease;
+    z-index: 1;
+}
+
+mat-grid-tile:hover {
+    z-index: 10;
+    /* Higher than other tiles */
+    transform: translateZ(0);
+    /* Force hardware acceleration */
+}

@@ -1,0 +1,17 @@
+<div class="vertical-layout">
+  <div class="search-container">
+    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
+      <mat-label>Hero Name</mat-label>
+      <input matInput name="heroName" [(ngModel)]="heroName" (keyup.enter)="onSearch()" placeholder="Enter hero name" required>
+      <button mat-raised-button color="primary" type="submit">Search</button>
+    </form>
+  </div>
+
+  <div class="hero-container">
+    <div class="hero-grid">
+      <div class="hero-tile" *ngFor="let hero of (heroes)" (click)="onHeroSelected(hero.name)" tabindex="0" [class.selected]="(hero)?.name === hero.name">
+        <mr-hero-board-details-card [hero]="hero"></mr-hero-board-details-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -49,3 +49,8 @@ Thumbs.db
 *.wmv
 
 src/app/environments/environment.ts
+.angular/cache/
+
+# Babel cache
+.babel-cache/
+babel-cache/

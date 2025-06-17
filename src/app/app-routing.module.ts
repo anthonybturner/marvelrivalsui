@@ -1,23 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';  // Example component
-import { NewsComponent } from './news/news.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MatchHistoryComponent } from './match-history/match-history.component';
-import { MatchHistoryResolver } from './match-history/match-history.resolver';
 
 const routes: Routes = [
   {
-    path: 'dashboard', 
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),  // Lazy loading the Dashboard module
-    title: "Rivals Watch" 
-  },  // Default route (Home)
-  { path: 'home', component: DashboardComponent, title: "Home - Rivals Watch" },  // Default route (Home)
-  { path: 'news', component: NewsComponent },  // Default route (Home)
-  { path: 'heroes', component: HomeComponent },  // Default route (Home)
-  { path: 'matches', component: MatchHistoryComponent, resolve:{ resolvedData: MatchHistoryResolver}},  // Default route (Home)
-  { path: '', redirectTo:'/dashboard', pathMatch: 'full'},  // Default route (Home)
-  // You can add more routes as needed
+    path: 'dashboards',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    title: 'Dashboards'
+ },
+ {
+    path: 'heroes-list',
+    loadChildren: () => import('./heroes/heroes-list/heroes-list.module').then(m=> m.HeroesModule),
+    title: 'Heroes'
+ },
+  {
+    path: 'leader-board',
+    loadChildren: () => import('./leader-board/leader-board.module').then(m=> m.HeroBoardModule),
+    title: 'Players'
+ },
+ {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'dashboards',
+    title: 'Redirect to Dashboards'
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboards',
+    title: 'Invalid Route Redirect'
+  }
 ];
 
 @NgModule({

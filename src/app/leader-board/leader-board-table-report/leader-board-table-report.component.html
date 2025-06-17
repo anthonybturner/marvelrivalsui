@@ -1,0 +1,16 @@
+ <button mat-raised-button color="primary" (click)="createBarChart()">
+  Show Chart
+</button>
+
+ <ag-grid-angular
+      #agGrid
+      class="ag-theme-material"
+      style="width: 100%; height: 600px; overflow: auto;"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [rowClassRules]="rowClassRules"
+      [modules]="modules"
+      [enableCharts]="true"
+      (gridReady)="onGridReady($event)"
+      >
+</ag-grid-angular>

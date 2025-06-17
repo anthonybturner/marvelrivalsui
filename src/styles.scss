@@ -1,9 +1,3 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/azure-blue.css';  /* or any of the other themes */
-
-a.active{
-    color: #ffffff;
-    text-decoration: none;
-    border-bottom: 1px solid #ff00bf;
-    border-radius: 8px 8px;
-}
+@import 'assets/scss/_hero-board-dialog.scss';

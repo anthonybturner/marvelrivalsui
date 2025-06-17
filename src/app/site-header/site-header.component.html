@@ -1,12 +1,13 @@
-<div class="container">
-    <mat-toolbar color="primary">
-        <div class="left">
-            <img class="logo" src="/assets/images/logo.png" alt="Logo" />
-            <a routerLink="/home" routerLinkActive="active">Home</a>
-            <a routerLink="/news" routerLinkActive="active">News</a>
-            <a routerLink="/heroes" routerLinkActive="active">Heroes</a>    
-            <a routerLink="/matches" routerLinkActive="active">Match History</a>            
-        </div>
-      </mat-toolbar>    
+<mat-toolbar color="primary" class="site-header-toolbar">
+  <div class="site-header-content">
+    <img class="logo" src="/assets/images/logo.png" alt="Logo" />
+    <span class="spacer"></span>
+    <nav>
+      <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
+      <a mat-button routerLink="/news" routerLinkActive="active">News</a>
+      <a mat-button routerLink="/heroes-list" routerLinkActive="active">Heroes</a>
+      <a mat-button routerLink="/matches" routerLinkActive="active">Match History</a>
+      <a mat-button routerLink="/leader-board" routerLinkActive="active">Leader Board</a>
+    </nav>
   </div>
-  
+</mat-toolbar>
