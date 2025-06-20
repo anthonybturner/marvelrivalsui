@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { HeroBoardRoutingModule } from './leader-board-routing.module';
 import { LeaderBoardTableReportComponent } from './leader-board-table-report/leader-board-table-report.component';
@@ -14,25 +13,25 @@ import { ClientSideRowModelModule, ModuleRegistry, RowStyleModule } from 'ag-gri
 import {IntegratedChartsModule} from 'ag-grid-enterprise';
 
 import { AgChartsCommunityModule } from 'ag-charts-community';
+import { HeroDetailsCardComponent } from '../heroes/hero/hero-details-card/hero-details-card.component';
 
 @NgModule({
   declarations: [
     LeaderBoardComponent,
+    LeaderBoardDetailsCardComponent,
     LeaderBoardTableReportComponent,
     LeaderBoardTableReportDialogComponent,
-    LeaderBoardDetailsCardComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     FormsModule,
     HeroBoardRoutingModule,
     AgGridModule,
-    SharedModule
 
   ]
 })
 
-export class HeroBoardModule {
+export class LeaderBoardModule {
   constructor() {
     ModuleRegistry.registerModules([
       IntegratedChartsModule.with(AgChartsCommunityModule),
@@ -40,6 +39,4 @@ export class HeroBoardModule {
       ClientSideRowModelModule
     ]);
   }
-
-
 }

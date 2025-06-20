@@ -1,67 +1,9 @@
-// --- Layout Containers ---
-.vertical-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; // or 100% if inside another container
-}
 
-.search-container {
-  background: #000;
-  flex: 0 0 auto; // or set a fixed height, e.g. height: 80px;
-  padding: 16px;
-}
-
-.gridlist-section {
-  flex: 1 1 auto;
-  min-height: 0; // ensures proper flexbox shrinking
-  // Optionally set a max-height or fixed height:
-  // height: 500px;
-  // max-height: 70vh;
-  overflow: auto;
-}
-
-// --- Hero Details ---
-.hero-details,
-.hero-details-extra {
-  background: #cdcdcd;
-  width: 50%;
-  padding: 8px;
-  border-radius: 14px;
-}
-
-// --- Hero Grid ---
-.hero-grid {
+// --- leader board Grid ---
+.leader-board-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-rows: auto 400px;
   gap: 16px;
   margin: 4px 0;
-}
-
-.hero-tile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  padding: 8px;
-  transition: border-color 0.2s;
-
-  &.selected,
-  &:hover {
-    border-color: #1976d2;
-    background: #f5f5f5;
-  }
-
-  img {
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
-    margin-bottom: 8px;
-  }
-}
-
-.hero-name {
-  font-size: 1rem;
-  text-align: center;
 }

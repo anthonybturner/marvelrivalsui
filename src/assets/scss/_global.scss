@@ -1,0 +1,74 @@
+body{
+    margin: 0;
+    background: #000;
+    color: #fff;
+}
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* filepath: e:\repos\mrui-web\src\app\site-header\site-header.component.scss */
+.custom-toolbar {
+  background: #123456 !important; /* Your custom color */
+  color: #fff !important;         /* Optional: custom text color */
+}
+
+button.mdc-button.mdc-button--raised.mat-mdc-raised-button.mat-primary.mat-mdc-button-base {
+    height: auto;
+    margin-left: 4px;
+}
+.custom-toolbar .mdc-button {
+  color: #fdfdfd !important;
+  // ...other styles
+}
+.custom-toolbar .mdc-button:hover {
+  background: #222 !important;
+  color: #ffeb3b !important;
+  border-radius: 4px;
+}
+img.role-icon {
+    width: 26px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 5px;
+    left: 2px;
+}
+
+// --- Layout Containers ---
+.vertical-layout {
+  display: flex;
+  flex-direction: column;
+}
+.search-container {
+    flex: 0 0 auto;
+    padding: 16px;
+    border: 1px solid #693030;
+    border-radius: 6px;
+}
+
+
+/* Base Details card  */
+.details-card {
+    display: flex;
+    height: 400px;
+    gap: 20px;
+    margin-bottom: 8px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 8px;
+}
+.header-col {
+  flex: 0 0 100px; /* Don't grow, don't shrink, fixed width */
+}
+.content-col {
+  flex: 1; /* Takes remaining space */
+}
+
+.difficulty-rating {
+  display: flex;
+  align-items: center;
+  color: green;
+}

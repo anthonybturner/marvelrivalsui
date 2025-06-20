@@ -1,0 +1,9 @@
+
+.hero-details-flex {
+    display: flex;
+    align-items: flex-start;
+    background: #ffffff;
+    border-radius: 16px;
+    border-top: 1px solid #ccc !important;
+    border-bottom: 1px solid #ccc !important;
+}

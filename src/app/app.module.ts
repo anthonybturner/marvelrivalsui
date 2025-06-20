@@ -8,19 +8,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SiteHeaderComponent } from './site-header/site-header.component';
+import { SiteFooterComponent } from "./site-footer/site-footer.component";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SiteHeaderComponent,
+    SiteFooterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
 ],
   providers: [
   ],

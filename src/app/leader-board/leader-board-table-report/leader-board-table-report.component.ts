@@ -8,7 +8,7 @@ import {IntegratedChartsModule} from 'ag-grid-enterprise';
 import { AgChartsCommunityModule } from 'ag-charts-community';
 
 import { Subject, takeUntil } from 'rxjs';
-import { IHeroBoardPlayer } from '../data/models/hero-board-resolved-data';
+import { IHeroBoardPlayer } from '../data/models/hero-board.model';
 
 @Component({
   selector: 'mr-heroboard-gridlist',
@@ -44,13 +44,11 @@ export class LeaderBoardTableReportComponent implements OnInit, OnDestroy {
 
    ngOnChanges(changes: SimpleChanges): void {
     if (changes['rowData'] && this.rowData) {
-      console.log(this.rowData);
        this.rowData = this.rowData.map(row => {
       const rank_score = row.info?.rank_season?.rank_score;
       const max_rank_score = row.info?.rank_season?.max_rank_score;
       const win_count = row.info?.rank_season?.win_count;
       const mapped = { ...row, rank_score, max_rank_score, win_count  };
-      console.log('Mapped row:', mapped);
       return mapped;
     });
     }
@@ -65,7 +63,6 @@ export class LeaderBoardTableReportComponent implements OnInit, OnDestroy {
 
   onGridReady(params: any) {
     this.agGrid.api = params.api;
-    this.createBarChart();
   }
 
 

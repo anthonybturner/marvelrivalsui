@@ -27,9 +27,17 @@ export function handleImageError(event: Event, type: 'hero' | 'ability'): HTMLIm
   return img;
 }
 
+export function getRoleImage(role: string | undefined): string{
+  switch (role?.toLowerCase()) {
+    case 'vanguard': return 'assets/images/icons/vanguard.png';
+    case 'duelist': return 'assets/images/icons/duelist.png';
+    case 'strategist': return 'assets/images/icons/strategist.png';
+    default: return '';
+  }
+}
 
-export function getRoleColor(role: string): string {
-  switch (role.toLowerCase()) {
+export function getRoleColor(role: string | undefined): string {
+  switch (role?.toLowerCase()) {
     case 'vanguard': return 'primary';
     case 'assassin': return 'warn';
     default: return '';

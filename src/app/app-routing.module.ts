@@ -5,28 +5,38 @@ const routes: Routes = [
   {
     path: 'dashboards',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    title: 'Dashboards'
- },
- {
-    path: 'heroes-list',
-    loadChildren: () => import('./heroes/heroes-list/heroes-list.module').then(m=> m.HeroesModule),
-    title: 'Heroes'
- },
+    data: { pageTitle: 'DashBoard' }
+  },
+  {
+    path: 'news',
+    loadChildren: () => import('./news/news.module').then(m => m.NewsModule),
+    data: { pageTitle: 'News' }
+  },
+  {
+    path: 'heroes',
+    loadChildren: () => import('./heroes/heroes.module').then(m => m.HeroesModule),
+    data: { pageTitle: 'Heroes' }
+  },
   {
     path: 'leader-board',
-    loadChildren: () => import('./leader-board/leader-board.module').then(m=> m.HeroBoardModule),
-    title: 'Players'
- },
- {
+    loadChildren: () => import('./leader-board/leader-board.module').then(m => m.LeaderBoardModule),
+    data: { pageTitle: 'Leader Board' }
+  },
+  {
+    path: 'match-history',
+    loadChildren: () => import('./match-history/match-history.module').then(m => m.MatchHistoryModule),
+    data: { pageTitle: 'Player Match History' }
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'dashboards',
-    title: 'Redirect to Dashboards'
+    data: { pageTitle: 'Redirect to DashBoard' }
   },
   {
     path: '**',
     redirectTo: 'dashboards',
-    title: 'Invalid Route Redirect'
+    data: { pageTitle: 'Invalid Route Redirect' }
   }
 ];
 

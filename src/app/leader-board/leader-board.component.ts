@@ -1,15 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IHeroBoardPlayer, IHeroBoardResponse } from './data/models/hero-board-resolved-data';
-import { BehaviorSubject, map, Subject, takeUntil } from 'rxjs';
+import { IHeroBoardPlayer } from './data/models/hero-board.model';
+import {  map, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { LeaderBoardTableReportComponent } from "./leader-board-table-report/leader-board-table-report.component";
-import { HeroBoardService } from './services/hero-board.service';
+import { LeaderBoardService } from './services/leader-board.service';
 
 import { LeaderBoardTableReportDialogComponent } from './leader-board-table-report-dialog/leader-board-table-report-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { getImageUrl, getFallbackImageUrl } from 'src/app/shared/utilities/image-utils';
-import { HeroService } from '../heroes/heroes-list/services/hero.service';
-import { IHero } from '../heroes/hero/data/models/hero-resolved-data';
+import { HeroesService } from '../heroes/services/heroes.service';
+import { IHero } from '../heroes/hero/data/models/hero.model';
 
 @Component({
   selector: 'mr-hero-board',
@@ -26,9 +25,8 @@ export class LeaderBoardComponent implements OnInit, OnDestroy {
   getImageUrl = getImageUrl;
   ngUnsubscribe = new Subject();
 
-  constructor(private activatedRoute: ActivatedRoute, private heroBoardService: HeroBoardService, 
-    private heroService: HeroService, private dialog: MatDialog) { }
-
+  constructor(private activatedRoute: ActivatedRoute, private heroBoardService: LeaderBoardService, 
+    private heroesService: HeroesService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.activatedRoute.data
@@ -38,7 +36,7 @@ export class LeaderBoardComponent implements OnInit, OnDestroy {
       )
       .subscribe((players) => {
         this.players = players;
-        this.heroService.getHeroes().subscribe({
+        this.heroesService.getHeroes().subscribe({
           next: (response: IHero[]) =>{
             this.heroes = response;
           }
@@ -52,14 +50,14 @@ export class LeaderBoardComponent implements OnInit, OnDestroy {
     //Fetch players for the searched hero
     this.fetchPlayers(this.heroName);
     // Retrieve searched hero details
-    this.fetchHeroDetails(this.heroName);
+    this.findSelectedHero(this.heroName);
     this.openGridlistModal();
 
   }
 
-  fetchHeroDetails(heroName: string) {
+  findSelectedHero(selectedHeroName: string) {
     for (let hero of this.heroes) {
-      if (hero.name.toLowerCase() === heroName.toLowerCase()) {
+      if (hero.name.toLowerCase() === selectedHeroName.toLowerCase()) {
         this.selectedHero = hero;
         break;
       }
@@ -89,7 +87,7 @@ export class LeaderBoardComponent implements OnInit, OnDestroy {
 
   onHeroSelected(value : string){
     this.fetchPlayers(value);
-    this.fetchHeroDetails(value);
+    this.findSelectedHero(value);
     this.openGridlistModal();
 
   }
@@ -98,5 +96,4 @@ export class LeaderBoardComponent implements OnInit, OnDestroy {
       this.ngUnsubscribe.next(null);
       this.ngUnsubscribe.complete();
   }
-
 }

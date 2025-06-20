@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IHero } from 'src/app/heroes/hero/data/models/hero.model';
-import { IHeroBoardPlayer } from '../data/models/hero-board-resolved-data';
+import { IHeroBoardPlayer } from '../data/models/hero-board.model';
 
 @Component({
   selector: 'app-gridlist-dialog',
