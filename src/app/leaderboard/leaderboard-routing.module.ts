@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LeaderBoardComponent } from './leader-board.component';
-import { HeroBoardResolver } from './services/leader-board.resolver';
+import { LeaderBoardComponent } from './leaderboard.component';
+import { LeaderBoardResolver as LeaderBoardResolver } from './services/leaderboard.resolver';
 
 const routes: Routes = [
-  { path: '', component: LeaderBoardComponent, resolve:{ resolvedData: HeroBoardResolver}},  // Default route (Home)
+  { path: '', component: LeaderBoardComponent, resolve:{ resolvedData: LeaderBoardResolver}},  // Default route (Home)
 ];
 
 @NgModule({

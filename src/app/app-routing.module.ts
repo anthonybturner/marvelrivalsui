@@ -18,9 +18,9 @@ const routes: Routes = [
     data: { pageTitle: 'Heroes' }
   },
   {
-    path: 'leader-board',
-    loadChildren: () => import('./leader-board/leader-board.module').then(m => m.LeaderBoardModule),
-    data: { pageTitle: 'Leader Board' }
+    path: 'leaderboard',
+    loadChildren: () => import('./leaderboard/leaderboard.module').then(m => m.LeaderBoardModule),
+    data: { pageTitle: 'LeaderBoard' }
   },
   {
     path: 'match-history',

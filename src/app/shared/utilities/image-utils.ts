@@ -5,6 +5,7 @@ export function getImageUrl(imagePath: string | undefined, type: 'hero' | 'abili
   const normalizedPath = imagePath.replace(/^\/+|\/+$/g, '');
   const basePaths = {
     hero: 'https://marvelrivalsapi.com/',
+    image_path: 'https://marvelrivalsapi.com/rivals/',
     ability: 'https://marvelrivalsapi.com/rivals/'
   };
   try {
@@ -34,6 +35,10 @@ export function getRoleImage(role: string | undefined): string{
     case 'strategist': return 'assets/images/icons/strategist.png';
     default: return '';
   }
+}
+
+export function getPlayerImage(image: string | undefined): string{
+  return `https://marvelrivalsapi.com/rivals/${image}`;
 }
 
 export function getRoleColor(role: string | undefined): string {

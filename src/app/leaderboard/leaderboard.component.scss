@@ -1,0 +1,223 @@
+/* ===== Leaderboard Container ===== */
+.leaderboard-container {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.leaderboard-header {
+    color: #f0131e;
+    border-bottom: 2px solid #f0131e;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.8rem;
+}
+
+/* ===== Heroes ====== */
+/* Base Container */
+.heroes-container {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.heroes-header {
+    color: #f0131e;
+    border-bottom: 2px solid #f0131e;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+/* Controls */
+.hero-controls {
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.search-box {
+    display: flex;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.search-box input {
+    float: left;
+    padding: 10px 15px;
+    background: #252525;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 4px 0 0 4px;
+    width: 100%;
+}
+
+.search-box button {
+    background: #f0131e;
+    color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Heroes Grid */
+.heroes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.hero-card {
+    background: #252525;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(82, 11, 14, 0.2);
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.hero-info {
+    padding: 15px;
+}
+
+.hero-info h3 {
+    color: #f0131e;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.hero-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+.hero-role {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.hero-role.tank {
+    background: #4a6fa5;
+    color: white;
+}
+
+.hero-role.damage {
+    background: #c33;
+    color: white;
+}
+
+.hero-role.support {
+    background: #4CAF50;
+    color: white;
+}
+
+.hero-abilities {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.ability-icon {
+    background: #2d2d2dcc;
+}
+
+.ability-icon img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid #444;
+}
+
+.btn-hero {
+    display: block;
+    text-align: center;
+    background: #333;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn-hero:hover {
+    background: #f0131e;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-prev,
+.btn-next {
+    padding: 8px 16px;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-prev:hover,
+.btn-next:hover {
+    background: #f0131e;
+}
+
+.page-info {
+    padding: 0 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+
+    .filter-options {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .heroes-grid {
+        grid-template-columns: 1fr;
+    }
+}

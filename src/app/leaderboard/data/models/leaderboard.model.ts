@@ -1,13 +1,17 @@
 // src/app/heroes/data/models/hero-resolved-data.ts
-export interface IHeroBoardResponse {
-  players: IHeroBoardPlayer[]
+export interface ILeaderBoardResponse {
+  hero_name: string,
+  players: ILeaderBoardPlayer[]
 }
 
-export interface IHeroBoardPlayer {
-
+export interface ILeaderBoardPlayer {
+    [x: string]: any;
     info: {
       name: string, 
       cur_head_icon_id: string,
+      icon:{
+        player_icon: "/players/heads/player_head_31021204.png"
+      }
       rank_season: {
         rank_game_id: number, 
         level: number,

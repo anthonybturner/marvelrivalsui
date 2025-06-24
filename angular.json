@@ -22,6 +22,7 @@
             "outputPath": {
               "base": "dist"
             },
+            "baseHref": "/",
             "index": "src/index.html",
             "polyfills": [
               "zone.js"

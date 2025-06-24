@@ -48,7 +48,24 @@ img.role-icon {
     border: 1px solid #693030;
     border-radius: 6px;
 }
+.search-input {
+  float:left;
+  padding: 10px 15px;
+  border: 1px solid #444;
+  background: #252525;
+  color: #fff;
+  border-radius: 6px;
+  min-width: 220px;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 
+  &:focus {
+    outline: none;
+    border-color: #f0131e;
+    box-shadow: 0 0 0 2px rgba(240, 19, 30, 0.2);
+  }
+}
 
 /* Base Details card  */
 .details-card {
@@ -64,8 +81,16 @@ img.role-icon {
   flex: 0 0 100px; /* Don't grow, don't shrink, fixed width */
 }
 .content-col {
-  flex: 1; /* Takes remaining space */
+    flex: 1;
+    line-height: 2.2em;
+    position: relative;
+    top: 22px;
+    div b {
+        color: green;
+    }
+
 }
+
 
 .difficulty-rating {
   display: flex;

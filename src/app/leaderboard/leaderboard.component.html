@@ -1,0 +1,13 @@
+<div class="leaderboard-container">
+  <h1 class="leaderboard-header">
+    <mat-icon class="icon-hero">sports_esports</mat-icon>
+    {{heroName || 'All Heroes'}} Leaderboard
+  </h1>
+
+  <div class="hero-search">
+    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
+      <input type="text"class="search-input" name="heroName" [(ngModel)]="searchHeroName" placeholder="Search by hero..." />
+    </form>
+  </div>
+  <mr-leaderboard-table [players]='players'></mr-leaderboard-table>
+</div>

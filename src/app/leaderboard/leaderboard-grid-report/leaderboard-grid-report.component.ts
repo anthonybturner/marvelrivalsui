@@ -8,20 +8,21 @@ import {IntegratedChartsModule} from 'ag-grid-enterprise';
 import { AgChartsCommunityModule } from 'ag-charts-community';
 
 import { Subject, takeUntil } from 'rxjs';
-import { IHeroBoardPlayer } from '../data/models/hero-board.model';
+import { ILeaderBoardPlayer } from '../data/models/leaderboard.model';
+import { IHero } from 'src/app/heroes/hero/data/models/hero.model';
 
 @Component({
-  selector: 'mr-heroboard-gridlist',
+  selector: 'mr-leader-board-grid-report',
   standalone: false,
-  templateUrl: './leader-board-table-report.component.html',
-  styleUrl: './leader-board-table-report.component.scss'
+  templateUrl: './leaderboard-grid-report.component.html',
+  styleUrl: './leaderboard-grid-report.component.scss'
 })
-export class LeaderBoardTableReportComponent implements OnInit, OnDestroy {
+export class LeaderBoardGridReportComponent implements OnInit, OnDestroy {
 
   @ViewChild('agGrid', { static: true }) agGrid!: AgGridAngular;
   
   columnDefs: ColDef[] = [];
-  @Input() rowData: IHeroBoardPlayer[] = [];
+  @Input() rowData!: ILeaderBoardPlayer[];
 
   ngUnsubscribe = new Subject();
   isLoading: boolean = false;
@@ -43,8 +44,8 @@ export class LeaderBoardTableReportComponent implements OnInit, OnDestroy {
   }
 
    ngOnChanges(changes: SimpleChanges): void {
-    if (changes['rowData'] && this.rowData) {
-       this.rowData = this.rowData.map(row => {
+    if (changes['rowData'] && Array.isArray(this.rowData)) {
+       this.rowData = this.rowData.map((row: ILeaderBoardPlayer) => {
       const rank_score = row.info?.rank_season?.rank_score;
       const max_rank_score = row.info?.rank_season?.max_rank_score;
       const win_count = row.info?.rank_season?.win_count;
@@ -60,7 +61,6 @@ export class LeaderBoardTableReportComponent implements OnInit, OnDestroy {
       this.activatedRoute.data.pipe(takeUntil(this.ngUnsubscribe)).subscribe((results) =>{});
   }
 
-
   onGridReady(params: any) {
     this.agGrid.api = params.api;
   }
@@ -69,7 +69,7 @@ export class LeaderBoardTableReportComponent implements OnInit, OnDestroy {
   createBarChart() {
     this.agGrid.api.createRangeChart({
       cellRange: {
-        columns: ['wins', 'win_count', 'rank_score', 'max_rank_score']
+        columns: ['win_count', 'rank_score', 'max_rank_score']
       },
       chartType: 'pie'
     });
@@ -86,10 +86,7 @@ export class LeaderBoardTableReportComponent implements OnInit, OnDestroy {
   private setColumnDefs() {
     this.columnDefs = [
       { headerName: "Name", valueGetter: params => params.data.info?.name },
-      //{ headerName: "Icon ID", valueGetter: params => params.data.info?.cur_head_icon_id },
-     // { headerName: "Player UID", field: "player_uid" },
-      { headerName: "Rnk-Lvl", valueGetter: params => params.data.info.rank_season.level },
-      { headerName: "Rnk-Max Lvl", valueGetter: params => params.data.info.rank_season.max_level },
+
       { headerName: "Rnk-Score", field: "rank_score" },
       { headerName: "Rnk-Score Max", field: "max_rank_score" },
       { headerName: "Rnk-Win Count", field: "win_count" },

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { INews } from './data/models/news.model';
+import { ICompleteNewsDashboard, INews } from './data/models/news.model';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -11,8 +11,7 @@ import { map, Observable, Subject, takeUntil } from 'rxjs';
 })
 export class NewsComponent implements OnInit, OnDestroy {
   ngUnsubscribe = new Subject();
-  news$?: Observable<INews[]>;
-
+  news$?: Observable<ICompleteNewsDashboard>;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
@@ -20,13 +19,11 @@ export class NewsComponent implements OnInit, OnDestroy {
     this.news$ = this.activatedRoute.data
       .pipe(
         takeUntil(this.ngUnsubscribe),
-        map((results) => results["resolvedData"] as INews[])
+        map((results) => results["resolvedData"] as ICompleteNewsDashboard)
       );
-
   }
 
   ngOnDestroy(): void {
-
   }
-}
 
+}
