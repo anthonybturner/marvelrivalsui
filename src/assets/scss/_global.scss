@@ -43,10 +43,55 @@ img.role-icon {
   flex-direction: column;
 }
 .search-container {
-    flex: 0 0 auto;
-    padding: 16px;
-    border: 1px solid #693030;
-    border-radius: 6px;
+  background: #23272a;
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+
+  form {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+
+    mat-label {
+      color: #f0131e;
+      font-weight: 500;
+      margin-right: 8px;
+    }
+
+    input[matInput] {
+      background: #252525;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #f0131e;
+        box-shadow: 0 0 0 2px rgba(240, 19, 30, 0.18);
+      }
+    }
+
+    button[mat-raised-button] {
+      background: #f0131e;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.1s;
+
+      &:hover {
+        background: #e0122b;
+        transform: translateY(-1px);
+      }
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
 }
 .search-input {
   float:left;

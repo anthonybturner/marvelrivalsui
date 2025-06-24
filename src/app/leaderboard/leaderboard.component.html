@@ -1,7 +1,7 @@
 <div class="leaderboard-container">
   <h1 class="leaderboard-header">
     <mat-icon class="icon-hero">sports_esports</mat-icon>
-    {{heroName || 'All Heroes'}} Leaderboard
+    {{(heroName | titlecase) || 'All Heroes'}}
   </h1>
 
   <div class="hero-search">

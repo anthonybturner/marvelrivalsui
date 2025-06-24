@@ -1,0 +1,53 @@
+
+// --- Hero Details Card (mr-hero-details-card) ---
+::ng-deep mr-hero-details-card {
+  display: block;
+  background: #252525;
+  border-radius: 8px;
+  padding: 18px 16px;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  transition: box-shadow 0.2s;
+
+  h3, .hero-name {
+    color: #f0131e;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    color: #bbb;
+  }
+
+  .hero-role {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    background: #333;
+    color: #fff;
+    &.tank { background: #4a6fa5; }
+    &.damage { background: #c33; }
+    &.support { background: #4CAF50; }
+  }
+
+  .hero-abilities {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    .ability-icon {
+      background: #2d2d2dcc;
+      border-radius: 4px;
+      img {
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        border: 1px solid #444;
+      }
+    }
+  }
+}

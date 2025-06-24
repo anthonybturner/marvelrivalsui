@@ -9,9 +9,11 @@
 }
 
 .leaderboard-header {
+    background: #23272a !important;
     color: #f0131e;
     border-bottom: 2px solid #f0131e;
-    padding-bottom: 12px;
+    border-radius: 4px;
+    padding: 12px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
