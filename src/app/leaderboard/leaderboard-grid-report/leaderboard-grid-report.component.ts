@@ -9,10 +9,9 @@ import { AgChartsCommunityModule } from 'ag-charts-community';
 
 import { Subject, takeUntil } from 'rxjs';
 import { ILeaderBoardPlayer } from '../data/models/leaderboard.model';
-import { IHero } from 'src/app/heroes/hero/data/models/hero.model';
 
 @Component({
-  selector: 'mr-leader-board-grid-report',
+  selector: 'mr-leaderboard-grid-report',
   standalone: false,
   templateUrl: './leaderboard-grid-report.component.html',
   styleUrl: './leaderboard-grid-report.component.scss'

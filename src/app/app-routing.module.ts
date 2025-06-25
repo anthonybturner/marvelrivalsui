@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: 'dashboards',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    data: { pageTitle: 'DashBoard' }
+    data: { pageTitle: 'Dashboard' }
   },
   {
     path: 'news',
@@ -19,8 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'leaderboard',
-    loadChildren: () => import('./leaderboard/leaderboard.module').then(m => m.LeaderBoardModule),
-    data: { pageTitle: 'LeaderBoard' }
+    loadChildren: () => import('./leaderboard/leaderboard.module').then(m => m.LeaderboardModule),
+    data: { pageTitle: 'Leaderboards' }
   },
   {
     path: 'match-history',

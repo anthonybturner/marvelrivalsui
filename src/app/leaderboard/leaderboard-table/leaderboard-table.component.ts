@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ILeaderBoardPlayer } from '../data/models/leaderboard.model';
+import { ILeaderBoardPlayer as ILeaderboardPlayer } from '../data/models/leaderboard.model';
 import { getPlayerImage } from 'src/app/shared/utilities/image-utils';
-import { LeaderBoardGridReportDialogComponent } from '../leaderboard-grid-report/leaderboard-grid-report-dialog/leaderboard-grid-report-dialog.component';
+import { LeaderboardGridReportDialogComponent } from '../leaderboard-grid-report/leaderboard-grid-report-dialog/leaderboard-grid-report-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -10,12 +10,12 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './leaderboard-table.component.html',
   styleUrl: './leaderboard-table.component.scss'
 })
-export class LeaderBoardTableComponent {
+export class LeaderboardTableComponent {
 
-  private _players: ILeaderBoardPlayer[] = [];
-  filteredPlayers: ILeaderBoardPlayer[] = [];
+  private _players: ILeaderboardPlayer[] = [];
+  filteredPlayers: ILeaderboardPlayer[] = [];
   searchTerm: string = '';
-  allPlayers: ILeaderBoardPlayer[] = []; // Store the original list
+  allPlayers: ILeaderboardPlayer[] = []; // Store the original list
   sortColumn: string = 'rank';
   sortAscending: boolean = false;
   getPlayerImage = getPlayerImage;
@@ -24,15 +24,15 @@ export class LeaderBoardTableComponent {
   ];
 
   @Input()
-  set players(value: ILeaderBoardPlayer[]) {
+  set players(value: ILeaderboardPlayer[]) {
     this._players = value || [];
     this.allPlayers = this._players;
     this.applyFilter();
   }
   
   constructor(private dialog: MatDialog) {}
-  
-  get players(): ILeaderBoardPlayer[] {
+
+  get players(): ILeaderboardPlayer[] {
     return this._players;
   }
 
@@ -63,7 +63,7 @@ export class LeaderBoardTableComponent {
       return 0;
     });
   }
-  getSortValue(player: ILeaderBoardPlayer, column: string): any {
+  getSortValue(player: ILeaderboardPlayer, column: string): any {
     switch (column) {
       case 'rank':
         return player.info.rank_season.rank_score
@@ -91,8 +91,8 @@ export class LeaderBoardTableComponent {
         return '';
     }
   }
-  openGridlistModal(player: ILeaderBoardPlayer) {
-    this.dialog.open(LeaderBoardGridReportDialogComponent, {
+  openGridlistModal(player: ILeaderboardPlayer) {
+    this.dialog.open(LeaderboardGridReportDialogComponent, {
       width: '80vw',
       data: { players: this.players, selectedPlayer: player }
     });

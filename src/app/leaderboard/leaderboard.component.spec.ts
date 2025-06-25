@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeaderBoardComponent } from './leaderboard.component';
+import { LeaderboardComponent } from './leaderboard.component';
 import { By } from '@angular/platform-browser';
 import { MatSelect } from '@angular/material/select';
 
-describe('LeaderBoardComponent', () => {
-  let component: LeaderBoardComponent;
-  let fixture: ComponentFixture<LeaderBoardComponent>;
+describe('LeaderboardComponent', () => {
+  let component: LeaderboardComponent;
+  let fixture: ComponentFixture<LeaderboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LeaderBoardComponent]
+      imports: [LeaderboardComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LeaderBoardComponent);
+    fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

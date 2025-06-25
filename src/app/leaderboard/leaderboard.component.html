@@ -1,13 +1,21 @@
 <div class="leaderboard-container">
-  <h1 class="leaderboard-header">
-    <mat-icon class="icon-hero">sports_esports</mat-icon>
-    {{(heroName | titlecase) || 'All Heroes'}}
-  </h1>
-
-  <div class="hero-search">
-    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
-      <input type="text"class="search-input" name="heroName" [(ngModel)]="searchHeroName" placeholder="Search by hero..." />
-    </form>
+  <div class="leaderboard-header">
+      <img [src]="getImageUrl(selectedHero?.imageUrl)" [alt]="selectedHero?.name" class="hero-image" />
+    <div class="hero-header-details">
+      <h1>{{ (selectedHero?.name | titlecase) || 'All Heroes' }}</h1>
+      <mat-icon class="icon-hero">sports_esports</mat-icon>
+      <p>{{ selectedHero?.bio }}</p>
+      <div class="difficulty-rating">
+        <span>Difficulty:</span>
+        <mat-icon *ngFor="let star of [1,2,3,4,5]">
+          {{ star <= +(selectedHero?.difficulty ?? 0) ? 'star' : 'star_border' }} </mat-icon>
+      </div>
+    </div>
   </div>
-  <mr-leaderboard-table [players]='players'></mr-leaderboard-table>
-</div>
+    <div class="hero-search">
+      <form (ngSubmit)="onSearch()" #searchForm="ngForm">
+        <input type="text" class="search-box" name="heroName" [(ngModel)]="searchHeroName"
+          placeholder="Search by hero..." />
+      </form>
+    </div>
+    <mr-leaderboard-table [players]='players'></mr-leaderboard-table>

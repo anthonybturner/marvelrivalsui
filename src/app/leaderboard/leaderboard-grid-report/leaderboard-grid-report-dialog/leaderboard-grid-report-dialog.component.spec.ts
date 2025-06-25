@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LeaderBoardGridReportDialogComponent } from './leaderboard-grid-report-dialog.component';
+import { LeaderboardGridReportDialogComponent } from './leaderboard-grid-report-dialog.component';
 
 
-describe('LeaderBoardGridReportDialogComponent', () => {
-  let component: LeaderBoardGridReportDialogComponent;
-  let fixture: ComponentFixture<LeaderBoardGridReportDialogComponent>;
+describe('LeaderboardGridReportDialogComponent', () => {
+  let component: LeaderboardGridReportDialogComponent;
+  let fixture: ComponentFixture<LeaderboardGridReportDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LeaderBoardGridReportDialogComponent]
+      imports: [LeaderboardGridReportDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LeaderBoardGridReportDialogComponent);
+    fixture = TestBed.createComponent(LeaderboardGridReportDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

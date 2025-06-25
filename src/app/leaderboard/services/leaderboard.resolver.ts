@@ -1,20 +1,20 @@
 import { Injectable, Inject } from '@angular/core';
-import { ILeaderBoardResponse, ILeaderBoardPlayer } from '../data/models/leaderboard.model';
+import { ILeaderBoardResponse as ILeaderboardResponse, ILeaderBoardPlayer } from '../data/models/leaderboard.model';
 
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { LeaderBoardService } from './leaderboard.service';
+import { LeaderboardService as LeaderboardService } from './leaderboard.service';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LeaderBoardResolver implements Resolve<ILeaderBoardResponse> {
+export class LeaderboardResolver implements Resolve<ILeaderboardResponse> {
   hero_name: string = "Psylocke";
-  constructor(@Inject(LeaderBoardService) private heroBoardService: LeaderBoardService) { }
+  constructor(@Inject(LeaderboardService) private leaderboardService: LeaderboardService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILeaderBoardResponse> {
-    return this.heroBoardService.getPlayers(this.hero_name).pipe(
-      map((response: ILeaderBoardResponse) => ({
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILeaderboardResponse> {
+    return this.leaderboardService.getPlayers(this.hero_name).pipe(
+      map((response: ILeaderboardResponse) => ({
         hero_name: this.hero_name,
         players: response.players.map(player => ({
           ...player,
