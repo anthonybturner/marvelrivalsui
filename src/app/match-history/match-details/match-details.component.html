@@ -1,0 +1,94 @@
+<div class="match-details-container">
+    <div class="match-header">
+        <h1>Match Details</h1>
+        <div class="match-info">
+            <div>
+                <span class="label">Match UID: </span>
+                <span class="value">{{ match_details.match_uid }}</span>
+            </div>
+            <div>
+                <span class="label">Game Mode: </span>
+                <span class="value">{{ match_details.game_mode.game_mode_name }}</span>
+            </div>
+            <div>
+                <span class="label">Replay ID: </span>
+                <span class="value">{{ match_details.replay_id }}</span>
+            </div>
+        </div>
+        <div class="mvp-svp-info">
+            <div class="mvp-info">
+                <span class="label">MVP: </span>
+                <span class="value">{{ match_details.mvp_uid }}</span>
+                <img
+                    *ngIf="match_details.mvp_hero_id"
+                    [src]="'https://marvelrivalsapi.com/rivals/heroes/hero' + match_details.mvp_hero_id + '.jpg'"
+                    alt="MVP Hero"
+                    class="hero-icon"
+                />
+            </div>
+            <div class="svp-info">
+                <span class="label">SVP: </span>
+                <span class="value">{{ match_details.svp_uid }}</span>
+                <img
+                    *ngIf="match_details.svp_hero_id"
+                    [src]="'https://marvelrivalsapi.com/rivals/' + match_details.svp_hero_id + '.jpg'"
+                    alt="SVP Hero"
+                    class="hero-icon"
+                />
+            </div>
+        </div>
+    </div>
+
+   <h3>Players</h3>
+<div class="players-table-wrapper">
+  <table class="players-table">
+    <thead>
+      <tr>
+        <th>Icon</th>
+        <th>Name</th>
+        <th>Camp</th>
+        <th>Win</th>
+        <th>Hero</th>
+        <th>K</th>
+        <th>D</th>
+        <th>A</th>
+        <th>Hero Damage</th>
+        <th>Hero Heal</th>
+        <th>Damage Taken</th>
+        <th>Heroes Played</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let player of match_details.match_players" [class.winner]="player.is_win">
+        <td>
+          <img [src]="'https://marvelrivalsapi.com/rivals/' + player.player_icon" [alt]="player.nick_name" class="player-icon" />
+        </td>
+        <td>{{ player.nick_name }}</td>
+        <td>{{ player.camp }}</td>
+        <td>
+          <span *ngIf="player.is_win" class="win-badge">Winner</span>
+        </td>
+        <td>
+          <img [src]="'https://marvelrivalsapi.com/rivals/' + player.cur_hero_icon" alt="Hero" class="hero-icon" />
+          <div>Hero ID: {{ player.cur_hero_id }}</div>
+        </td>
+        <td>{{ player.kills }}</td>
+        <td>{{ player.deaths }}</td>
+        <td>{{ player.assists }}</td>
+        <td>{{ player.total_hero_damage }}</td>
+        <td>{{ player.total_hero_heal }}</td>
+        <td>{{ player.total_damage_taken }}</td>
+        <td>
+          <div *ngFor="let hero of player.player_heroes" class="hero-played">
+            <img [src]="'https://marvelrivalsapi.com/rivals/' + hero.hero_icon" alt="Hero Icon" class="hero-icon-small" />
+            <span>ID: {{ hero.hero_id }}</span>
+            <span>Time: {{ hero.play_time }}s</span>
+            <span>K/D/A: {{ hero.kills }}/{{ hero.deaths }}/{{ hero.assists }}</span>
+            <span>Hit: {{ hero.session_hit_rate }}%</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
