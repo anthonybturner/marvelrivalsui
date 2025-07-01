@@ -1,5 +1,24 @@
 
 // --- Hero Details Card (mr-hero-details-card) ---
+
+/* Base Details card  */
+.details-card {
+    margin-bottom: 8px;
+}
+
+.content-col {
+    div b {
+        color: green;
+    }
+}
+
+
+.difficulty-rating {
+  display: flex;
+  align-items: center;
+  color: green;
+}
+
 ::ng-deep mr-hero-details-card {
   display: block;
   background: #252525;

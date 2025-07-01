@@ -1,0 +1,161 @@
+.match-history-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.match-list-panel {
+  flex: 1 1 350px;
+  min-width: 320px;
+  max-width: 30%;
+}
+
+.match-details-panel {
+  flex: 4 4 399px;
+  min-width: 390px;
+  max-width: 60%;
+  margin-left: 32px;      // Adds space between panels
+  height: fit-content;           // Let content determine height
+  overflow: auto;         // Scroll only inside the panel if needed
+  position: sticky;     // Default, not fixed
+  top: 32px;
+  max-height: 100vh;      // Panel will not exceed 90% of viewport height
+  overflow-y: auto;        // Scroll inside the panel if needed
+}
+
+.hero-search {
+    display: block;
+    background: #181a1b;
+
+}
+.match-history-card {
+  background: #1a0a0a;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(80,0,0,0.18);
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 2px solid transparent;
+  transition: border 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border: 2px solid #f0131e;
+    box-shadow: 0 6px 24px rgba(240,19,30,0.12);
+  }
+}
+
+.map-thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #f0131e;
+  background: #23272a;
+  box-shadow: 0 1px 6px #000a;
+  flex-shrink: 0;
+}
+
+.match-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  font-size: 1rem;
+  align-items: center;
+
+  div {
+    min-width: 120px;
+    color: #ccc;
+  }
+}
+
+.player-stats {
+  background: #23272a;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+
+  .hero-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f0131e;
+    background: #181a1b;
+  }
+
+  .hero-name {
+    font-weight: 700;
+    color: #f0131e;
+    font-size: 1.1rem;
+    margin-right: 6px;
+  }
+
+  .play-time {
+    color: #bbb;
+    font-size: 0.95rem;
+  }
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 0.98rem;
+
+  span {
+    color: #fff;
+    background: #181a1b;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+
+    b {
+      color: #f0131e;
+      margin-right: 3px;
+      font-weight: 600;
+    }
+
+    mat-icon {
+      font-size: 1.1em;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .match-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .map-thumb {
+    width: 56px;
+    height: 56px;
+  }
+  .match-meta div {
+    min-width: 90px;
+    font-size: 0.95rem;
+  }
+  .player-stats {
+    padding: 8px 4px;
+  }
+  .stat-row {
+    gap: 8px;
+    font-size: 0.93rem;
+  }
+}

@@ -1,28 +1,83 @@
+.vertical-layout.dark-red {
+  background: #1a0a0a;
+  color: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
 
 .heroes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-  grid-template-rows: auto 500px;
-
-  gap: 28px;
-  margin: 4px 0;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); // smaller cards
+  gap: 58px;
+  margin: 8px 0;
+  padding: 8px 0;
 }
 
 .heroes-container {
-  background: #23272a;
-  border-radius: 10px;
+  background: #2a0d13;
+  border-radius: 8px;
   padding: 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 2px 10px rgba(80,0,0,0.22);
   cursor: pointer;
-  transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
   border: 2px solid transparent;
+  transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
 
   &:hover, &.selected {
     border: 2px solid #f0131e;
     box-shadow: 0 6px 18px rgba(240,19,30,0.12);
-    transform: translateY(-3px) scale(1.03);
+    transform: translateY(-2px) scale(1.04);
   }
 }
+
+// Small detail card styles for mr-hero-details-card
+mr-hero-details-card {
+  display: block;
+  background: #1a0a0a;
+  border-radius: 6px;
+  padding: 10px 8px;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(80,0,0,0.18);
+  min-width: 0;
+  min-height: 0;
+
+  .hero-name, h3 {
+    color: #f0131e;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .hero-meta {
+    font-size: 0.85em;
+    color: #bbb;
+    margin-bottom: 4px;
+  }
+
+  .hero-role {
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    font-weight: bold;
+    background: #a3131e;
+    color: #fff;
+  }
+
+  .hero-abilities {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+    .ability-icon img {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      border: 1px solid #a33;
+    }
+  }
+}
+
+
 .loading-spinner {
   grid-column: 1 / -1;
   display: flex;
@@ -40,8 +95,8 @@
     padding: 8px;
   }
   .heroes-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
   .search-container form {
     flex-direction: column;

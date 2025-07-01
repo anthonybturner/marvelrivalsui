@@ -1,17 +1,17 @@
-<div class="vertical-layout">
-    <div class="search-container">
-        <form (ngSubmit)="onSearch()" #searchForm="ngForm">
-            <mat-label>Hero Name</mat-label>
-            <input matInput name="heroName" [(ngModel)]="heroName" (keyup.enter)="onSearch()"
-                placeholder="Enter hero name" required>
-            <button mat-raised-button color="primary" type="submit">Search</button>
-        </form>
+<div class="vertical-layout dark-red">
+  <div class="search-container dark-red">
+    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
+      <mat-label>Hero Name</mat-label>
+      <input matInput name="heroName" [(ngModel)]="heroName" (keyup.enter)="onSearch()"
+        placeholder="Enter hero name" required>
+      <button mat-raised-button color="primary" type="submit">Search</button>
+    </form>
+  </div>
+  <div class="heroes-grid small-cards">
+    <div class="heroes-container small-card" *ngFor="let hero of heroes" (click)="onHeroSelected(hero.name)" tabindex="0"
+      [class.selected]="(hero)?.name === hero.name">
+      <mr-hero-details-card [hero]="hero" class="small-card"></mr-hero-details-card>
     </div>
-    <div class="heroes-grid">
-        <div class="heroes-container" *ngFor="let hero of heroes" (click)="onHeroSelected(hero.name)" tabindex="0"
-            [class.selected]="(hero)?.name === hero.name">
-            <mr-hero-details-card [hero]="hero"></mr-hero-details-card>
-        </div>
-        <mat-spinner *ngIf="isLoading" diameter="50" class="loading-spinner"></mat-spinner>
-    </div>
+    <mat-spinner *ngIf="isLoading" diameter="40" class="loading-spinner"></mat-spinner>
+  </div>
 </div>
