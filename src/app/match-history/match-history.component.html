@@ -1,14 +1,15 @@
 <div class="match-history-container">
   <div class="hero-search">
-    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
+    <form #searchForm="ngForm">
       <input type="text" class="search-box" name="playerName" [(ngModel)]="searchPlayerName"
-        placeholder="Search player..." />
+        placeholder="Search player..." (ngModelChange)="onSearchInput($event)" />
     </form>
   </div>
   <div class="match-history-layout">
     <div class="match-list-panel">
-      <h1>Matches</h1>
-      <h3> {{searchPlayerName}}</h3>
+      <div class="match-header">
+        <h1>{{playerName}} Matches</h1>        
+      </div>
       <div *ngFor="let match of matchHistory" class="match-history-card" (click)="onMatchClick(match)">
         <div>
           <img [src]="'https://marvelrivalsapi.com/rivals/' + match.map_thumbnail" [alt]="'Map ' + match.match_map_id"

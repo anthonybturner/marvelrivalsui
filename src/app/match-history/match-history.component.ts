@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, Subject, takeUntil, tap } from 'rxjs';
+import { debounceTime, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { IMatchHistoryItem } from './data/models/match-history.model';
 import { MatchHistoryService } from './services/match-history.service';
 
@@ -13,35 +13,46 @@ import { MatchHistoryService } from './services/match-history.service';
 export class MatchHistoryComponent implements OnInit, OnDestroy {
 
   searchPlayerName: any;
-
+  playerName: string = ''
   constructor(private activatedRoute: ActivatedRoute, private matchHistoryService: MatchHistoryService, private router: Router) { }
   ngUnsubscribe = new Subject();
   matchHistory: IMatchHistoryItem[] | undefined;
+  searchInput$ = new Subject<string>();
 
   ngOnInit(): void {
     this.activatedRoute.data.pipe(
       takeUntil(this.ngUnsubscribe)).subscribe({
         next: (response) => {
           const matchHistoryResponse = response["resolvedData"];
-          this.searchPlayerName = matchHistoryResponse.playerName;
+          this.playerName = matchHistoryResponse.playerName;
           this.matchHistory = matchHistoryResponse.match_history;
+        }
+      });
+
+    this.searchInput$
+      .pipe(
+        debounceTime(400), // 400ms delay after user stops typing
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe((value) => {
+        if (value && value.trim()) {
+          this.fetchPlayerHistory(value.trim());
         }
       });
   }
 
-  onSearch() {
-    if (!this.searchPlayerName) return;
-    this.fetchPlayerHistory(this.searchPlayerName);
+  onSearchInput(value: string) {
+    this.searchInput$.next(value);
   }
+
 
   fetchPlayerHistory(searchPlayerName: any) {
     this.matchHistoryService.getPlayerHistory(this.searchPlayerName)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response) => {
-          this.searchPlayerName = response.playerName;
+          this.playerName = response.playerName;
           this.matchHistory = response.match_history;
-          tap((results: any) => console.log(results))
         },
         error: () => {
           this.matchHistory = [];

@@ -110,3 +110,14 @@ input {
     box-shadow: 0 0 0 2px rgba(240, 19, 30, 0.2);
   }
 }
+.match-header{
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+    background: #0a0a0a;
+    padding: 14px;
+}
+.match-header h1 {
+  text-align: center;
+  text-decoration: underline;
+}
