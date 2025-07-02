@@ -1,0 +1,51 @@
+.maps-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: flex-start;
+}
+
+.map-card {
+  background: #181a1b;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  color: #fff;
+  width: 370px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  &:hover {
+    box-shadow: 0 6px 24px #f0131e44;
+  }
+}
+
+.map-image img {
+  object-fit: cover;
+  background: #23272a;
+}
+
+.map-info {
+  padding: 18px 16px 12px 16px;
+}
+
+.map-meta {
+  font-size: 0.98em;
+  color: #fbc02d;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.map-description {
+  margin: 10px 0 8px 0;
+  color: #ccc;
+  font-size: 1em;
+}
+
+.map-links a {
+  color: #f0131e;
+  text-decoration: underline;
+  font-weight: 600;
+}

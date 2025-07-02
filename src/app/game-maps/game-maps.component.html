@@ -1,0 +1,21 @@
+<div class="maps-list">
+  <div *ngFor="let map of gameMaps" class="map-card">
+    <div class="map-image">
+      <img [src]="getMapImageUrl(map)" />
+    </div>
+    <div class="map-info">
+      <h2>{{ map.name }}</h2>
+      <h2>{{ map.id }}</h2>
+      <h4>{{ map.full_name }}</h4>
+      <div class="map-meta">
+        <span><b>Location:</b> {{ map.location }}</span>
+        <span><b>Mode:</b> {{ map.game_mode }}</span>
+        <span *ngIf="map.is_competitve"><b>Competitive</b></span>
+      </div>
+      <p class="map-description">{{ map.description }}</p>
+      <div class="map-links">
+        <a *ngIf="map.video" [href]="map.video" target="_blank">Watch Video</a>
+      </div>
+    </div>
+  </div>
+</div>
