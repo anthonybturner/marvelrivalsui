@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatchHistoryComponent } from './match-history.component';
 import { MatchHistoryResolver } from './services/match-history-resolver';
 import { MatchDetailsComponent } from './match-details/match-details.component';
+import { MatchDetailsPlaceholderComponent } from './match-details/match-details-placeholder-component/match-details-placeholder-component';
 
 const routes: Routes = [
   { path: '', 
@@ -10,9 +11,13 @@ const routes: Routes = [
     resolve: { resolvedData: MatchHistoryResolver } ,
     children: [
       {
+        path: '',
+        component: MatchDetailsPlaceholderComponent // <--- default right panel
+      },
+      {
         path: 'match-details/:match_uid',
         component: MatchDetailsComponent,
-        data: { pageTitle: 'Player Match Details' }
+        data: { pageTitle: 'Match History' }
       }
     ]
   },

@@ -1,3 +1,7 @@
+.match-history-container {
+  padding: 20px;
+  background: #1a1a1a;
+}
 
 .match-history-layout {
   display: flex;
@@ -15,25 +19,25 @@
   flex: 4 4 399px;
   min-width: 390px;
   max-width: 60%;
-  margin-left: 32px;      // Adds space between panels
-  height: fit-content;           // Let content determine height
-  overflow: auto;         // Scroll only inside the panel if needed
-  position: sticky;     // Default, not fixed
+  margin-left: 32px; // Adds space between panels
+  height: fit-content; // Let content determine height
+  overflow: auto; // Scroll only inside the panel if needed
+  position: sticky; // Default, not fixed
   top: 32px;
-  max-height: 100vh;      // Panel will not exceed 90% of viewport height
-  overflow-y: auto;        // Scroll inside the panel if needed
+  max-height: 100vh; // Panel will not exceed 90% of viewport height
+  overflow-y: auto; // Scroll inside the panel if needed
 }
 
 .hero-search {
-    display: block;
-    background: #181a1b;
-    padding-top: 22px;
+  display: flex;
+  justify-content: center;
 }
 
 .match-history-card {
-  background: #1a0a0a;
+
+  background: #23272a;
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(80,0,0,0.18);
+  box-shadow: 0 2px 12px rgba(80, 0, 0, 0.18);
   padding: 18px 22px;
   margin-bottom: 12px;
   color: #fff;
@@ -45,13 +49,13 @@
 
   &:hover {
     border: 2px solid #f0131e;
-    box-shadow: 0 6px 24px rgba(240,19,30,0.12);
+    box-shadow: 0 6px 24px rgba(240, 19, 30, 0.12);
   }
 }
 
 .map-thumb {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid #f0131e;
@@ -59,27 +63,25 @@
   box-shadow: 0 1px 6px #000a;
   flex-shrink: 0;
 }
+.match-meta div{
+  
+  padding: 12px 0;
+}
+.match-meta, .player-stats {
+  background: #181a1b;
+  border-radius: 8px;
+  padding-left: 4px;
+}
 
-.match-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  font-size: 1rem;
-  align-items: center;
+.match-meta b, .player-stats {
+  color: #f0131e;
+  margin-right: 3px;
+  font-weight: 600;
 
   div {
     min-width: 120px;
     color: #ccc;
   }
-}
-
-.player-stats {
-  background: #23272a;
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .hero-info {
@@ -139,23 +141,28 @@
   }
 }
 
+
 @media (max-width: 700px) {
   .match-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
+
   .map-thumb {
     width: 56px;
     height: 56px;
   }
+
   .match-meta div {
     min-width: 90px;
     font-size: 0.95rem;
   }
+
   .player-stats {
     padding: 8px 4px;
   }
+
   .stat-row {
     gap: 8px;
     font-size: 0.93rem;

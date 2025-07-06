@@ -5,6 +5,7 @@ export interface IMatchHistoryResponse {
 
 export interface IMatchHistoryItem {
   match_map_id: number;
+  match_map_name: string;
   map_thumbnail: string;
   match_play_duration: string;
   match_season: string;

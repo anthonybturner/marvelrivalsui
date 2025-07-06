@@ -14,6 +14,11 @@ const routes: Routes = [
     data: { pageTitle: 'News' }
   },
   {
+    path: 'maps',
+    loadChildren: () => import('./game-maps/game-maps.module').then(m => m.GameMapsModule),
+    data: { pageTitle: 'Game Maps' }
+  },
+  {
     path: 'heroes',
     loadChildren: () => import('./heroes/heroes.module').then(m => m.HeroesModule),
     data: { pageTitle: 'Heroes' }

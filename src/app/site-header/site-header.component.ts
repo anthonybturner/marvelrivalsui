@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { PlayerTitleService } from '../shared/services/player-title-service';
 
 @Component({
     selector: 'mr-site-header',
@@ -10,8 +11,16 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 })
 export class SiteHeaderComponent {
     pageTitle: string = 'Home';
+    playerTitle: string = '';
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    constructor(private router: Router, 
+        private activatedRoute: ActivatedRoute, 
+        private playerTitleService: PlayerTitleService) {
+        
+        this.playerTitleService.playerName$.subscribe(result =>{
+            this.playerTitle = result;
+        });
+        
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
             map(() => {

@@ -33,7 +33,6 @@ import { LeaderboardTableComponent } from './leaderboard-table/leaderboard-table
 export class LeaderboardModule {
   constructor() {
     ModuleRegistry.registerModules([
-      IntegratedChartsModule.with(AgChartsCommunityModule),
       RowStyleModule,
       ClientSideRowModelModule
     ]);

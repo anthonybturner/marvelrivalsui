@@ -29,7 +29,6 @@ export class LeaderBoardGridReportComponent implements OnInit, OnDestroy {
   modules: Module[] = [
     ClientSideRowModelModule,
     RowStyleModule,
-    IntegratedChartsModule.with(AgChartsCommunityModule)
   ];
   
   rowClassRules = {

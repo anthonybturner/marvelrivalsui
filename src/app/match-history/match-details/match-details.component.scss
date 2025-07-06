@@ -1,4 +1,5 @@
 .players-table-wrapper {
+
   overflow-x: auto;
 }
 
@@ -32,15 +33,6 @@
     background: #181a1b;
   }
 
-  .hero-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 14%;
-    object-fit: cover;
-    border: 2px solid #f0131e;
-    background: #181a1b;
-  }
-
   .hero-icon-small {
     width: 20px;
     height: 20px;
@@ -60,6 +52,10 @@
 
   tr.winner {
     background: #1a2a1a;
+  }
+
+  tr.loser {
+    background: #afaeae;
   }
 }
 
@@ -161,6 +157,55 @@
       }
     }
   }
+}
+img.hero-icon {
+    width: 25%;
+    height: auto;
+}
+
+//Aggrid Angular Grid Styles
+
+// Custom overrides for leaderboard look
+.custom-dark-grid {
+  --ag-background-color: #1a1a1a;
+  --ag-header-background-color: #23272a;
+  --ag-odd-row-background-color: #23272a;
+  --ag-row-hover-color: #2c2f34;
+  --ag-header-foreground-color: #f0131e;
+  --ag-foreground-color: #fff;
+  --ag-border-color: #23272a;
+  --ag-font-family: 'Segoe UI', Arial, sans-serif;
+  --ag-font-size: 1.05rem;
+}
+
+.ag-theme-alpine-dark .ag-header-cell-label {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.ag-theme-alpine-dark .ag-row {
+  border-bottom: 1px solid #23272a;
+}
+
+.ag-theme-alpine-dark .ag-cell {
+  color: #fff;
+  font-size: 1.05rem;
+  background: transparent;
+}
+
+.ag-theme-alpine-dark .ag-row-selected {
+  background: #23272a !important;
+}
+
+.ag-theme-alpine-dark .ag-header-cell {
+  background: #23272a !important;
+  color: #f0131e !important;
+}
+
+.ag-theme-alpine-dark .ag-root-wrapper {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border: none;
 }
 
 @media (max-width: 900px) {

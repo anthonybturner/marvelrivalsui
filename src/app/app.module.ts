@@ -15,7 +15,7 @@ import { SiteFooterComponent } from "./site-footer/site-footer.component";
   declarations: [
     AppComponent,
     SiteHeaderComponent,
-    SiteFooterComponent
+    SiteFooterComponent,
   ],
   imports: [
     BrowserModule,

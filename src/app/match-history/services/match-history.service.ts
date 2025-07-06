@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IMatchHistoryItem, IMatchHistoryResponse } from '../data/models/match-history.model';
 import { Observable, map } from 'rxjs';
+import { GameMapsService } from 'src/app/game-maps/services/game-maps.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,12 @@ export class MatchHistoryService {
   private baseUrl: string = 'https://marvelrivalsapi.com/api/v2/';
   private http = inject(HttpClient);
 
+  constructor(private gameMapService: GameMapsService) { }
+
   getHistory(playerName: string): import("rxjs").Observable<import("../data/models/match-history.model").IMatchHistoryResponse> {
     throw new Error('Method not implemented.');
   }
 
- 
   getPlayerHistory(playerName: string): Observable<IMatchHistoryResponse> {
     const url = `${this.baseUrl}player/${playerName}/match-history`;
     const headers = new HttpHeaders({
@@ -24,11 +26,12 @@ export class MatchHistoryService {
     });
     return this.http.get<IMatchHistoryResponse>(url, { headers }).pipe(
       map((response: IMatchHistoryResponse) => ({
-        playerName: playerName,
-        match_history: response.match_history
+        playerName: response.playerName || playerName,
+        match_history: response.match_history.map(match => ({
+          ...match,
+          match_map_name: this.gameMapService.getMapNameById(match.match_map_id)
+        }))
       }))
     );
   }
-
-  constructor() { }
 }

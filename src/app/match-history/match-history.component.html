@@ -1,21 +1,25 @@
 <div class="match-history-container">
-  <div class="hero-search">
-    <form #searchForm="ngForm">
-      <input type="text" class="search-box" name="playerName" [(ngModel)]="searchPlayerName"
-        placeholder="Search player..." (ngModelChange)="onSearchInput($event)" />
-    </form>
-  </div>
+
   <div class="match-history-layout">
     <div class="match-list-panel">
       <div class="match-header">
-        <h1>{{playerName}} Matches</h1>        
+        <!----- Search Bar ----->
+        <div class="hero-search">
+          <form #searchForm="ngForm">
+            <input type="text" class="search-box" name="playerName" [(ngModel)]="searchPlayerName"
+              placeholder="Search player..." (ngModelChange)="onSearchInput($event)" />
+          </form>
+        </div>
       </div>
-      <div *ngFor="let match of matchHistory" class="match-history-card" (click)="onMatchClick(match)">
-        <div>
+      <div *ngIf="isLoading()" class="loading-indicator">
+        Loading match history...
+      </div>
+      <div *ngIf="!isLoading()" class="no-matches">
+        <div *ngFor="let match of matchHistory()" class="match-history-card" (click)="onMatchClick(match)">
           <img [src]="'https://marvelrivalsapi.com/rivals/' + match.map_thumbnail" [alt]="'Map ' + match.match_map_id"
             class="map-thumb" />
           <div class="match-meta">
-            <div><b>Map ID:</b> {{ match.match_map_id }}</div>
+            <div><b>Map Name:</b> {{ match.match_map_name + ' (' + match.match_map_id + ')' }}</div>
             <div><b>Season:</b> {{ match.match_season }}</div>
             <div><b>Duration:</b> {{ match.match_play_duration }}</div>
             <div><b>Date:</b> {{ match.match_time_stamp * 1000 | date:'medium' }}</div>
@@ -28,39 +32,42 @@
               </ng-container>
             </div>
           </div>
-        </div>
-        <div class="player-stats">
-          <div class="hero-info">
-            <img [src]="'https://marvelrivalsapi.com/rivals/' + match.match_player.player_hero.hero_type"
-              [alt]="match.match_player.player_hero.hero_name" class="hero-icon" />
-            <span class="hero-name">{{ match.match_player.player_hero.hero_name | titlecase }}</span>
-            <span class="play-time">({{ match.match_player.player_hero.play_time.formatted }})</span>
-          </div>
-          <div class="stat-row">
-            <span><b>Kills:</b> {{ match.match_player.kills }}</span>
-            <span><b>Deaths:</b> {{ match.match_player.deaths }}</span>
-            <span><b>Assists:</b> {{ match.match_player.assists }}</span>
-            <span><b>Win:</b> <mat-icon color="primary">{{ match.match_player.is_win.is_win ? 'check_circle' : 'cancel'
-                }}</mat-icon></span>
-            <span><b>Disconnected:</b> <mat-icon color="warn">{{ match.match_player.disconnected ? 'warning' :
-                'check_circle' }}</mat-icon></span>
-          </div>
-          <div class="stat-row">
-            <span><b>Hero K/D/A:</b> {{ match.match_player.player_hero.kills }}/{{ match.match_player.player_hero.deaths
-              }}/{{ match.match_player.player_hero.assists }}</span>
-            <span><b>Hero Damage:</b> {{ match.match_player.player_hero.total_hero_damage | number }}</span>
-            <span><b>Damage Taken:</b> {{ match.match_player.player_hero.total_damage_taken | number }}</span>
-            <span><b>Hero Heal:</b> {{ match.match_player.player_hero.total_hero_heal | number }}</span>
-          </div>
-          <div class="stat-row">
-            <span><b>Score Change:</b> {{ match.match_player.score_info.add_score | number:'1.0-2' }}</span>
-            <span><b>Level:</b> {{ match.match_player.score_info.level }}</span>
-            <span><b>New Level:</b> {{ match.match_player.score_info.new_level }}</span>
-            <span><b>New Score:</b> {{ match.match_player.score_info.new_score | number:'1.0-2' }}</span>
+          <div class="player-stats">
+            <div class="hero-info">
+              <img [src]="'https://marvelrivalsapi.com/rivals/' + match.match_player.player_hero.hero_type"
+                [alt]="match.match_player.player_hero.hero_name" class="hero-icon" />
+              <span class="hero-name">{{ match.match_player.player_hero.hero_name | titlecase }}</span>
+              <span class="play-time">({{ match.match_player.player_hero.play_time.formatted }})</span>
+            </div>
+            <div class="stat-row">
+              <span><b>Kills:</b> {{ match.match_player.kills }}</span>
+              <span><b>Deaths:</b> {{ match.match_player.deaths }}</span>
+              <span><b>Assists:</b> {{ match.match_player.assists }}</span>
+              <span><b>Win:</b> <mat-icon color="primary">{{ match.match_player.is_win.is_win ? 'check_circle' :
+                  'cancel'
+                  }}</mat-icon></span>
+              <span><b>Disconnected:</b> <mat-icon color="warn">{{ match.match_player.disconnected ? 'warning' :
+                  'check_circle' }}</mat-icon></span>
+            </div>
+            <div class="stat-row">
+              <span><b>Hero K/D/A:</b> {{ match.match_player.player_hero.kills }}/{{
+                match.match_player.player_hero.deaths
+                }}/{{ match.match_player.player_hero.assists }}</span>
+              <span><b>Hero Damage:</b> {{ match.match_player.player_hero.total_hero_damage | number }}</span>
+              <span><b>Damage Taken:</b> {{ match.match_player.player_hero.total_damage_taken | number }}</span>
+              <span><b>Hero Heal:</b> {{ match.match_player.player_hero.total_hero_heal | number }}</span>
+            </div>
+            <div class="stat-row">
+              <span><b>Score Change:</b> {{ match.match_player.score_info.add_score | number:'1.0-2' }}</span>
+              <span><b>Level:</b> {{ match.match_player.score_info.level }}</span>
+              <span><b>New Level:</b> {{ match.match_player.score_info.new_level }}</span>
+              <span><b>New Score:</b> {{ match.match_player.score_info.new_score | number:'1.0-2' }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="match-details-panel">
       <router-outlet></router-outlet>
     </div>
