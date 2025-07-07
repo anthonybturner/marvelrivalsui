@@ -5,6 +5,8 @@ import { IMatchHistoryItem } from './data/models/match-history.model';
 import { MatchHistoryService } from './services/match-history.service';
 import { PlayerSearchService } from '../shared/services/player-search-service';
 import { PlayerTitleService } from '../shared/services/player-title-service';
+import { GameMapsService } from '../game-maps/services/game-maps.service';
+import { IGameMap } from '../game-maps/data/game-maps.model';
 
 @Component({
   selector: 'mr-match-history',
@@ -16,24 +18,23 @@ export class MatchHistoryComponent implements OnInit, OnDestroy {
 
   searchPlayerName: any;
   playerName: string = ''
-  constructor(private activatedRoute: ActivatedRoute, 
-    private matchHistoryService: MatchHistoryService, 
-    private router: Router, private playerSearchService: PlayerSearchService,
-    private playerTitleService: PlayerTitleService
-  ) { }
   ngUnsubscribe = new Subject();
   matchHistory = signal<IMatchHistoryItem[] | []>([]);
   searchInput$ = new Subject<string>();
   isLoading = signal<boolean>(false);
 
+  constructor(private activatedRoute: ActivatedRoute,
+    private matchHistoryService: MatchHistoryService,
+    private router: Router, private playerSearchService: PlayerSearchService,
+    private playerTitleService: PlayerTitleService, 
+    private gameMapsService: GameMapsService // Assuming you have a service to get game maps, replace with actual service
+  ) { }
+
   ngOnInit(): void {
     this.activatedRoute.data.pipe(
       takeUntil(this.ngUnsubscribe)).subscribe({
         next: (response) => {
-          const matchHistoryResponse = response["resolvedData"];
-          this.playerName = matchHistoryResponse.playerName;
-          this.playerTitleService.setPlayerName(this.playerName);
-          this.matchHistory.set(matchHistoryResponse.match_history);
+          this.setPlayerHistory(response["resolvedData"]);
         }
       });
 
@@ -42,15 +43,54 @@ export class MatchHistoryComponent implements OnInit, OnDestroy {
         debounceTime(400), // 400ms delay after user stops typing
         takeUntil(this.ngUnsubscribe)
       )
-      .subscribe((value) => {
-        if (value && value.trim()) {
-          this.fetchPlayerHistory(value.trim());
+      .subscribe((searchName) => {
+        const trimmedName = typeof searchName === 'string' ? searchName.trim() : '';
+        if (trimmedName) {
+          this.fetchPlayerHistory(trimmedName);
         }
       });
 
-      this.playerSearchService.playerSearch$.subscribe(nickName => {
-         this.onSearchInput(nickName);
-      })
+    this.playerSearchService.playerSearch$.subscribe(nickName => {
+      this.onSearchInput(nickName);
+    })
+  }
+
+  getGameMode(gameModeId: number) {
+    // Implement your logic to get the game mode name based on the ID
+    switch (gameModeId) {
+      case 1: return 'Quick Play';
+      case 2: return 'Competitive';
+      case 3: return 'Doom';
+      case 4: return 'Arcade';
+      default: return 'Unknown';
+    }
+  }
+
+  getMapThumbnail(map_id: number) {
+   const map = this.gameMapsService.getMap(map_id);
+   if (!map) {
+     return ''; // or a default image path if you prefer
+   }
+   let mapImagePath = this.getImageUrlBySize(map, 'large');
+   return "https://www.marvelrivalsapi.com/" + mapImagePath;
+  }
+  
+  private getImageUrlBySize(map: IGameMap,  size: string) {
+    return map ? (function () {
+      switch (size) {
+        case 'small': return map.images[0];
+        case 'medium': return map.images[1];
+        case 'large': return map.images[2];
+        case 'x-large': return map.images[3];
+        default: return map.images[0];
+      }
+    })() : undefined;
+  }
+
+  setPlayerHistory(matchHistoryResponse: any) {
+    this.playerName = matchHistoryResponse.playerName;
+    this.playerTitleService.setPlayerName(this.playerName);
+    this.matchHistory.set(matchHistoryResponse.match_history);
   }
 
   onSearchInput(value: string) {
@@ -58,15 +98,13 @@ export class MatchHistoryComponent implements OnInit, OnDestroy {
   }
 
   fetchPlayerHistory(searchPlayerName: any) {
-      this.router.navigate(['./'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['./'], { relativeTo: this.activatedRoute });
     this.isLoading.set(true); // Assuming you have a loading state to show
     this.matchHistoryService.getPlayerHistory(searchPlayerName)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response) => {
-          this.playerName = response.playerName || searchPlayerName;
-          this.playerTitleService.setPlayerName(this.playerName);
-          this.matchHistory.set(response.match_history);
+          this.setPlayerHistory(response);
           this.isLoading.set(false);
         },
         error: () => {

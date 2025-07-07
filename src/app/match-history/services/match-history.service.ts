@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IMatchHistoryItem, IMatchHistoryResponse } from '../data/models/match-history.model';
-import { Observable, map } from 'rxjs';
+import { Observable, filter, map, switchMap } from 'rxjs';
 import { GameMapsService } from 'src/app/game-maps/services/game-maps.service';
 
 @Injectable({
@@ -25,13 +25,21 @@ export class MatchHistoryService {
       'Content-Type': 'application/json'
     });
     return this.http.get<IMatchHistoryResponse>(url, { headers }).pipe(
-      map((response: IMatchHistoryResponse) => ({
-        playerName: response.playerName || playerName,
-        match_history: response.match_history.map(match => ({
-          ...match,
-          match_map_name: this.gameMapService.getMapNameById(match.match_map_id)
-        }))
-      }))
+      switchMap((response: IMatchHistoryResponse) =>
+        this.gameMapService.maps$.pipe(
+          filter(maps => maps.length > 0), // <-- Wait until maps are loaded
+          map(maps => ({
+            playerName: response.playerName || playerName,
+            match_history: response.match_history.map(match => ({
+              ...match,
+              match_map_name: (() => {
+                const found = maps.find(m => m.id === match.match_map_id);
+                return found ? found.name : 'Unknown Map';
+              })(),
+            }))
+          }))
+        )
+      )
     );
   }
 }

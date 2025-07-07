@@ -1,87 +1,118 @@
+// --- Add below your existing styles or replace the relevant sections ---
+
 .match-history-container {
-  padding: 20px;
-  background: #1a1a1a;
+  background: #181a1b;
+  min-height: 100vh;
+  color: #e0e0e0;
 }
 
 .match-history-layout {
   display: flex;
-  gap: 32px;
-  align-items: flex-start;
+  flex-direction: row;
+  min-height: 100vh;
 }
 
 .match-list-panel {
-  flex: 1 1 350px;
-  min-width: 320px;
-  max-width: 30%;
+  width: 420px;
+  min-width: 280px;
+  background: #23272a;
+  border-right: 1px solid #292d32;
+  padding: 0 0 0 0;
+  overflow-y: auto;
 }
 
-.match-details-panel {
-  flex: 4 4 399px;
-  min-width: 390px;
-  max-width: 60%;
-  margin-left: 32px; // Adds space between panels
-  height: fit-content; // Let content determine height
-  overflow: auto; // Scroll only inside the panel if needed
-  position: sticky; // Default, not fixed
-  top: 32px;
-  max-height: 100vh; // Panel will not exceed 90% of viewport height
-  overflow-y: auto; // Scroll inside the panel if needed
+.match-header {
+  padding: 18px 16px 8px 16px;
+  border-bottom: 1px solid #292d32;
+  background: #23272a;
 }
 
-.hero-search {
-  display: flex;
-  justify-content: center;
+.hero-search input.search-box {
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #181a1b;
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 32px 0;
+  color: #f0131e;
+  font-size: 1.2em;
+}
+
+.no-matches {
+  padding: 0 10px;
 }
 
 .match-history-card {
-
   background: #23272a;
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(80, 0, 0, 0.18);
-  padding: 18px 22px;
-  margin-bottom: 12px;
-  color: #fff;
+  margin: 18px 0;
+  padding: 18px 16px 14px 16px;
+  box-shadow: 0 2px 12px #00000022;
+  transition: background 0.18s, box-shadow 0.18s;
+  cursor: pointer;
+  border: 1px solid transparent;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  border: 2px solid transparent;
-  transition: border 0.2s, box-shadow 0.2s;
-
-  &:hover {
-    border: 2px solid #f0131e;
-    box-shadow: 0 6px 24px rgba(240, 19, 30, 0.12);
-  }
+  gap: 10px;
+}
+.match-history-card:hover {
+  background: #282c30;
+  box-shadow: 0 4px 18px #00000033;
+}
+.match-history-card:hover.win {
+  border-color: #3dc000;
+}
+.match-history-card:hover.loss {
+  border-color: #f0131e;
 }
 
 .map-thumb {
-  width: 60px;
-  height: 60px;
+
+  border-radius: 8px;
   object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #f0131e;
-  background: #23272a;
-  box-shadow: 0 1px 6px #000a;
-  flex-shrink: 0;
-}
-.match-meta div{
-  
-  padding: 12px 0;
-}
-.match-meta, .player-stats {
-  background: #181a1b;
-  border-radius: 8px;
-  padding-left: 4px;
+  border: 1px solid #444;
+  margin-bottom: 8px;
 }
 
-.match-meta b, .player-stats {
-  color: #f0131e;
-  margin-right: 3px;
-  font-weight: 600;
+.match-meta {
+  font-size: 0.97em;
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.meta-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.meta-label {
+  color: #aaa;
+  min-width: 90px;
+  font-weight: 500;
+}
+.meta-id {
+  color: #666;
+  font-size: 0.92em;
+}
+.win { color: #00e676 !important; }
+.loss { color: #e60000 !important; }
 
-  div {
-    min-width: 120px;
-    color: #ccc;
-  }
+.player-stats {
+  background: #202225;
+  border-radius: 7px;
+  padding: 10px 12px 8px 12px;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .hero-info {
@@ -89,82 +120,66 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 2px;
-
-  .hero-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #f0131e;
-    background: #181a1b;
-  }
-
-  .hero-name {
-    font-weight: 700;
-    color: #f0131e;
-    font-size: 1.1rem;
-    margin-right: 6px;
-  }
-
-  .play-time {
-    color: #bbb;
-    font-size: 0.95rem;
-  }
+}
+.hero-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #444;
+  background: #181a1b;
+}
+.hero-name {
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.08em;
+}
+.play-time {
+  color: #aaa;
+  font-size: 0.98em;
 }
 
 .stat-row {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
-  font-size: 0.98rem;
+  font-size: 0.97em;
+  margin-bottom: 2px;
+}
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.stat.kills b { color: #00e676; }
+.stat.deaths b { color: #f0131e; }
+.stat.assists b { color: #00bcd4; }
+.stat.win mat-icon.win { color: #00e676; }
+.stat.win mat-icon.loss { color: #e60000; }
+.stat.disconnect mat-icon { color: #ffb300; }
 
-  span {
-    color: #fff;
-    background: #181a1b;
-    border-radius: 4px;
-    padding: 2px 8px;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-
-    b {
-      color: #f0131e;
-      margin-right: 3px;
-      font-weight: 600;
-    }
-
-    mat-icon {
-      font-size: 1.1em;
-      margin-left: 2px;
-      vertical-align: middle;
-    }
-  }
+.match-details-panel {
+  flex: 1;
+  background: #181a1b;
+  min-width: 0;
+  margin: 0px 40px;
+  padding: 0 0 0 0;
+  overflow-y: auto;
 }
 
-
-@media (max-width: 700px) {
-  .match-header {
+/* Responsive */
+@media (max-width: 900px) {
+  .match-history-layout {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
   }
-
-  .map-thumb {
-    width: 56px;
-    height: 56px;
+  .match-list-panel {
+    width: 100vw;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid #292d32;
   }
-
-  .match-meta div {
-    min-width: 90px;
-    font-size: 0.95rem;
-  }
-
-  .player-stats {
-    padding: 8px 4px;
-  }
-
-  .stat-row {
-    gap: 8px;
-    font-size: 0.93rem;
-  }
+  .match-details-panel {
+    width: 100vw;
+    min-width: 0;
+  } 
 }

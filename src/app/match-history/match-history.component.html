@@ -1,9 +1,8 @@
 <div class="match-history-container">
-
   <div class="match-history-layout">
     <div class="match-list-panel">
       <div class="match-header">
-        <!----- Search Bar ----->
+        <!-- Search Bar -->
         <div class="hero-search">
           <form #searchForm="ngForm">
             <input type="text" class="search-box" name="playerName" [(ngModel)]="searchPlayerName"
@@ -15,18 +14,17 @@
         Loading match history...
       </div>
       <div *ngIf="!isLoading()" class="no-matches">
-        <div *ngFor="let match of matchHistory()" class="match-history-card" (click)="onMatchClick(match)">
-          <img [src]="'https://marvelrivalsapi.com/rivals/' + match.map_thumbnail" [alt]="'Map ' + match.match_map_id"
-            class="map-thumb" />
+        <div *ngFor="let match of matchHistory()" [ngClass]="{'win': match.match_winner_side, 'loss': !match.match_winner_side}" class="match-history-card" (click)="onMatchClick(match)">
+          <img [src]="getMapThumbnail(match.match_map_id)" [alt]="'Map ' + match.match_map_id" class="map-thumb" />
           <div class="match-meta">
-            <div><b>Map Name:</b> {{ match.match_map_name + ' (' + match.match_map_id + ')' }}</div>
-            <div><b>Season:</b> {{ match.match_season }}</div>
-            <div><b>Duration:</b> {{ match.match_play_duration }}</div>
-            <div><b>Date:</b> {{ match.match_time_stamp * 1000 | date:'medium' }}</div>
-            <div><b>Game Mode:</b> {{ match.game_mode_id }}</div>
-            <div><b>Play Mode:</b> {{ match.play_mode_id }}</div>
-            <div><b>Winner Side:</b> {{ match.match_winner_side ? 'Yes': 'No' }}</div>
-            <div><b>Final Score:</b>
+            <div class="meta-row"><span class="meta-label">Map:</span> {{ match.match_map_name }} <span class="meta-id">({{ match.match_map_id }})</span></div>
+            <div class="meta-row"><span class="meta-label">Season:</span> {{ match.match_season }}</div>
+            <div class="meta-row"><span class="meta-label">Duration:</span> {{ match.match_play_duration }}</div>
+            <div class="meta-row"><span class="meta-label">Date:</span> {{ match.match_time_stamp * 1000 | date:'medium' }}</div>
+            <div class="meta-row"><span class="meta-label">Game Mode:</span> {{ getGameMode(match.game_mode_id) }}</div>
+            <div class="meta-row"><span class="meta-label">Play Mode:</span> {{ match.play_mode_id }}</div>
+            <div class="meta-row"><span class="meta-label">Winner Side:</span> <span [class.win]="match.match_winner_side" [class.loss]="!match.match_winner_side">{{ match.match_winner_side ? 'Yes': 'No' }}</span></div>
+            <div class="meta-row"><span class="meta-label">Final Score:</span>
               <ng-container *ngFor="let entry of match.score_info | keyvalue; let last = last">
                 {{ entry.value }}<span *ngIf="!last"> - </span>
               </ng-container>
@@ -40,25 +38,26 @@
               <span class="play-time">({{ match.match_player.player_hero.play_time.formatted }})</span>
             </div>
             <div class="stat-row">
-              <span><b>Kills:</b> {{ match.match_player.kills }}</span>
-              <span><b>Deaths:</b> {{ match.match_player.deaths }}</span>
-              <span><b>Assists:</b> {{ match.match_player.assists }}</span>
-              <span><b>Win:</b> <mat-icon color="primary">{{ match.match_player.is_win.is_win ? 'check_circle' :
-                  'cancel'
-                  }}</mat-icon></span>
-              <span><b>Disconnected:</b> <mat-icon color="warn">{{ match.match_player.disconnected ? 'warning' :
-                  'check_circle' }}</mat-icon></span>
+              <span class="stat kills"><b>K:</b> {{ match.match_player.kills }}</span>
+              <span class="stat deaths"><b>D:</b> {{ match.match_player.deaths }}</span>
+              <span class="stat assists"><b>A:</b> {{ match.match_player.assists }}</span>
+              <span class="stat win"><b>Win:</b>
+                <mat-icon [ngClass]="{'win': match.match_player.is_win.is_win, 'loss': !match.match_player.is_win.is_win}">
+                  {{ match.match_player.is_win.is_win ? 'check_circle' : 'cancel' }}
+                </mat-icon>
+              </span>
+              <span class="stat disconnect"><b>DC:</b>
+                <mat-icon color="warn">{{ match.match_player.disconnected ? 'warning' : 'check_circle' }}</mat-icon>
+              </span>
             </div>
             <div class="stat-row">
-              <span><b>Hero K/D/A:</b> {{ match.match_player.player_hero.kills }}/{{
-                match.match_player.player_hero.deaths
-                }}/{{ match.match_player.player_hero.assists }}</span>
+              <span><b>Hero K/D/A:</b> {{ match.match_player.player_hero.kills }}/{{ match.match_player.player_hero.deaths }}/{{ match.match_player.player_hero.assists }}</span>
               <span><b>Hero Damage:</b> {{ match.match_player.player_hero.total_hero_damage | number }}</span>
               <span><b>Damage Taken:</b> {{ match.match_player.player_hero.total_damage_taken | number }}</span>
               <span><b>Hero Heal:</b> {{ match.match_player.player_hero.total_hero_heal | number }}</span>
             </div>
             <div class="stat-row">
-              <span><b>Score Change:</b> {{ match.match_player.score_info.add_score | number:'1.0-2' }}</span>
+              <span><b>Score Δ:</b> {{ match.match_player.score_info.add_score | number:'1.0-2' }}</span>
               <span><b>Level:</b> {{ match.match_player.score_info.level }}</span>
               <span><b>New Level:</b> {{ match.match_player.score_info.new_level }}</span>
               <span><b>New Score:</b> {{ match.match_player.score_info.new_score | number:'1.0-2' }}</span>
@@ -67,7 +66,6 @@
         </div>
       </div>
     </div>
-
     <div class="match-details-panel">
       <router-outlet></router-outlet>
     </div>
