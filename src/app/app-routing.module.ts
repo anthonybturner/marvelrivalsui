@@ -8,6 +8,11 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     data: { pageTitle: 'Dashboard' }
   },
+    {
+    path: 'dev-diaries',
+    loadChildren: () => import('./dev-diaries/dev-diaries.module').then(m => m.DevDiariesModule),
+    data: { pageTitle: 'Dev Diaries' }
+  },
   {
     path: 'news',
     loadChildren: () => import('./news/news.module').then(m => m.NewsModule),
@@ -31,7 +36,7 @@ const routes: Routes = [
   {
     path: 'match-history',
     loadChildren: () => import('./match-history/match-history.module').then(m => m.MatchHistoryModule),
-    data: { pageTitle: 'Player Match History' }
+    data: { pageTitle: 'Match History' }
   },
   {
     path: '',

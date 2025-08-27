@@ -1,4 +1,4 @@
-export function getImageUrl(imagePath: string | undefined, type: 'hero' | 'ability' = 'hero'): string {
+export function getImageUrl(imagePath: string | undefined, type: 'hero' | 'ability' = 'hero'): string{
   if (!imagePath) {
     return 'assets/images/logo.png';
   }
@@ -15,10 +15,22 @@ export function getImageUrl(imagePath: string | undefined, type: 'hero' | 'abili
   }
 }
 
+async function checkHeroImage(heroImageUrl: string) {
+  return await imageExists(heroImageUrl);
+}
+
 export function getFallbackImageUrl(type: 'hero' | 'ability'): string {
   return 'assets/images/logo.png';
 }
 
+export async function imageExists(url: string): Promise<boolean> {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
 
 export function handleImageError(event: Event, type: 'hero' | 'ability'): HTMLImageElement {
   const img = event.target as HTMLImageElement;

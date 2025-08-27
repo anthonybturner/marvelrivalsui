@@ -1,20 +1,28 @@
 <div class="maps-list">
   <div *ngFor="let map of gameMaps" class="map-card">
     <div class="map-image">
-      <img [src]="getMapImageUrl(map)" />
+      <img [src]="getMapImageUrl(map)" alt="{{ map.name }}" />
     </div>
     <div class="map-info">
-      <h2>{{ map.name }}</h2>
-      <h2>{{ map.id }}</h2>
-      <h4>{{ map.full_name }}</h4>
+      <div class="map-title">{{ map.name }}</div>
+      <div class="map-id">ID: {{ map.id }}</div>
+      <div class="map-fullname">{{ map.full_name }}</div>
       <div class="map-meta">
-        <span><b>Location:</b> {{ map.location }}</span>
-        <span><b>Mode:</b> {{ map.game_mode }}</span>
-        <span *ngIf="map.is_competitve"><b>Competitive</b></span>
+        <div><span class="map-meta-label">Location</span> {{ map.location }}</div>
+        <div><span class="map-meta-label">Mode</span> {{ map.game_mode }}</div>
+        <div *ngIf="map.is_competitve"><span class="map-meta-label">Competitive</span></div>
       </div>
       <p class="map-description">{{ map.description }}</p>
       <div class="map-links">
-        <a *ngIf="map.video" [href]="map.video" target="_blank">Watch Video</a>
+        <ng-container *ngIf="map.video">
+          <div class="video-responsive">
+            <iframe
+              [src]="getVideoUrl(map.video) | safeUrl"
+              frameborder="0"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

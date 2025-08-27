@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from "./site-footer/site-footer.component";
+import { DevDiariesComponent } from './dev-diaries/dev-diaries.component';
 
 
 @NgModule({

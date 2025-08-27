@@ -1,0 +1,63 @@
+.dev-diaries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+}
+
+.dev-diary-card {
+  background: #232526;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  color: #fff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-diary-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.dev-diary-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #000a;
+}
+
+.dev-diary-title {
+  font-size: 1.4em;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dev-diary-date {
+  font-size: 1em;
+  color: #fbc02d;
+  margin-top: 4px;
+}
+
+.dev-diary-overview {
+  margin-bottom: 12px;
+  font-size: 1.08em;
+  color: #ececec;
+}
+
+.dev-diary-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #f0131e;
+  margin-bottom: 8px;
+}
+
+.dev-diary-content {
+  white-space: pre-wrap;
+  font-size: 1em;
+  color: #ccc;
+  margin-top: 8px;
+}

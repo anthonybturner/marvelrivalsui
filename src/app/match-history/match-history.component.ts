@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, map, Observable, Subject, takeUntil, tap } from 'rxjs';
+import {  Subject, takeUntil } from 'rxjs';
 import { IMatchHistoryItem } from './data/models/match-history.model';
 import { MatchHistoryService } from './services/match-history.service';
 import { PlayerSearchService } from '../shared/services/player-search-service';
 import { PlayerTitleService } from '../shared/services/player-title-service';
-import { GameMapsService } from '../game-maps/services/game-maps.service';
-import { IGameMap } from '../game-maps/data/game-maps.model';
 
 @Component({
   selector: 'mr-match-history',
@@ -16,18 +14,25 @@ import { IGameMap } from '../game-maps/data/game-maps.model';
 })
 export class MatchHistoryComponent implements OnInit, OnDestroy {
 
+getMatchMapThumbnail(map_thumbnail: string) {
+  const size = 'large';
+  const modifiedPath = map_thumbnail.replace(/\/maps\//, `/maps/${size}/`);
+  return `https://www.marvelrivalsapi.com/rivals/${modifiedPath}`;
+}
+
   searchPlayerName: any;
   playerName: string = ''
   ngUnsubscribe = new Subject();
   matchHistory = signal<IMatchHistoryItem[] | []>([]);
   searchInput$ = new Subject<string>();
   isLoading = signal<boolean>(false);
+  sub: any;
 
   constructor(private activatedRoute: ActivatedRoute,
     private matchHistoryService: MatchHistoryService,
     private router: Router, private playerSearchService: PlayerSearchService,
-    private playerTitleService: PlayerTitleService, 
-    private gameMapsService: GameMapsService // Assuming you have a service to get game maps, replace with actual service
+    private playerTitleService: PlayerTitleService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -37,19 +42,6 @@ export class MatchHistoryComponent implements OnInit, OnDestroy {
           this.setPlayerHistory(response["resolvedData"]);
         }
       });
-
-    this.searchInput$
-      .pipe(
-        debounceTime(400), // 400ms delay after user stops typing
-        takeUntil(this.ngUnsubscribe)
-      )
-      .subscribe((searchName) => {
-        const trimmedName = typeof searchName === 'string' ? searchName.trim() : '';
-        if (trimmedName) {
-          this.fetchPlayerHistory(trimmedName);
-        }
-      });
-
     this.playerSearchService.playerSearch$.subscribe(nickName => {
       this.onSearchInput(nickName);
     })
@@ -66,35 +58,10 @@ export class MatchHistoryComponent implements OnInit, OnDestroy {
     }
   }
 
-  getMapThumbnail(map_id: number) {
-   const map = this.gameMapsService.getMap(map_id);
-   if (!map) {
-     return ''; // or a default image path if you prefer
-   }
-   let mapImagePath = this.getImageUrlBySize(map, 'large');
-   return "https://www.marvelrivalsapi.com/" + mapImagePath;
-  }
-  
-  private getImageUrlBySize(map: IGameMap,  size: string) {
-    return map ? (function () {
-      switch (size) {
-        case 'small': return map.images[0];
-        case 'medium': return map.images[1];
-        case 'large': return map.images[2];
-        case 'x-large': return map.images[3];
-        default: return map.images[0];
-      }
-    })() : undefined;
-  }
-
   setPlayerHistory(matchHistoryResponse: any) {
-    this.playerName = matchHistoryResponse.playerName;
+    this.playerName = matchHistoryResponse[0]?.match_player.playerName || 'Unknown Player';
     this.playerTitleService.setPlayerName(this.playerName);
-    this.matchHistory.set(matchHistoryResponse.match_history);
-  }
-
-  onSearchInput(value: string) {
-    this.searchInput$.next(value);
+    this.matchHistory.set(matchHistoryResponse);
   }
 
   fetchPlayerHistory(searchPlayerName: any) {
@@ -113,15 +80,21 @@ export class MatchHistoryComponent implements OnInit, OnDestroy {
         }
       });
   }
+  
+  onSearchInput(searchName: string) {
+    const trimmedName = typeof searchName === 'string' ? searchName.trim() : '';
+    if (trimmedName) {
+      this.fetchPlayerHistory(trimmedName);
+    }
+  }
 
   onMatchClick(match: IMatchHistoryItem) {
     // Handle match click event, e.g., navigate to match details
-    this.router.navigate(['match-details', match.match_uid], { relativeTo: this.activatedRoute });
+    this.router.navigate(['match-details', match.match_uid, this.playerName], { relativeTo: this.activatedRoute });
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
-
 }

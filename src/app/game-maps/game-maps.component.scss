@@ -3,49 +3,131 @@
   flex-wrap: wrap;
   gap: 32px;
   justify-content: flex-start;
+  padding: 24px;
 }
 
 .map-card {
-  background: #181a1b;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
   color: #fff;
   width: 370px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s;
+  margin-bottom: 24px;
   &:hover {
-    box-shadow: 0 6px 24px #f0131e44;
+    box-shadow: 0 8px 32px #f0131e44;
+    transform: translateY(-4px) scale(1.02);
   }
 }
 
-.map-image img {
-  object-fit: cover;
-  background: #23272a;
+.map-image {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom: 2px solid #f0131e;
+  }
 }
 
 .map-info {
-  padding: 18px 16px 12px 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 18px 16px 18px;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+}
+
+.map-title {
+  font-size: 1.35em;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #fbc02d;
+  letter-spacing: 0.5px;
+}
+
+.map-id {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.map-fullname {
+  font-size: 1em;
+  background: #000000a6;
+  border-radius: 4px;
+  color: #810208;
+  padding: 4px 8px;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .map-meta {
   font-size: 0.98em;
-  color: #fbc02d;
   margin-bottom: 8px;
-  display: flex;
   gap: 18px;
   flex-wrap: wrap;
+  color: #ececec;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 4fr 2fr;
 }
-
+.map-meta-label {
+  color: #fbc02d;
+}
+.map-meta > div {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.map-meta > div :first-child {
+  
+  text-decoration: underline;
+  font-weight: 600;
+}
 .map-description {
   margin: 10px 0 8px 0;
   color: #ccc;
   font-size: 1em;
+  line-height: 1.5;
 }
 
-.map-links a {
-  color: #f0131e;
-  text-decoration: underline;
-  font-weight: 600;
+.map-links {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.video-responsive {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  background: #222;
+}
+
+.video-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
 }

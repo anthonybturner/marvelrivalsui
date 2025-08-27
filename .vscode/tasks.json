@@ -5,7 +5,7 @@
         "label": "npm: start",
         "type": "npm",
         "script": "start",
-        "path": "frontend",
+        "path": "src",
         "problemMatcher": [],
         "detail": "ng serve"
       }

@@ -8,7 +8,7 @@ import { IMatchDetailsResponse } from '../data/models/match-details.model';
 })
 export class MatchDetailsService {
 
-  private baseUrl: string = 'https://marvelrivalsapi.com/api/v1/';
+  private baseUrl: string =  'https://marvelrivalsapi.com/api/v1/';
   private http = inject(HttpClient);
 
   constructor() { }

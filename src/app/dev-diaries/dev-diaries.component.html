@@ -1,0 +1,18 @@
+<div class="dev-diaries-list">
+  <div *ngFor="let diary of devDiaries" class="dev-diary-card">
+    <div class="dev-diary-header">
+      <img *ngIf="diary.imagePath" [src]="'https://marvelrivalsapi.com/images/' + diary.imagePath" alt="{{ diary.title }}" class="dev-diary-image" />
+      <div>
+        <h2 class="dev-diary-title">{{ diary.title }}</h2>
+        <div class="dev-diary-date">{{ diary.date }}</div>
+      </div>
+    </div>
+    <div class="dev-diary-overview">
+      {{ diary.overview }}
+    </div>
+    <details class="dev-diary-details">
+      <summary>Read Full Content</summary>
+      <pre class="dev-diary-content">{{ diary.fullContent }}</pre>
+    </details>
+  </div>
+</div>

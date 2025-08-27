@@ -11,14 +11,25 @@ import { IGameMap } from './data/game-maps.model';
 })
 export class GameMapsComponent implements OnInit, OnDestroy {
 
+  
   ngUnsubscribe = new Subject();
   gameMaps: IGameMap[] = [];
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
   getMapImageUrl(map: IGameMap) {
-    const image = map.images.find((image: string) => image.includes('premium')) || '';
+    const priorities = ['premium', 'large'];
+    const image = map.images.find((img => priorities.some(p => img.includes(p)))) || '';
     return 'https://marvelrivalsapi.com' + image;
+  }
+
+  getVideoUrl(url: string): string {
+      // Only handle YouTube links
+      const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+      if (match && match[1]) {
+        return `https://www.youtube.com/embed/${match[1]}`;
+      }
+      return url;
   }
 
   ngOnDestroy(): void {

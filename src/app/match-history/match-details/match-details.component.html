@@ -2,15 +2,16 @@
     {{ errorMessage }} <br />
     <button (click)="onBack()">Go Back</button>
 </div>
-<div *ngIf="isLoading" class="loading-indicator">
+<div *ngIf="isLoading()" class="loading-indicator">
   Loading match details...
 </div>
-<div *ngIf="!isLoading" class="match-details-container">
+
+<div  class="match-details-container">
     <div class="match-header">
         <div class="match-info">
             <div>
-                <span class="label">Match UID: </span>
-                <span class="value">{{ rowData()?.match_uid }}</span>
+                <span class="label">Player: {{currentPlayerName}}</span><br />
+                <span class="label">Match UID: </span><span class="value">{{ rowData()?.match_uid }}</span><br />
             </div>
             <div>
                 <span class="label">Game Mode: </span>
@@ -32,6 +33,7 @@
             </div>
         </div>
     </div>
+    <img [src]="selectedMapImage" alt="Map Thumbnail" class="map-thumbnail" />
     <div class="players-table-wrapper">
         <ag-grid-angular style="width: 100%; height: 100%;" 
         [theme]="theme"
@@ -41,7 +43,6 @@
         [columnDefs]="columnDefs" 
         [domLayout]="'autoHeight'"
         [context]="{ componentParent: this }">
-        
         </ag-grid-angular>
     </div>
 </div>

@@ -1,2 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'assets/scss/_global.scss' as *;
+button, button[mat-raised-button], .mdc-button, .mat-mdc-button-base {
+  cursor: pointer;
+}

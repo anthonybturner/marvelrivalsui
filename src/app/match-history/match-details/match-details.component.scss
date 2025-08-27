@@ -162,7 +162,14 @@ img.hero-icon {
     width: 25%;
     height: auto;
 }
-
+img.map-thumbnail {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 22px;
+    display: block;
+    /* background: cadetblue; */
+}
 //Aggrid Angular Grid Styles
 
 // Custom overrides for leaderboard look

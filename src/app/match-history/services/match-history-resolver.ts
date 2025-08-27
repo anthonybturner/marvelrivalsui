@@ -11,14 +11,12 @@ import { IMatchHistoryItem, IMatchHistoryResponse } from '../data/models/match-h
 @Injectable({
   providedIn: 'root'
 })
-export class MatchHistoryResolver implements Resolve<Observable<IMatchHistoryResponse>> {
+export class MatchHistoryResolver implements Resolve<IMatchHistoryItem[]> {
   constructor(private matchHistoryService: MatchHistoryService) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IMatchHistoryResponse> {
-    return this.matchHistoryService.getPlayerHistory("SilentCoder").pipe(
-      map((response: IMatchHistoryResponse) => ({
-        playerName: response.playerName,
-        match_history: response.match_history
-      }))
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IMatchHistoryItem[]> {
+    const playerName = route.paramMap.get('player_name') || 'SilentCoder'; // fallback if not present
+    return this.matchHistoryService.getPlayerHistory(playerName).pipe(
+      map((response: IMatchHistoryItem[]) => response)
     );
   }
 } 

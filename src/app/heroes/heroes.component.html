@@ -1,7 +1,6 @@
 <div class="vertical-layout dark-red">
   <div class="search-container dark-red">
     <form (ngSubmit)="onSearch()" #searchForm="ngForm">
-      <mat-label>Hero Name</mat-label>
       <input matInput name="heroName" [(ngModel)]="heroName" (keyup.enter)="onSearch()"
         placeholder="Enter hero name" required>
       <button mat-raised-button color="primary" type="submit">Search</button>

@@ -1,5 +1,4 @@
 export interface IMatchHistoryResponse {
-  playerName: string;
   match_history: IMatchHistoryItem[];
 }
 
@@ -30,6 +29,7 @@ export interface IMatchPlayer {
   };
   disconnected: boolean;
   player_uid: number;
+  player_name: string;
   camp: number | null;
   score_info: IPlayerScoreInfo;
   player_hero: IPlayerHero;
@@ -43,16 +43,14 @@ export interface IPlayerScoreInfo {
 }
 
 export interface IPlayerHero {
+  id: number;
   hero_id: number;
   hero_name: string;
   hero_type: string;
   kills: number;
   deaths: number;
   assists: number;
-  play_time: {
-    raw: number;
-    formatted: string;
-  };
+  play_time: number;
   total_hero_damage: number;
   total_damage_taken: number;
   total_hero_heal: number;

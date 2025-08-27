@@ -6,7 +6,7 @@ import { MatchDetailsComponent } from './match-details/match-details.component';
 import { MatchDetailsPlaceholderComponent } from './match-details/match-details-placeholder-component/match-details-placeholder-component';
 
 const routes: Routes = [
-  { path: '', 
+   { path: ':player_uid/:player_name', 
     component: MatchHistoryComponent, 
     resolve: { resolvedData: MatchHistoryResolver } ,
     children: [
@@ -15,12 +15,28 @@ const routes: Routes = [
         component: MatchDetailsPlaceholderComponent // <--- default right panel
       },
       {
-        path: 'match-details/:match_uid',
+        path: 'match-details/:match_uid/:player_name', // <--- match details route
         component: MatchDetailsComponent,
         data: { pageTitle: 'Match History' }
       }
     ]
   },
+  { path: '', 
+    component: MatchHistoryComponent, 
+    resolve: { resolvedData: MatchHistoryResolver } ,
+    children: [
+      {
+        path: '',
+        component: MatchDetailsPlaceholderComponent // <--- default right panel
+      },
+       {
+        path: 'match-details/:match_uid/:player_name', // <--- match details route
+        component: MatchDetailsComponent,
+        data: { pageTitle: 'Match History' }
+      }
+    ]
+  },
+ 
 ];
 
 @NgModule({

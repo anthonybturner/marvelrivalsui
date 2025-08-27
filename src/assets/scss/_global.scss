@@ -112,12 +112,6 @@ img.hero-icon {
     gap: 14px;
     align-items: center;
 
-    mat-label {
-      color: #f0131e;
-      font-weight: 500;
-      margin-right: 8px;
-    }
-
     input[matInput] {
       background: #252525;
       color: #fff;
@@ -132,6 +126,13 @@ img.hero-icon {
         border-color: #f0131e;
         box-shadow: 0 0 0 2px rgba(240, 19, 30, 0.18);
       }
+    }
+    
+    button{
+      cursor: pointer !important;
+      padding: 6px;
+      position: relative;
+      bottom: 9px;
     }
 
     button[mat-raised-button] {

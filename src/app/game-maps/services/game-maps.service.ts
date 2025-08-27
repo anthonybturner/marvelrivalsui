@@ -9,7 +9,9 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 export class GameMapsService {
 
 
-  private baseUrl: string = 'https://marvelrivalsapi.com/api/v1/maps';
+//  private baseUrl: string = 'https://marvelrivalsapi.com/api/v1/maps';
+  private baseUrl: string = 'https://localhost:44312/api/';
+
   private http = inject(HttpClient);
   private mapsSubject = new BehaviorSubject<IGameMap[]>([]);
   maps$ = this.mapsSubject.asObservable();
@@ -28,42 +30,28 @@ export class GameMapsService {
   }
   
   getMaps(): Observable<IGameMapsResponse> {
-    const url = `${this.baseUrl}?limit=42`;
+    const url = `${this.baseUrl}game-maps`;
     const headers = new HttpHeaders({
       'x-api-key': '27fe50d87b5dbebd1ab01589b08a2e00d3c6058a07097c0d6ee47a84e8f4c329',
       'Content-Type': 'application/json'
     });
 
-    return this.http.get<IGameMapsResponse>(url, { headers }).pipe(
-      map((response: IGameMapsResponse) => {
-        this.maps = response.maps;
-        return response;
+    return this.http.get<IGameMap[]>(url, { headers }).pipe(
+      map((response: IGameMap[]) => {
+        this.maps = response;
+        this.mapsSubject.next(this.maps);
+        return {
+          maps : this.maps,
+          total_maps: this.maps.length
+        } as IGameMapsResponse;
       })
     )
   }
-
-  getMapUrlById(map_id: number, size: 'small' | 'medium' | 'large' | 'x-large'): string {
-    return this.getImageUrlBySize(map_id, size);
-  };
 
   getMap(map_id: number): IGameMap | undefined {
       const found = this.maps.find(m => m.id == map_id);
       return found ? found : undefined;
   }
-
-  private getImageUrlBySize(map_id: number, size: string) {
-    const found = this.maps.find(m => m.id == map_id);
-    return found ? (function () {
-      switch (size) {
-        case 'small': return found.images[0];
-        case 'medium': return found.images[1];
-        case 'large': return found.images[2];
-        case 'x-large': return found.images[2];
-        default: return found.images[0];
-      }
-    })() : 'Unknown Map';
-  }
-
   getMapNameById(map_id: any): any {
     const found = this.maps.find(m => m.id == map_id);
     return found ? found.name : 'Unknown Map';
