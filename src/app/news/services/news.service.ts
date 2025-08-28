@@ -2,13 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { IBalances, IDevDiaries, IGameVersions, IMaps, INews, IPatchNotes } from '../data/models/news.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
 
-  private baseUrl: string = 'https://marvelrivalsapi.com/api/v1/';
+  private baseUrl: string = environment.remoteApiUrl + "v1/";
   private http = inject(HttpClient);
   headers:HttpHeaders = new HttpHeaders({
       'x-api-key': '27fe50d87b5dbebd1ab01589b08a2e00d3c6058a07097c0d6ee47a84e8f4c329',

@@ -5,14 +5,14 @@ import { Observable, Subject, filter, map, switchMap } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GameMapsService } from 'src/app/game-maps/services/game-maps.service';
 import { IGameMap } from 'src/app/game-maps/data/game-maps.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatchHistoryService {
 
-  //private baseUrl: string = 'https://marvelrivalsapi.com/api/v2/';//"https://localhost:44385/";
-  private baseUrl: string = 'https://localhost:44312/api/';
+  private baseUrl: string = environment.apiUrl;
   private http = inject(HttpClient);
   public matchHistoryUpdated$ = new Subject<IMatchHistoryItem[]>();
 

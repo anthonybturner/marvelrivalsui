@@ -2,15 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IGameMap, IGameMapsResponse } from '../data/game-maps.model';
 import { BehaviorSubject, map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameMapsService {
 
-
-//  private baseUrl: string = 'https://marvelrivalsapi.com/api/v1/maps';
-  private baseUrl: string = 'https://localhost:44312/api/';
+  private baseUrl: string = environment.apiUrl;
 
   private http = inject(HttpClient);
   private mapsSubject = new BehaviorSubject<IGameMap[]>([]);
@@ -18,7 +17,8 @@ export class GameMapsService {
   private maps: IGameMap[] = [];
 
   constructor() {
-    this.getMaps().subscribe({
+
+      this.getMaps().subscribe({
       next: (response) => {
         this.maps = response.maps;
         this.mapsSubject.next(this.maps);

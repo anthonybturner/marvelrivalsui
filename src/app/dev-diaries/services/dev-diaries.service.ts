@@ -2,18 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IDevDiary } from '../data/dev-diaries.model';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { IDevDiaries } from 'src/app/news/data/models/news.model';
 import { IDevDiariesResponse } from '../data/dev-diaries-response';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DevDiaryService {
 
-
-  private baseUrl: string = 'https://marvelrivalsapi.com/api/v1/';
-  //rivate baseUrl: string = 'https://localhost:44312/api/v1/';
-
+  private baseUrl: string = environment.remoteApiUrl + "v1/";
   private http = inject(HttpClient);
   private devDiariesSubject = new BehaviorSubject<IDevDiary[]>([]);
   devDiaries$ = this.devDiariesSubject.asObservable();

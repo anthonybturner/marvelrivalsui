@@ -2,15 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IMatchDetailsResponse } from '../data/models/match-details.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatchDetailsService {
 
-  private baseUrl: string =  'https://marvelrivalsapi.com/api/v1/';
+  private baseUrl: string = environment.remoteApiUrl + "v1/";
   private http = inject(HttpClient);
-
   constructor() { }
 
   getMatchDetails(match_uid: string): Observable<IMatchDetailsResponse> {
