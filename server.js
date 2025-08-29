@@ -2,11 +2,11 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// Serve static files from Angular dist folder
+// Serve static files
 app.use(express.static(path.join(__dirname, 'dist/mrui-web')));
 
-// Redirect all other routes to index.html (Angular handles routing)
-app.get('*', (req, res) => {
+// Catch-all handler to return index.html for Angular routes
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist/mrui-web', 'index.html'));
 });
 
