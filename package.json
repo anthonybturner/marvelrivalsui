@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
-    "build": "ng build",
+    "start": "npm run build && node server.js",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-      "postinstall": "find ./src -type f -name \"*.ts\" -exec sed -i 's/\\r$//' {} +"
+    "postinstall": "find ./src -type f -name \"*.ts\" -exec sed -i 's/\\r$//' {} +"
   },
   "private": true,
   "dependencies": {
