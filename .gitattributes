@@ -1,0 +1,6 @@
+# Always normalize TS/JS/HTML/CSS to LF
+*.ts text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.json text eol=lf
