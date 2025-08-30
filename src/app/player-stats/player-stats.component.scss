@@ -1,18 +1,11 @@
 .player-stats-card {
-  max-width: 600px;
-  margin: 2rem auto;
-  background: #222;
+  background: #000000;
   color: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.3);
   padding: 2rem;
 }
-.player-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
+
 .player-icon {
   width: 80px;
   height: 80px;
@@ -22,26 +15,54 @@
 }
 .player-level, .player-rank {
   font-size: 1rem;
-  color: #aaa;
+  color: #fff;
 }
-.stats-section {
-  margin-bottom: 2rem;
+
+.overall-stats {
+  background: #f5d8344b;
+  padding: 1rem;
+  border-radius: 8px;
+  flex: 2;
+}
+.player-stats {
+  background: #f5d8344b;
+  padding: 1rem;
+  border-radius: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+.stats-flex-row{
+  background: #f5d8344b;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.overall-stats .stats-row.stats-row-labels {
+  background: #000;
+  border-radius: 6px 6px 0 0;
+}
+.overall-stats .stats-row.stats-row-values {
+  background: #443d02;
+  border-radius: 0 0 6px 6px;
 }
 .stats-row-labels, .stats-row-values {
   display: flex;
   gap: 2rem;
   justify-content: flex-start;
-  margin-bottom: 0.5rem;
 }
 .stats-row-labels .stat-label {
   font-size: 1rem;
-  color: #bbb;
+  color: #4caf50;
   font-weight: 500;
   display: block;
   text-align: center;
 }
 .stats-row-values .stat-value {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #fff;
   display: block;
@@ -52,6 +73,9 @@
 }
 .heroes-section {
   margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f5d8344b;
 }
 .heroes-list {
   display: flex;
@@ -92,7 +116,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  background: #222;
+  background: #f5d8344b;
   color: #fff;
   border-radius: 8px;
   overflow: hidden;
@@ -103,7 +127,7 @@
   border-bottom: 1px solid #333;
 }
 .heroes-table th {
-  background: #333;
+  background: #000000;
   font-weight: 600;
   color: #4caf50;
 }
