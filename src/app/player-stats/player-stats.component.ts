@@ -12,6 +12,7 @@ import { HeroStats } from './data/hero-stats-model';
   standalone: false
 })
 export class PlayerStatsComponent implements OnInit, OnDestroy {
+
   getPlayerImage = getPlayerImage;
   player: PlayerStats | null = null;
   ngUnsubscribe = new Subject();
@@ -28,7 +29,11 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
         });
       });
   }
-
+  getPlayerRank(rank: string | undefined): string {
+    if (!rank) return 'Unknown';
+    if (rank === 'Invalid level') return 'N/A';
+    return `Rank ${rank}`;
+  }
   calculateTotalLosses() {
     if (!this.player?.overall_stats) return 0;
     const { total_wins, total_matches } = this.player.overall_stats;
@@ -38,7 +43,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   calculateWinPercentage() {
     if (!this.player?.overall_stats) return '0.00';
     const { total_wins, total_matches } = this.player.overall_stats;
-    return total_matches ? ((total_wins / total_matches) * 100).toFixed(2) + "%": '0.00';
+    return total_matches ? ((total_wins / total_matches) * 100).toFixed(2) + "%" : '0.00';
   }
 
   getRankSeasonKeys(seasonObj: any): string[] {
@@ -48,7 +53,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   getWinRate(hero: HeroStats): string {
     return hero.matches ? ((hero.wins / hero.matches) * 100).toFixed(2) : '0.00';
   }
-  
+
   getTopPlayedHeroes(): HeroStats[] {
     if (!this.player?.heroes_ranked) return [];
     return [...this.player.heroes_ranked]

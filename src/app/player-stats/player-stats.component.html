@@ -13,7 +13,7 @@
                 </div>
                 <div class="stats-row stats-row-values">
                     <div><span class="stat-value">{{ player?.player?.level }}</span></div>
-                    <div><span class="stat-value">{{ player?.player?.rank?.rank }}</span></div>
+                    <div><span class="stat-value">{{ getPlayerRank(player?.player?.rank?.rank) }}</span></div>
                     <div><span class="stat-value">{{ player?.player?.info?.completed_achievements }}</span></div>
                     <div><span class="stat-value">{{ player?.player?.info?.login_os }}</span></div>
                 </div>
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="player-container heroes-section">
+    <div class="heroes-section">
         <h4>Top Heroes</h4>
         <table class="heroes-table">
             <thead>
