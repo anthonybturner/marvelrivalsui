@@ -4,7 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class PlayerTitleService {
   playerName$ = new BehaviorSubject<string>('');
-  setPlayerName(name: string) {
+
+  public setPlayerName(name: string) {
     this.playerName$.next(name);
   }
+
+  public clearPlayerName() {
+    this.playerName$.next('');
+  }
+  
 }

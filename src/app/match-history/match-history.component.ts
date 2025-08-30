@@ -96,5 +96,6 @@ getMatchMapThumbnail(map_thumbnail: string) {
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
+    this.playerTitleService.clearPlayerName(); // <-- Add this line
   }
 }

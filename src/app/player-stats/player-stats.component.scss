@@ -1,0 +1,118 @@
+.player-stats-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #222;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  padding: 2rem;
+}
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.player-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #444;
+  background: #333;
+}
+.player-level, .player-rank {
+  font-size: 1rem;
+  color: #aaa;
+}
+.stats-section {
+  margin-bottom: 2rem;
+}
+.stats-row-labels, .stats-row-values {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+}
+.stats-row-labels .stat-label {
+  font-size: 1rem;
+  color: #bbb;
+  font-weight: 500;
+  display: block;
+  text-align: center;
+}
+.stats-row-values .stat-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+.stats-row-labels > div, .stats-row-values > div {
+  flex: 1;
+}
+.heroes-section {
+  margin-top: 2rem;
+}
+.heroes-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.hero-card {
+  background: #333;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+.hero-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #222;
+}
+.hero-name {
+  font-weight: bold;
+  color: #fff;
+  max-width: 120px;      // Fixed width for hero name
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+.hero-winrate {
+  font-size: 0.9rem;
+  color: #4caf50;
+  margin-left: 0.5rem;
+}
+
+.heroes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #222;
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.heroes-table th, .heroes-table td {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid #333;
+}
+.heroes-table th {
+  background: #333;
+  font-weight: 600;
+  color: #4caf50;
+}
+.heroes-table tr:last-child td {
+  border-bottom: none;
+}
+.hero-table-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}

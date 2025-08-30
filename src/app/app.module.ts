@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from "./site-footer/site-footer.component";
 import { DevDiariesComponent } from './dev-diaries/dev-diaries.component';
+import { PlayerStatsComponent } from './player-stats/player-stats.component';
 
 
 @NgModule({

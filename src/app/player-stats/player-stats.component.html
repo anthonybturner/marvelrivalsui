@@ -1,0 +1,57 @@
+<div class="player-stats-card">
+  <div class="player-header">
+    <img [src]="getPlayerImage(player?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
+    <div>
+      <h2>{{ player?.name }}</h2>
+      <p class="player-level">Level: {{ player?.player?.level }}</p>
+      <p class="player-rank">Rank: {{ player?.player?.rank?.rank }}</p>
+    </div>
+  </div>
+  <div class="stats-section">
+    <h3>Overall Stats</h3>
+    <div class="stats-row stats-row-labels">
+      <div><span class="stat-label">Total Matches</span></div>
+      <div><span class="stat-label">Total Wins</span></div>
+      <div><span class="stat-label">Unranked Kills</span></div>
+      <div><span class="stat-label">Ranked Kills</span></div>
+    </div>
+    <div class="stats-row stats-row-values">
+      <div><span class="stat-value">{{ player?.overall_stats?.total_matches }}</span></div>
+      <div><span class="stat-value">{{ player?.overall_stats?.total_wins }}</span></div>
+      <div><span class="stat-value">{{ player?.overall_stats?.unranked?.total_kills }}</span></div>
+      <div><span class="stat-value">{{ player?.overall_stats?.ranked?.total_kills }}</span></div>
+    </div>
+  </div>
+  <div class="heroes-section">
+    <h3>Top Heroes</h3>
+    <table class="heroes-table">
+      <thead>
+        <tr>
+          <th>Hero</th>
+          <th>WR</th>
+          <th>Time Played</th>
+          <th>K/D Ratio</th>
+          <th>Damage</th>
+          <th>Healing</th>
+          <th>Blocked/Min</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hero of getTopPlayedHeroes() | slice:0:10">
+          <td>
+            <div class="hero-table-cell">
+              <img [src]="getPlayerImage(hero.hero_thumbnail)" alt="{{ hero.hero_name }}" class="hero-icon" />
+              <span class="hero-name">{{ hero.hero_name }}</span>
+            </div>
+          </td>
+          <td>{{ getWinRate(hero) }}%</td>
+          <td>{{ getTimePlayed(hero.play_time) }}</td>
+          <td>{{ getKDRatio(hero.kills, hero.deaths) }}</td>
+          <td>{{ hero.damage | number:'1.0-0' }}</td>
+          <td>{{ hero.heal | number:'1.0-0' }}</td>
+          <td>{{ getBlockedPerMin(hero.damage_taken, hero.play_time) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class AppComponent {
-  title = 'Rivals Watch';
+  title = 'Marvel Rivals Stats';
 }

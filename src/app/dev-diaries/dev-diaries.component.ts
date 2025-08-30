@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { IDevDiaries } from '../news/data/models/news.model';
 import { IDevDiary } from './data/dev-diaries.model';
 import { getImageUrl } from '../shared/utilities/image-utils';
 

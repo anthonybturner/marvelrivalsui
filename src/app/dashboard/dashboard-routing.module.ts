@@ -8,6 +8,10 @@ const routes: Routes = [
     children:[
       
     ]
+  },
+  {
+    path: ':uid', component: DashboardComponent,
+    children:[]
   }
 ];
 
