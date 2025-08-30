@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run build && node server.js",
-    "build": "node --max_old_space_size=2048 ./node_modules/@angular/cli/bin/ng build --configuration production",
+    "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "find ./src -type f -name \"*.ts\" -exec sed -i 's/\\r$//' {} +"
