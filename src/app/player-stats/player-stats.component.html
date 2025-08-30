@@ -1,32 +1,75 @@
-<div class="player-stats-card">
+<div class="player-info-card">
     <div class="stats-flex-row">
-        <div class="player-stats">
-            <h3>Player Stats</h3>
-            <div>
-                <img [src]="getPlayerImage(player?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
+        <div class="player-container player-stats">
+            <h4>Player Stats</h4>
+            <div class="player-stats-data player-stats-center">
                 <h2>{{ player?.name }}</h2>
-                <p class="player-level">Level: {{ player?.player?.level }}</p>
-                <p class="player-rank">Rank: {{ player?.player?.rank?.rank }}</p>
+                <img [src]="getPlayerImage(player?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
+                <div class="stats-row stats-row-labels">
+                    <div><span class="stat-label">Level</span></div>
+                    <div><span class="stat-label">Rank</span></div>
+                    <div><span class="stat-label">Achievements</span></div>
+                    <div><span class="stat-label">Platform</span></div>
+                </div>
+                <div class="stats-row stats-row-values">
+                    <div><span class="stat-value">{{ player?.player?.level }}</span></div>
+                    <div><span class="stat-value">{{ player?.player?.rank?.rank }}</span></div>
+                    <div><span class="stat-value">{{ player?.player?.info?.completed_achievements }}</span></div>
+                    <div><span class="stat-value">{{ player?.player?.info?.login_os }}</span></div>
+                </div>
             </div>
         </div>
-        <div class="overall-stats">
-            <h3>Overall Stats</h3>
-            <div class="stats-row stats-row-labels">
-                <div><span class="stat-label">Total Matches</span></div>
-                <div><span class="stat-label">Total Wins</span></div>
-                <div><span class="stat-label">Unranked Kills</span></div>
-                <div><span class="stat-label">Ranked Kills</span></div>
-            </div>
-            <div class="stats-row stats-row-values">
-                <div><span class="stat-value">{{ player?.overall_stats?.total_matches }}</span></div>
-                <div><span class="stat-value">{{ player?.overall_stats?.total_wins }}</span></div>
-                <div><span class="stat-value">{{ player?.overall_stats?.unranked?.total_kills }}</span></div>
-                <div><span class="stat-value">{{ player?.overall_stats?.ranked?.total_kills }}</span></div>
+        <div class="player-container rank-game-season">
+            <h4>Rank Game Season</h4>
+            <table class="rank-season-table">
+                <thead>
+                    <tr>
+                        <th>Season</th>
+                        <th>Level</th>
+                        <th>Rank Score</th>
+                        <th>Max Level</th>
+                        <th>Max Score</th>
+                        <th>Wins</th>
+                        <th>Last Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let key of getRankSeasonKeys(player?.player?.info?.rank_game_season)">
+                        <td>{{ key }}</td>
+                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.level }}</td>
+                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.rank_score | number:'1.0-0' }}</td>
+                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.max_level }}</td>
+                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.max_rank_score | number:'1.0-0' }}</td>
+                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.win_count }}</td>
+                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.update_time }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="player-container overall-stats">
+            <h4>Overall Stats</h4>
+            <div class="overall-stats-data">
+                <div class="stats-row stats-row-labels">
+                    <div><span class="stat-label">Matches</span></div>
+                    <div><span class="stat-label">Wins</span></div>
+                    <div><span class="stat-label">Losses</span></div>
+                    <div><span class="stat-label">Win Percentage</span></div>
+                    <div><span class="stat-label">Unranked Kills</span></div>
+                    <div><span class="stat-label">Ranked Kills</span></div>
+                </div>
+                <div class="stats-row stats-row-values">
+                    <div><span class="stat-value">{{ player?.overall_stats?.total_matches }}</span></div>
+                    <div><span class="stat-value">{{ player?.overall_stats?.total_wins }}</span></div>
+                    <div><span class="stat-value">{{ calculateTotalLosses() }}</span></div>
+                    <div><span class="stat-value">{{ calculateWinPercentage() }}</span></div>
+                    <div><span class="stat-value">{{ player?.overall_stats?.unranked?.total_kills }}</span></div>
+                    <div><span class="stat-value">{{ player?.overall_stats?.ranked?.total_kills }}</span></div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="heroes-section">
-        <h3>Top Heroes</h3>
+    <div class="player-container heroes-section">
+        <h4>Top Heroes</h4>
         <table class="heroes-table">
             <thead>
                 <tr>

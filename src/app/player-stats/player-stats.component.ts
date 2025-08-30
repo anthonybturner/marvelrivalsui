@@ -12,12 +12,11 @@ import { HeroStats } from './data/hero-stats-model';
   standalone: false
 })
 export class PlayerStatsComponent implements OnInit, OnDestroy {
-
   getPlayerImage = getPlayerImage;
   player: PlayerStats | null = null;
   ngUnsubscribe = new Subject();
 
-  constructor(private activatedRoute: ActivatedRoute, private playerStatsService: PlayerStatsService) {}
+  constructor(private activatedRoute: ActivatedRoute, private playerStatsService: PlayerStatsService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params
@@ -30,32 +29,50 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
       });
   }
 
+  calculateTotalLosses() {
+    if (!this.player?.overall_stats) return 0;
+    const { total_wins, total_matches } = this.player.overall_stats;
+    return total_matches ? total_matches - total_wins : 0;
+  }
+
+  calculateWinPercentage() {
+    if (!this.player?.overall_stats) return '0.00';
+    const { total_wins, total_matches } = this.player.overall_stats;
+    return total_matches ? ((total_wins / total_matches) * 100).toFixed(2) + "%": '0.00';
+  }
+
+  getRankSeasonKeys(seasonObj: any): string[] {
+    return seasonObj ? Object.keys(seasonObj) : [];
+  }
+
   getWinRate(hero: HeroStats): string {
-  return hero.matches ? ((hero.wins / hero.matches) * 100).toFixed(2) : '0.00';
-}
-getTopPlayedHeroes(): HeroStats[] {
-  if (!this.player?.heroes_ranked) return [];
-  return [...this.player.heroes_ranked]
-    .sort((a, b) => b.play_time - a.play_time)
-    .slice(0, 10);
-}
-getTimePlayed(seconds: number): string {
-  if (!seconds) return '0m';
-  const mins = Math.floor(seconds / 60);
-  const hrs = Math.floor(mins / 60);
-  const remMins = mins % 60;
-  return hrs ? `${hrs}h ${remMins}m` : `${remMins}m`;
-}
+    return hero.matches ? ((hero.wins / hero.matches) * 100).toFixed(2) : '0.00';
+  }
+  
+  getTopPlayedHeroes(): HeroStats[] {
+    if (!this.player?.heroes_ranked) return [];
+    return [...this.player.heroes_ranked]
+      .sort((a, b) => b.play_time - a.play_time)
+      .slice(0, 10);
+  }
 
-getKDRatio(kills: number, deaths: number): string {
-  if (!deaths) return kills ? kills.toFixed(2) : '0.00';
-  return (kills / deaths).toFixed(2);
-}
+  getTimePlayed(seconds: number): string {
+    if (!seconds) return '0m';
+    const mins = Math.floor(seconds / 60);
+    const hrs = Math.floor(mins / 60);
+    const remMins = mins % 60;
+    return hrs ? `${hrs}h ${remMins}m` : `${remMins}m`;
+  }
 
-getBlockedPerMin(blocked: number, playTime: number): string {
-  if (!playTime) return '0';
-  return (blocked / (playTime / 60)).toFixed(0);
-}
+  getKDRatio(kills: number, deaths: number): string {
+    if (!deaths) return kills ? kills.toFixed(2) : '0.00';
+    return (kills / deaths).toFixed(2);
+  }
+
+  getBlockedPerMin(blocked: number, playTime: number): string {
+    if (!playTime) return '0';
+    return (blocked / (playTime / 60)).toFixed(0);
+  }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(null);
