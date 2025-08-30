@@ -12,6 +12,7 @@ import { PlayerTitleService } from '../shared/services/player-title-service';
 export class SiteHeaderComponent {
     pageTitle: string = 'Home';
     playerTitle: string = '';
+    menuOpen = false;
 
     constructor(private router: Router, 
         private activatedRoute: ActivatedRoute, 

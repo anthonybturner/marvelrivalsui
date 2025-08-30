@@ -49,21 +49,66 @@
     gap: 8px;
 
     a[mat-button] {
+      width: 100%;
       color: #fff !important;
       font-weight: 500;
       letter-spacing: 0.5px;
       border-radius: 6px;
       padding: 8px 18px;
       transition: background 0.18s, color 0.18s;
-
+      text-align: left;
+      
       &.active,
       &:hover {
-        background: #23272a !important;
-        color: #f0131e !important;
+        background: #000000 !important;
+        color: #e2cc08 !important;
       }
     }
   }
 }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  cursor: pointer;
+  margin-right: 8px;
+  z-index: 20;
+
+  span {
+    display: block;
+    height: 1px;
+    width: 18px;
+    background: #ecdd06;
+    margin: 2px 0;
+    border-radius: 2px;
+    transition: 0.2s;
+  }
+}
+
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+  .site-header-content nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    background: #000000;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0 2px 8px #000a;
+    z-index: 15;
+  }
+  .site-header-content nav.open {
+    display: flex;
+  }
+}
+
 @media (max-width: 768px) {
   .site-header-content {
     flex-direction: column;
@@ -74,6 +119,70 @@
     nav {
       margin-top: 8px;
       gap: 4px;
+    }
+  }
+}
+.site-header-toolbar {
+  z-index: 10;
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .container {
+    font-size: 18px;
+    margin-bottom: 16px; // Increased margin to prevent overlap
+    margin: -2px -4px 0 -4px;
+    padding: 0 4px 3px 4px;
+    border-bottom-width: 1px;
+  }
+
+  .site-header-toolbar {
+    padding: 0 8px;
+    min-height: 48px;
+    font-size: 1rem;
+    background: #000 !important;
+    z-index: 10;
+    position: relative;
+    border-bottom: none;
+  }
+
+  .site-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+
+    .logo {
+      height: 36px;
+      margin-right: 0;
+      margin-bottom: 6px;
+    }
+
+    .page-title {
+      font-size: 1.1rem;
+      margin-right: 0;
+      margin-bottom: 6px;
+    }
+
+    nav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      margin-top: -3px;
+      
+      a[mat-button] {
+        padding: 6px 12px;
+        font-size: 0.95rem;
+        background: #000000 !important; // Solid background for visibility
+        color: #fff !important;
+        border-radius: 6px;
+        margin-bottom: 2px;
+        border-bottom: 1px solid #e2cc0849;
+        &.active,
+        &:hover {
+          background: #e2cc08 !important;
+          color: #fff !important;
+        }
+      }
     }
   }
 }
