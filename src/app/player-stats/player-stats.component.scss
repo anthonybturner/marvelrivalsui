@@ -92,10 +92,13 @@
   min-width: 120px;
 }
 .hero-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #222;
+    width: 72px;
+    height: 72px;
+    background: #222;
+    
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
 }
 .hero-name {
   font-weight: bold;
@@ -121,15 +124,19 @@
   border-radius: 8px;
   overflow: hidden;
 }
+.heroes-table th,
+.heroes-table td {
+  text-align: left;
+}
 .heroes-table th, .heroes-table td {
   padding: 0.75rem 0.5rem;
-  text-align: center;
   border-bottom: 1px solid #333;
 }
 .heroes-table th {
   background: #000000;
   font-weight: 600;
   color: #4caf50;
+  justify-content: flex-start;
 }
 .heroes-table tr:last-child td {
   border-bottom: none;
@@ -138,5 +145,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  justify-content: center;
+  justify-content: flex-start;
+  min-width: 150px;      // Ensures enough space for icon + name
 }
