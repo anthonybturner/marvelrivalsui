@@ -1,25 +1,43 @@
 <div class="player-info-card">
-    <div class="stats-flex-row">
-        <div class="player-container player-stats">
-            <h4>Player Stats</h4>
-            <div class="player-stats-data player-stats-center">
-                <h2>{{ player?.name }}</h2>
-                <img [src]="getPlayerImage(player?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
-                <div class="stats-row stats-row-labels">
-                    <div><span class="stat-label">Level</span></div>
-                    <div><span class="stat-label">Rank</span></div>
-                    <div><span class="stat-label">Achievements</span></div>
-                    <div><span class="stat-label">Platform</span></div>
-                </div>
-                <div class="stats-row stats-row-values">
-                    <div><span class="stat-value">{{ player?.player?.level }}</span></div>
-                    <div><span class="stat-value">{{ getPlayerRank(player?.player?.rank?.rank) }}</span></div>
-                    <div><span class="stat-value">{{ player?.player?.info?.completed_achievements }}</span></div>
-                    <div><span class="stat-value">{{ player?.player?.info?.login_os }}</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="player-container rank-game-season">
+<div class="search-box-container">
+    <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
+        <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
+            placeholder="Search Player..." required />
+        <button class="search-player-button" type="submit"
+            style="display:block; width: 100%; height: auto;">Search</button>
+    </form>
+    <form #updateForm="ngForm" (ngSubmit)="onUpdatePlayer()">
+        <input type="text" class="search-box" name="updatePlayerName" [(ngModel)]="updatePlayerName"
+            placeholder="Update Player..." required />
+        <button class="update-player-button" type="submit" style="display:block">Update</button>
+        <span *ngIf="playerUpdateMessage?.message">{{playerUpdateMessage?.message}}</span>
+    </form>
+</div>
+<div class="top-section-container">
+    <div class="stats-section">
+        <h4>Player Stats</h4>
+        <table class="player-stats-table">
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Rank</th>
+                    <th>Achievements</th>
+                    <th>Platform </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                   <td>{{ playerStats?.player?.level }}</td>
+                    <td>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</td>
+                    <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
+                    <td>{{ playerStats?.player?.info?.login_os }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <img [src]="getPlayerImage(playerStats?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
+    </div>
+
+        <div class="stats-section">
             <h4>Rank Game Season</h4>
             <table class="rank-season-table">
                 <thead>
@@ -34,41 +52,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let key of getRankSeasonKeys(player?.player?.info?.rank_game_season)">
+                    <tr *ngFor="let key of getRankSeasonKeys(playerStats?.player?.info?.rank_game_season)">
                         <td>{{ key }}</td>
-                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.level }}</td>
-                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.rank_score | number:'1.0-0' }}</td>
-                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.max_level }}</td>
-                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.max_rank_score | number:'1.0-0' }}</td>
-                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.win_count }}</td>
-                        <td>{{ player?.player?.info?.rank_game_season?.[key]?.update_time }}</td>
+                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.level }}</td>
+                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.rank_score | number:'1.0-0' }}</td>
+                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.max_level }}</td>
+                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.max_rank_score | number:'1.0-0' }}
+                        </td>
+                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.win_count }}</td>
+                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.update_time }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="player-container overall-stats">
+        <div class="stats-section">
             <h4>Overall Stats</h4>
-            <div class="overall-stats-data">
-                <div class="stats-row stats-row-labels">
-                    <div><span class="stat-label">Matches</span></div>
-                    <div><span class="stat-label">Wins</span></div>
-                    <div><span class="stat-label">Losses</span></div>
-                    <div><span class="stat-label">Win Percentage</span></div>
-                    <div><span class="stat-label">Unranked Kills</span></div>
-                    <div><span class="stat-label">Ranked Kills</span></div>
-                </div>
-                <div class="stats-row stats-row-values">
-                    <div><span class="stat-value">{{ player?.overall_stats?.total_matches }}</span></div>
-                    <div><span class="stat-value">{{ player?.overall_stats?.total_wins }}</span></div>
-                    <div><span class="stat-value">{{ calculateTotalLosses() }}</span></div>
-                    <div><span class="stat-value">{{ calculateWinPercentage() }}</span></div>
-                    <div><span class="stat-value">{{ player?.overall_stats?.unranked?.total_kills }}</span></div>
-                    <div><span class="stat-value">{{ player?.overall_stats?.ranked?.total_kills }}</span></div>
-                </div>
-            </div>
+            <table class="overall-stats-table">
+                <thead>
+                    <tr>
+                        <th>Matches</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                        <th>Win Percentage</th>
+                        <th>Unranked Kills</th>
+                        <th>Ranked Kills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ playerStats?.overall_stats?.total_matches }}</td>
+                        <td>{{ playerStats?.overall_stats?.total_wins }}</td>
+                        <td>{{ calculateTotalLosses() }}</td>
+                        <td>{{ calculateWinPercentage() }}</td>
+                        <td>{{ playerStats?.overall_stats?.unranked?.total_kills }}</td>
+                        <td>{{ playerStats?.overall_stats?.ranked?.total_kills }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="heroes-section">
+</div>
+    <div class="stats-section">
         <h4>Top Heroes</h4>
         <table class="heroes-table">
             <thead>

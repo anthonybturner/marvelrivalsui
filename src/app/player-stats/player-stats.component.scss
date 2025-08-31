@@ -1,3 +1,13 @@
+
+form{
+  display: flex;
+}
+
+input {
+    flex: 0.1;
+    margin-right: 4px;
+}
+
 .player-info-card {
   background: #000000;
   color: #fff;
@@ -16,32 +26,6 @@
   margin: 0 auto;
 }
 
-.player-level,
-.player-rank {
-  font-size: 1rem;
-  color: #fff;
-}
-
-.player-container {
-  background: #ffffffb2;
-  color: #000;
-  padding: .2rem;
-  border-radius: 8px;
-
-  h4 {
-    background: #000;
-    color: #f5d834;
-    padding: 0.2rem;
-    margin-bottom: 0;
-    border-radius: 4px;
-  }
-}
-
-.player-stats-center {
-  display: flex;
-  flex-direction: column;
-}
-
 .player-stats {
   h2 {
     text-align: center;
@@ -52,20 +36,6 @@
   }
 }
 
-.player-stats-data {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.2rem;
-  background: #746303fd;
-  color: #fff7f7;
-  border-radius: 8px;
-  overflow: hidden;
-  font-size: 0.95rem;
-
-  img {
-    margin-bottom: 1rem;
-  }
-}
 
 .stats-flex-row {
   background: #f5d8344b;
@@ -77,82 +47,12 @@
 }
 
 //Rank Season
-.rank-season-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.2rem;
-  background: #746303fd;
-  color: #fff7f7;
-  border-radius: 8px;
-  overflow: hidden;
-  font-size: 0.95rem;
-}
-
-.rank-season-table th,
-.rank-season-table td {
-  padding: 0.5rem 0.25rem;
-  text-align: center;
-  border-bottom: 1px solid #333;
-}
-
-.rank-season-table th {
-  background: #000000;
-  font-weight: 600;
-  color: #4caf50;
-}
-
-.rank-season-table tr:last-child td {
-  border-bottom: none;
-}
 
 //Overall stats section
-.overall-stats-data {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.2rem;
-  background: #746303fd;
-  color: #fff7f7;
-  border-radius: 8px;
-  overflow: hidden;
-  font-size: 0.95rem;
-}
 
-.overall-stats .stats-row.stats-row-labels,
-.player-stats .stats-row.stats-row-labels {
-  background: #000;
-  border-radius: 6px 6px 0 0;
-}
+//Labels stats row 
 
-.overall-stats .stats-row.stats-row-values,
-.player-stats .stats-row.stats-row-values {
-  background: #746303fd;
-  border-radius: 0 0 6px 6px;
-}
-
-.stats-row-labels,
-.stats-row-values {
-  display: flex;
-  gap: 2rem;
-  justify-content: space-around;
-}
-
-.stats-row-labels .stat-label {
-  font-size: .9rem;
-  color: #4caf50;
-  font-weight: 500;
-  display: block;
-  text-align: left;
-}
-
-.stats-row-values .stat-value {
-  margin-left: 0;
-  text-align: left;
-}
-
-.stats-row-labels>div,
-.stats-row-values>div {
-    text-align: left;
-}
+//Values stats row
 
 
 //Heroes data
@@ -162,15 +62,6 @@
   flex-wrap: wrap;
 }
 
-.hero-card {
-  background: #333;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 120px;
-}
 
 .hero-icon {
   width: 72px;
@@ -180,55 +71,6 @@
   object-fit: cover;
   display: inline-block;
   vertical-align: middle;
-}
-
-.hero-name {
-  font-weight: bold;
-  color: #fff;
-  max-width: 120px; // Fixed width for hero name
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: inline-block;
-}
-
-.hero-winrate {
-  font-size: 0.9rem;
-  color: #4caf50;
-  margin-left: 0.5rem;
-}
-
-.heroes-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.2rem;
-  background: #746303fd;
-  color: #fff7f7;
-  border-radius: 8px;
-  overflow: hidden;
-  font-size: 0.95rem;
-}
-
-.heroes-table th,
-.heroes-table td {
-  text-align: left;
-}
-
-.heroes-table th,
-.heroes-table td {
-  padding: 0.75rem 0.5rem;
-  border-bottom: 1px solid #333;
-}
-
-.heroes-table th {
-  background: #000000;
-  font-weight: 600;
-  color: #4caf50;
-  justify-content: flex-start;
-}
-
-.heroes-table tr:last-child td {
-  border-bottom: none;
 }
 
 .hero-table-cell {
@@ -253,30 +95,6 @@
     padding: 0.5rem;
   }
 
-  .player-stats,
-  .overall-stats {
-    width: 100%;
-    padding: 0.5rem 0;
-    align-items: center;
-    text-align: center;
-  }
-
-  .heroes-section {
-    padding: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .heroes-table th,
-  .heroes-table td {
-    padding: 0.5rem 0.25rem;
-    font-size: 0.9rem;
-  }
-
-  .hero-table-cell {
-    min-width: 0;
-    gap: 0.25rem;
-  }
-
   .hero-icon {
     width: 40px;
     height: 40px;
@@ -287,11 +105,4 @@
     font-size: 0.95rem;
   }
 
-  .heroes-table {
-    font-size: 0.95rem;
-    border-radius: 4px;
-    margin-top: 0.5rem;
-    overflow-x: auto;
-    display: block;
-  }
 }

@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { PlayerStatsService } from './services/player-stats-service';
 import { getPlayerImage } from 'src/app/shared/utilities/image-utils';
 import { HeroStats } from './data/hero-stats-model';
+import { PlayerDataResponse } from './data/player-data-response.model';
 @Component({
   selector: 'mr-player-stats',
   templateUrl: './player-stats.component.html',
@@ -14,8 +15,11 @@ import { HeroStats } from './data/hero-stats-model';
 export class PlayerStatsComponent implements OnInit, OnDestroy {
 
   getPlayerImage = getPlayerImage;
-  player: PlayerStats | null = null;
+  playerStats: PlayerStats | null = null;
   ngUnsubscribe = new Subject();
+  searchPlayerName: string = '';
+  updatePlayerName: string = '';
+  playerUpdateMessage: PlayerDataResponse | null = null; 
 
   constructor(private activatedRoute: ActivatedRoute, private playerStatsService: PlayerStatsService) { }
 
@@ -25,7 +29,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
       .subscribe((params) => {
         const uid = params['uid'] || 'SilentCoder'; // fallback if no uid
         this.playerStatsService.getPlayerStats(uid).subscribe(playerData => {
-          this.player = playerData;
+          this.playerStats = playerData;
         });
       });
   }
@@ -35,14 +39,14 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     return `Rank ${rank}`;
   }
   calculateTotalLosses() {
-    if (!this.player?.overall_stats) return 0;
-    const { total_wins, total_matches } = this.player.overall_stats;
+    if (!this.playerStats?.overall_stats) return 0;
+    const { total_wins, total_matches } = this.playerStats.overall_stats;
     return total_matches ? total_matches - total_wins : 0;
   }
 
   calculateWinPercentage() {
-    if (!this.player?.overall_stats) return '0.00';
-    const { total_wins, total_matches } = this.player.overall_stats;
+    if (!this.playerStats?.overall_stats) return '0.00';
+    const { total_wins, total_matches } = this.playerStats.overall_stats;
     return total_matches ? ((total_wins / total_matches) * 100).toFixed(2) + "%" : '0.00';
   }
 
@@ -55,8 +59,8 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   }
 
   getTopPlayedHeroes(): HeroStats[] {
-    if (!this.player?.heroes_ranked) return [];
-    return [...this.player.heroes_ranked]
+    if (!this.playerStats?.heroes_ranked) return [];
+    return [...this.playerStats.heroes_ranked]
       .sort((a, b) => b.play_time - a.play_time)
       .slice(0, 10);
   }
@@ -78,7 +82,17 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     if (!playTime) return '0';
     return (blocked / (playTime / 60)).toFixed(0);
   }
-
+  onSearchPlayer(){
+    this.playerStatsService.getPlayerStats(this.searchPlayerName).subscribe(playerStats => {
+      this.playerStats = playerStats
+    })
+  }
+  onUpdatePlayer(){
+      this.playerStatsService.updatePlayerStats(this.updatePlayerName).subscribe(response => {
+      response.message = this.updatePlayerName + " " + response.message 
+      this.playerUpdateMessage = response;
+    })
+  }
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
