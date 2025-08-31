@@ -19,7 +19,8 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   ngUnsubscribe = new Subject();
   searchPlayerName: string = '';
   updatePlayerName: string = '';
-  playerUpdateMessage: PlayerDataResponse | null = null; 
+  playerUpdateMessage: PlayerDataResponse | null = null;
+  PlayerName: string = '';
 
   constructor(private activatedRoute: ActivatedRoute, private playerStatsService: PlayerStatsService) { }
 
@@ -82,16 +83,56 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     if (!playTime) return '0';
     return (blocked / (playTime / 60)).toFixed(0);
   }
-  onSearchPlayer(){
-    this.playerStatsService.getPlayerStats(this.searchPlayerName).subscribe(playerStats => {
-      this.playerStats = playerStats
-    })
+  onSearchPlayer() {
+    this.playerStatsService.getPlayerStats(this.searchPlayerName)
+      .subscribe({
+        next: (playerStats) => {
+          this.playerStats = playerStats
+          this.PlayerName = this.searchPlayerName;
+          this.playerUpdateMessage = null;
+        },
+        error: (error) => {
+          let friendlyMsg = "An error occurred. Please try again.";
+          if (error.status === 404) {
+            friendlyMsg = "Player not found. Please check the name and try again.";
+          } 
+          else if (error.status === 429) {
+            friendlyMsg = "Too many requests. Please wait and try again.";
+          } 
+          else if (error.error?.message) {
+            friendlyMsg = error.error.message;
+          }
+          this.playerUpdateMessage = { message: friendlyMsg } as PlayerDataResponse;
+        }
+      })
   }
-  onUpdatePlayer(){
-      this.playerStatsService.updatePlayerStats(this.updatePlayerName).subscribe(response => {
-      response.message = this.updatePlayerName + " " + response.message 
-      this.playerUpdateMessage = response;
-    })
+  onUpdatePlayer() {
+    this.playerStatsService.updatePlayerStats(this.updatePlayerName)
+      .subscribe({
+        next: (response) => {
+          response.message = this.updatePlayerName + " " + response.message
+          this.playerUpdateMessage = response;
+        },
+        error: (error) => {
+          let friendlyMsg = "An error occurred. Please try again.";
+          if (error.status === 400) {
+            friendlyMsg = "Bad Request, please check your uid or username.";
+          }
+          else if (error.status === 401) {
+            friendlyMsg = "Unauthorized, please check your api key.";
+          }
+          else if (error.status === 404) {
+            friendlyMsg = "Player not found. Please check the name and try again.";
+          } 
+          else if (error.status === 500) {
+            friendlyMsg = "Server Error, error while processing the update request.";
+          } 
+          else if (error.error?.message) {
+            friendlyMsg = error.error.message;
+          }
+          this.playerUpdateMessage = { message: friendlyMsg } as PlayerDataResponse;
+        }
+      })
   }
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(null);

@@ -17,14 +17,6 @@ input {
 }
 
 //Player stats
-.player-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid #444;
-  background: #333;
-  margin: 0 auto;
-}
 
 .player-stats {
   h2 {
@@ -36,7 +28,6 @@ input {
   }
 }
 
-
 .stats-flex-row {
   background: #f5d8344b;
   padding: 1rem;
@@ -46,22 +37,12 @@ input {
   align-items: flex-start;
 }
 
-//Rank Season
-
-//Overall stats section
-
-//Labels stats row 
-
-//Values stats row
-
-
 //Heroes data
 .heroes-list {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
-
 
 .hero-icon {
   width: 72px;
@@ -83,10 +64,14 @@ input {
 
 //Mobile
 @media (max-width: 600px) {
-  .player-stats-card {
+  .player-info-card {
+    display: flex;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: none;
+  }
+  .player-info-card div{
+    flex: 1.0;
   }
 
   .stats-flex-row {

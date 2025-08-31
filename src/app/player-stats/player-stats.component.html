@@ -10,33 +10,35 @@
         <input type="text" class="search-box" name="updatePlayerName" [(ngModel)]="updatePlayerName"
             placeholder="Update Player..." required />
         <button class="update-player-button" type="submit" style="display:block">Update</button>
-        <span *ngIf="playerUpdateMessage?.message">{{playerUpdateMessage?.message}}</span>
+        <span class="update-message" *ngIf="playerUpdateMessage?.message">{{playerUpdateMessage?.message}}</span>
     </form>
 </div>
 <div class="top-section-container">
     <div class="stats-section">
-        <h4>Player Stats</h4>
-        <table class="player-stats-table">
-            <thead>
-                <tr>
-                    <th>Level</th>
-                    <th>Rank</th>
-                    <th>Achievements</th>
-                    <th>Platform </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                   <td>{{ playerStats?.player?.level }}</td>
-                    <td>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</td>
-                    <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
-                    <td>{{ playerStats?.player?.info?.login_os }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <img [src]="getPlayerImage(playerStats?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
+            <h4>{{PlayerName}} Player Stats</h4>
+            <table class="player-stats-table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Rank</th>
+                        <th>Achievements</th>
+                        <th>Platform </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>{{ playerStats?.player?.level }}</td>
+                        <td>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</td>
+                        <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
+                        <td>{{ playerStats?.player?.info?.login_os }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <img [src]="getPlayerImage(playerStats?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
     </div>
+</div>
 
+<div class="middle-section-container">
         <div class="stats-section">
             <h4>Rank Game Season</h4>
             <table class="rank-season-table">
