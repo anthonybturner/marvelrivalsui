@@ -84,12 +84,12 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     return (blocked / (playTime / 60)).toFixed(0);
   }
   onSearchPlayer() {
+    this.playerUpdateMessage = null;
     this.playerStatsService.getPlayerStats(this.searchPlayerName)
       .subscribe({
         next: (playerStats) => {
           this.playerStats = playerStats
           this.PlayerName = this.searchPlayerName;
-          this.playerUpdateMessage = null;
         },
         error: (error) => {
           let friendlyMsg = "An error occurred. Please try again.";
