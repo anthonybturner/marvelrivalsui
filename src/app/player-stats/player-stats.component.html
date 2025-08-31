@@ -3,17 +3,17 @@
 </div>
 <div class="player-info-card">
     <div class="search-box-container">
-        <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
-            <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
-                placeholder="Search Player..." required />
-            <button class="search-player-button" type="submit"
-                style="display:block; width: 100%; height: auto;">Search</button>
-        </form>
-        <form #updateForm="ngForm" (ngSubmit)="onUpdatePlayer()">
-            <input type="text" class="search-box" name="updatePlayerName" [(ngModel)]="updatePlayerName"
-                placeholder="Update Player..." required />
-            <button class="update-player-button" type="submit" style="display:block">Update</button>
-        </form>
+            <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
+                <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
+                    placeholder="Search Player..." required />
+                <button class="search-player-button" type="submit"
+                    style="display:block; width: 100%; height: auto;">Search</button>
+            </form>
+            <form #updateForm="ngForm" (ngSubmit)="onUpdatePlayer()">
+                <input type="text" class="search-box" name="updatePlayerName" [(ngModel)]="updatePlayerName"
+                    placeholder="Update Player..." required />
+                <button class="update-player-button" type="submit" style="display:block">Update</button>
+            </form>
     </div>
     <div class="top-section-container">
         <div class="stats-section">

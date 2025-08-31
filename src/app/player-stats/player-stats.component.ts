@@ -30,12 +30,15 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.activatedRoute.params
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((params) => {
         const uid = params['uid'] || 'SilentCoder'; // fallback if no uid
         this.playerStatsService.getPlayerStats(uid).subscribe(playerData => {
           this.playerStats = playerData;
+          this.PlayerName = uid;
+          this.loading = false;
         });
       });
   }

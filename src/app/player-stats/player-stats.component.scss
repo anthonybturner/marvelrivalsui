@@ -66,12 +66,15 @@ input {
 @media (max-width: 600px) {
   .player-info-card {
     display: flex;
+    flex-flow: column;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: none;
   }
   .player-info-card div{
+    display: block;
     flex: 1.0;
+    padding: 0.2rem 0;
   }
 
   .stats-flex-row {
