@@ -21,6 +21,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   updatePlayerName: string = '';
   playerUpdateMessage: PlayerDataResponse | null = null;
   PlayerName: string = '';
+  loading: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private playerStatsService: PlayerStatsService) { }
 
@@ -84,12 +85,14 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     return (blocked / (playTime / 60)).toFixed(0);
   }
   onSearchPlayer() {
+    this.loading = true;
     this.playerUpdateMessage = null;
     this.playerStatsService.getPlayerStats(this.searchPlayerName)
       .subscribe({
         next: (playerStats) => {
           this.playerStats = playerStats
           this.PlayerName = this.searchPlayerName;
+          this.loading = false;
         },
         error: (error) => {
           let friendlyMsg = "An error occurred. Please try again.";
@@ -103,15 +106,18 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
             friendlyMsg = error.error.message;
           }
           this.playerUpdateMessage = { message: friendlyMsg } as PlayerDataResponse;
+          this.loading = false;
         }
       })
   }
   onUpdatePlayer() {
+    this.loading = true;
     this.playerStatsService.updatePlayerStats(this.updatePlayerName)
       .subscribe({
         next: (response) => {
           response.message = this.updatePlayerName + " " + response.message
           this.playerUpdateMessage = response;
+          this.loading = false;
         },
         error: (error) => {
           let friendlyMsg = "An error occurred. Please try again.";
@@ -131,6 +137,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
             friendlyMsg = error.error.message;
           }
           this.playerUpdateMessage = { message: friendlyMsg } as PlayerDataResponse;
+          this.loading = false;
         }
       })
   }

@@ -1,20 +1,23 @@
-<div class="player-info-card">
-<div class="search-box-container">
-    <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
-        <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
-            placeholder="Search Player..." required />
-        <button class="search-player-button" type="submit"
-            style="display:block; width: 100%; height: auto;">Search</button>
-    </form>
-    <form #updateForm="ngForm" (ngSubmit)="onUpdatePlayer()">
-        <input type="text" class="search-box" name="updatePlayerName" [(ngModel)]="updatePlayerName"
-            placeholder="Update Player..." required />
-        <button class="update-player-button" type="submit" style="display:block">Update</button>
-        <span class="update-message" *ngIf="playerUpdateMessage?.message">{{playerUpdateMessage?.message}}</span>
-    </form>
+<div *ngIf="loading" class="fullscreen-loading">
+    <div class="spinner"></div>
 </div>
-<div class="top-section-container">
-    <div class="stats-section">
+<div class="player-info-card">
+    <div class="search-box-container">
+        <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
+            <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
+                placeholder="Search Player..." required />
+            <button class="search-player-button" type="submit"
+                style="display:block; width: 100%; height: auto;">Search</button>
+        </form>
+        <form #updateForm="ngForm" (ngSubmit)="onUpdatePlayer()">
+            <input type="text" class="search-box" name="updatePlayerName" [(ngModel)]="updatePlayerName"
+                placeholder="Update Player..." required />
+            <button class="update-player-button" type="submit" style="display:block">Update</button>
+            <span class="update-message" *ngIf="playerUpdateMessage?.message">{{playerUpdateMessage?.message}}</span>
+        </form>
+    </div>
+    <div class="top-section-container">
+        <div class="stats-section">
             <h4>{{PlayerName}} Player Stats</h4>
             <table class="player-stats-table">
                 <thead>
@@ -27,7 +30,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                    <td>{{ playerStats?.player?.level }}</td>
+                        <td>{{ playerStats?.player?.level }}</td>
                         <td>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</td>
                         <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
                         <td>{{ playerStats?.player?.info?.login_os }}</td>
@@ -35,10 +38,10 @@
                 </tbody>
             </table>
             <img [src]="getPlayerImage(playerStats?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" />
+        </div>
     </div>
-</div>
 
-<div class="middle-section-container">
+    <div class="middle-section-container">
         <div class="stats-section">
             <h4>Rank Game Season</h4>
             <table class="rank-season-table">
@@ -92,7 +95,7 @@
                 </tbody>
             </table>
         </div>
-</div>
+    </div>
     <div class="stats-section">
         <h4>Top Heroes</h4>
         <table class="heroes-table">
