@@ -6,6 +6,8 @@ import { PlayerStatsService } from './services/player-stats-service';
 import { getPlayerImage } from 'src/app/shared/utilities/image-utils';
 import { HeroStats } from './data/hero-stats-model';
 import { PlayerDataResponse } from './data/player-data-response.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'mr-player-stats',
   templateUrl: './player-stats.component.html',
@@ -19,11 +21,13 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   ngUnsubscribe = new Subject();
   searchPlayerName: string = '';
   updatePlayerName: string = '';
-  playerUpdateMessage: PlayerDataResponse | null = null;
   PlayerName: string = '';
   loading: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private playerStatsService: PlayerStatsService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private playerStatsService: PlayerStatsService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params
@@ -86,7 +90,6 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   }
   onSearchPlayer() {
     this.loading = true;
-    this.playerUpdateMessage = null;
     this.playerStatsService.getPlayerStats(this.searchPlayerName)
       .subscribe({
         next: (playerStats) => {
@@ -98,14 +101,17 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
           let friendlyMsg = "An error occurred. Please try again.";
           if (error.status === 404) {
             friendlyMsg = "Player not found. Please check the name and try again.";
-          } 
+          }
           else if (error.status === 429) {
             friendlyMsg = "Too many requests. Please wait and try again.";
-          } 
+          }
           else if (error.error?.message) {
             friendlyMsg = error.error.message;
           }
-          this.playerUpdateMessage = { message: friendlyMsg } as PlayerDataResponse;
+          this.snackBar.open(friendlyMsg, 'Close', {
+            duration: 4000,
+            panelClass: ['error-snackbar']
+          });
           this.loading = false;
         }
       })
@@ -116,7 +122,6 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           response.message = this.updatePlayerName + " " + response.message
-          this.playerUpdateMessage = response;
           this.loading = false;
         },
         error: (error) => {
@@ -129,14 +134,17 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
           }
           else if (error.status === 404) {
             friendlyMsg = "Player not found. Please check the name and try again.";
-          } 
+          }
           else if (error.status === 500) {
             friendlyMsg = "Server Error, error while processing the update request.";
-          } 
+          }
           else if (error.error?.message) {
             friendlyMsg = error.error.message;
           }
-          this.playerUpdateMessage = { message: friendlyMsg } as PlayerDataResponse;
+          this.snackBar.open(friendlyMsg, 'Close', {
+            duration: 4000,
+            panelClass: ['error-snackbar']
+          });
           this.loading = false;
         }
       })
