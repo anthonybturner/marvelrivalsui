@@ -1,42 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'assets/scss/config' as *;
 @use 'assets/scss/global' as *;
-
-// Backgrounds
-$bg-main: #0a0606;
-$bg-section: #746303fd;
-$bg-table: #554802fd;
-$bg-table-alt: #222222;
-
-// Buttons
-$btn-bg: #746303fd;
-$btn-text: #fff;
-
-// Labels
-$label-bg: #000;
-$label-text: #e0e0e0;
-
-// Headings
-$heading-bg: #0000006c;
-$heading-text: #fdfdfb;
-
-// Section text
-$section-text: #ffffff;
-
-// Table row alternate
-$table-row-odd: #000000;
-$table-row-even: #746303fd;
-
-// Table
-$table-th-bg: $label-bg;
-$table-th-text: $label-text;
-
-// General
-$p-text: #000;
-
-// Border
-$border-bg: #b1aa83fd;
-$border-text: #ffffff;
-
 
 // Table styles
 table {
@@ -45,20 +9,9 @@ table {
 }
 
 table thead {
-  background: $bg-main;
+  background: $main-bg;
 }
-.update-message {
-  color: $label-text;
-  background-color: #9c0a0a;
-  font-size: 0.8rem;
-  height: 22px;
-  vertical-align: middle;
-  align-content: center;
-  text-align: center;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 8px;
-}
+
 .stats-section .heroes-table tr:nth-child(odd) {
   background-color: $table-row-odd;
 }
@@ -71,7 +24,7 @@ table th,
 .stat-label {
   background: $table-th-bg;
   color: $table-th-text;
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   font-weight: 500;
   border-radius: 4px;
 }
@@ -117,11 +70,14 @@ h4 {
   align-items: center;
   justify-content: center;
   gap: .5rem;
+  padding: 6px;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 // Top section layout
 .top-section-container {
   display: block;
-  font-size: 10px;
+  font-size: $primary-text-size;
   align-items: center;
   align-content: center;
 }
@@ -129,24 +85,38 @@ h4 {
   flex: .5;
 }
 .top-section-container .stats-section table {
-  background-color: $bg-table;
+  background-color: $table-bg;
   border-radius: 8px;
 }
 .top-section-container .stats-section td {
   text-align: center;
 }
+.update-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.dot-green{
+  background-color: darken($success-bg, 0%);
+}
 
+.dot-red{
+  background-color: darken($error-bg, 5%);
+}
 //Middle section layout
 .middle-section-container {
   display: flex;
   gap: .5rem;
-  font-size: 10px;
+  font-size: $primary-text-size;
 }
 .middle-section-container .stats-section {
   flex: .5;
 }
 .middle-section-container .stats-section table {
-  background-color: $bg-table;
+  background-color: $table-bg;
   border-radius: 8px;
 }
 .middle-section-container .stats-section td {
@@ -155,11 +125,13 @@ h4 {
 
 // Stats section
 .stats-section {
-  background: $bg-section;
+  background: $section-bg;
   color: $section-text;
   padding: 6px;
   border-radius: 8px;
   margin-bottom: 8px;
+  box-shadow:inset 0 0 10px $shadow-effect;
+  text-align: center;
 }
 .stats-section .player-icon {
   display: block;
@@ -192,4 +164,16 @@ h4 {
 @keyframes spin {
   0% { transform: rotate(0deg);}
   100% { transform: rotate(360deg);}
+}
+
+.error-snackbar,
+.mdc-snackbar__surface,
+.mat-mdc-snackbar-surface {
+  @include snackbar-base($error-bg, $error-text);
+}
+
+.success-snackbar,
+.mdc-snackbar__surface,
+.mat-mdc-snackbar-surface{
+  @include snackbar-base($success-bg, $success-text);
 }

@@ -1,6 +1,8 @@
+@use 'config' as *;
+
 body {
   margin: 0;
-  background: #000;
+  background: $secondary-color;
   color: #fff;
 }
 
@@ -157,7 +159,7 @@ img.hero-icon {
 input {
   padding: 10px 15px;
   border: 1px solid #444;
-  background: #252525;
+  background: $secondary-color;
   color: #fff;
   border-radius: 6px;
   min-width: 220px;
