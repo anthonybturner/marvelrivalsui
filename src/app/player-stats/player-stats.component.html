@@ -12,7 +12,7 @@
     </div>
     <div class="top-section-container">
         <div class="stats-section">
-            <h4>{{PlayerName}} Player Stats</h4>
+            <h4>{{PlayerName}} Player Stats <span class="update-dot" [ngClass]="{'dot-green': isPlayerUpdated, 'dot-red': !isPlayerUpdated}"></span></h4>
             <table class="player-stats-table">
                 <thead>
                     <tr>
@@ -25,7 +25,11 @@
                 <tbody>
                     <tr>
                         <td>{{ playerStats?.player?.level }}</td>
-                        <td>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</td>
+                        <td>
+                            <div class="rank-table-cell">
+                            <span>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</span> <img [src]="getPlayerImage(playerStats?.player?.rank?.image ?? undefined)" />
+                            </div>
+                        </td>
                         <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
                         <td>{{ playerStats?.player?.info?.login_os }}</td>
                     </tr>

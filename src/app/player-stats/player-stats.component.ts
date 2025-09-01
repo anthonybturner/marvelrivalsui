@@ -5,9 +5,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { PlayerStatsService } from './services/player-stats-service';
 import { getPlayerImage } from 'src/app/shared/utilities/image-utils';
 import { HeroStats } from './data/hero-stats-model';
-import { PlayerDataResponse } from './data/player-data-response.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { parseLastUpdateDate, needsUpdate } from 'src/utils/date-utils';
 @Component({
   selector: 'mr-player-stats',
   templateUrl: './player-stats.component.html',
@@ -22,6 +21,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   searchPlayerName: string = '';
   PlayerName: string = '';
   loading: boolean = false;
+  isPlayerUpdated: boolean | null = null;
 
   constructor(private activatedRoute: ActivatedRoute,
     private playerStatsService: PlayerStatsService,
@@ -34,11 +34,8 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((params) => {
         const uid = params['uid'] || 'SilentCoder'; // fallback if no uid
-        this.playerStatsService.getPlayerStats(uid).subscribe(playerData => {
-          this.playerStats = playerData;
-          this.PlayerName = uid;
-          this.loading = false;
-        });
+          this.searchPlayerName = uid;
+          this.onSearchPlayer();
       });
   }
   getPlayerRank(rank: string | undefined): string {
@@ -46,6 +43,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     if (rank === 'Invalid level') return 'N/A';
     return `Rank ${rank}`;
   }
+
   calculateTotalLosses() {
     if (!this.playerStats?.overall_stats) return 0;
     const { total_wins, total_matches } = this.playerStats.overall_stats;
@@ -95,51 +93,27 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     this.playerStatsService.getPlayerStats(this.searchPlayerName)
       .subscribe({
         next: (playerStats) => {
-          const lastUpdateParts = playerStats.updates.last_history_update.split(",");
-          const date = lastUpdateParts[0];
-          const lastMonthParts = date.split("/");
-
-          const lastUpdateMonth = parseInt(lastMonthParts[0], 10);
-          const lastUpdateDay = parseInt(lastMonthParts[1], 10);
-          const lastUpdateYear = parseInt(lastMonthParts[2], 10);
-
-          // Create a Date object for the last update
-          const lastUpdateDate = new Date(lastUpdateYear, lastUpdateMonth - 1, lastUpdateDay);
-
-          // Get today's date
-          const now = new Date();
-          const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
+          const lastUpdateDate = parseLastUpdateDate(playerStats.updates.last_history_update);
           // If last update is before today, update
-          if (lastUpdateDate < today) {
+          const updateNeeded = lastUpdateDate && needsUpdate(lastUpdateDate);
+          if (updateNeeded) {
             this.updatePlayer();
           }
+          this.isPlayerUpdated = lastUpdateDate && !updateNeeded;
 
           this.playerStats = playerStats;
           this.PlayerName = this.searchPlayerName;
           this.loading = false;
+          this.showToast(`Player: ${this.searchPlayerName} found.`, 4000, 'success-snackbar');
         },
         error: (error) => {
-          let friendlyMsg = "An error occurred. Please try again.";
-          if (error.status === 404) {
-            friendlyMsg = "Player not found. Please check the name and try again.";
-          }
-          else if (error.status === 429) {
-            friendlyMsg = "Too many requests. Please wait and try again.";
-          }
-          else if (error.error?.message) {
-            friendlyMsg = error.error.message;
-          }
-          this.snackBar.open(friendlyMsg, 'Close', {
-            duration: 4000,
-            panelClass: ['error-snackbar']
-          });
+          this.handleError("Searched Player", error);
           this.loading = false;
         }
       })
   }
-
   updatePlayer() {
+    this.showToast(`Updating player check back later: ${this.searchPlayerName}.`, 4000, 'success-snackbar');
     this.loading = true;
     this.playerStatsService.updatePlayerStats(this.searchPlayerName)
       .subscribe({
@@ -148,29 +122,38 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
           this.loading = false;
         },
         error: (error) => {
-          let friendlyMsg = "An error occurred. Please try again.";
-          if (error.status === 400) {
-            friendlyMsg = "Bad Request, please check your uid or username.";
-          }
-          else if (error.status === 401) {
-            friendlyMsg = "Unauthorized, please check your api key.";
-          }
-          else if (error.status === 404) {
-            friendlyMsg = "Player not found. Please check the name and try again.";
-          }
-          else if (error.status === 500) {
-            friendlyMsg = "Server Error, error while processing the update request.";
-          }
-          else if (error.error?.message) {
-            friendlyMsg = error.error.message;
-          }
-          this.snackBar.open(friendlyMsg, 'Close', {
-            duration: 4000,
-            panelClass: ['error-snackbar']
-          });
+          this.handleError("Update Player", error);
           this.loading = false;
         }
       })
+  }
+
+  private handleError(tag: string, error: any) {
+    let friendlyMsg = "An error occurred. Please try again.";
+
+    if (error.status === 400) {
+      friendlyMsg = "Bad Request, please check your uid or username.";
+    }
+    if (error.status === 401) {
+      friendlyMsg = "Unauthorized, please check your api key.";
+    }
+    else if (error.status === 404) {
+      friendlyMsg = "Player not found. Please check the name and try again.";
+    } else if (error.status === 429) {
+      friendlyMsg = "Too many requests. Please wait and try again.";
+    } else if (error.error?.message) {
+      friendlyMsg = error.error.message;
+    } else if (error.status === 500) {
+      friendlyMsg = "Server Error, error while processing the update request.";
+    }
+    this.showToast(`${tag}: ${friendlyMsg}`, 4000, 'error-snackbar');
+  }
+
+  showToast(msg: string, duration: number, panelClass: string) {
+    this.snackBar.open(msg, 'Close', {
+      duration: duration,
+      panelClass: [panelClass]
+    });
   }
   ngOnDestroy(): void {
     this.ngUnsubscribe.next(null);
