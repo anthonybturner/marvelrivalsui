@@ -50,7 +50,7 @@ export function getRoleImage(role: string | undefined): string{
 }
 
 export function getPlayerImage(image: string | undefined): string{
-  return `https://marvelrivalsapi.com/rivals/${image}`;
+  return image ? `https://marvelrivalsapi.com/rivals/${image}` : 'assets/images/no-rank-logo.png';
 }
 
 export function getRoleColor(role: string | undefined): string {
