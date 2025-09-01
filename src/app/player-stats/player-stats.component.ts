@@ -20,7 +20,6 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   playerStats: PlayerStats | null = null;
   ngUnsubscribe = new Subject();
   searchPlayerName: string = '';
-  updatePlayerName: string = '';
   PlayerName: string = '';
   loading: boolean = false;
 
@@ -96,7 +95,27 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     this.playerStatsService.getPlayerStats(this.searchPlayerName)
       .subscribe({
         next: (playerStats) => {
-          this.playerStats = playerStats
+          const lastUpdateParts = playerStats.updates.last_history_update.split(",");
+          const date = lastUpdateParts[0];
+          const lastMonthParts = date.split("/");
+
+          const lastUpdateMonth = parseInt(lastMonthParts[0], 10);
+          const lastUpdateDay = parseInt(lastMonthParts[1], 10);
+          const lastUpdateYear = parseInt(lastMonthParts[2], 10);
+
+          // Create a Date object for the last update
+          const lastUpdateDate = new Date(lastUpdateYear, lastUpdateMonth - 1, lastUpdateDay);
+
+          // Get today's date
+          const now = new Date();
+          const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+          // If last update is before today, update
+          if (lastUpdateDate < today) {
+            this.updatePlayer();
+          }
+
+          this.playerStats = playerStats;
           this.PlayerName = this.searchPlayerName;
           this.loading = false;
         },
@@ -119,12 +138,13 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
         }
       })
   }
-  onUpdatePlayer() {
+
+  updatePlayer() {
     this.loading = true;
-    this.playerStatsService.updatePlayerStats(this.updatePlayerName)
+    this.playerStatsService.updatePlayerStats(this.searchPlayerName)
       .subscribe({
         next: (response) => {
-          response.message = this.updatePlayerName + " " + response.message
+          response.message = this.searchPlayerName + " " + response.message
           this.loading = false;
         },
         error: (error) => {

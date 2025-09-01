@@ -9,11 +9,6 @@
                 <button class="search-player-button" type="submit"
                     style="display:block; width: 100%; height: auto;">Search</button>
             </form>
-            <form #updateForm="ngForm" (ngSubmit)="onUpdatePlayer()">
-                <input type="text" class="search-box" name="updatePlayerName" [(ngModel)]="updatePlayerName"
-                    placeholder="Update Player..." required />
-                <button class="update-player-button" type="submit" style="display:block">Update</button>
-            </form>
     </div>
     <div class="top-section-container">
         <div class="stats-section">
