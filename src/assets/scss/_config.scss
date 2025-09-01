@@ -60,3 +60,10 @@ $shadow-effect: rgba($tertiary-color, 0.5);
   color: $text !important;
   border-radius: 18px;
 } 
+
+@mixin image-icon-styles {
+  border-radius: 50%;
+  border: 2px solid $border-bg;
+  background: $secondary-color;
+  margin: 0 auto;
+}

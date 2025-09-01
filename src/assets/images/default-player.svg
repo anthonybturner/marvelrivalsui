@@ -1,0 +1,8 @@
+  <rect width="120" height="120" rx="20" fill="#e0e0e0"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#888" font-family="Arial, sans-serif">
+    No Rank
+  </text>
+  <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" font-size="12" fill="#bbb" font-family="Arial, sans-serif">
+    Available
+  </text>
+</svg>

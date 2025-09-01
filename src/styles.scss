@@ -31,13 +31,11 @@ table th,
 
 //Icons
 .player-icon {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 2px solid $border-bg;
-  background: #333;
-  margin: 0 auto;
+  @include image-icon-styles;
+  width: 80px;
+  height: 80px;
 }
+
 
 // Buttons
 button,
@@ -66,23 +64,34 @@ h4 {
 
 // Search box
 .search-box-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
   padding: 6px;
   border-radius: 8px;
-  margin-bottom: 8px;
+  width: 100%;
+  justify-content: flex-start; // aligns content to the left
+  align-self: flex-end; // aligns this item to the bottom of the row
 }
+
 // Top section layout
 .top-section-container {
-  display: block;
+  display: flex;;
+  align-items: flex-end; // aligns children to the bottom
   font-size: $primary-text-size;
-  align-items: center;
-  align-content: center;
+
+}
+.top-section-container  {
+  .search-box-container{
+    flex: .3;
+  }
+}
+.top-section-container  {
+  .rank-icon{
+    width: 80px;
+    height: 80px;
+    @include image-icon-styles;
+  }
 }
 .top-section-container .stats-section {
-  flex: .5;
+  flex: .3;
 }
 .top-section-container .stats-section table {
   background-color: $table-bg;
