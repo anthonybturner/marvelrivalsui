@@ -152,7 +152,8 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   showToast(msg: string, duration: number, panelClass: string) {
     this.snackBar.open(msg, 'Close', {
       duration: duration,
-      panelClass: [panelClass]
+      panelClass: [panelClass],
+      verticalPosition: 'top' // This moves the snackbar to the top
     });
   }
   ngOnDestroy(): void {
