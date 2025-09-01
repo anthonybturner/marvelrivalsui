@@ -6,7 +6,7 @@ import { PlayerStatsService } from './services/player-stats-service';
 import { getPlayerImage } from 'src/app/shared/utilities/image-utils';
 import { HeroStats } from './data/hero-stats-model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { parseLastUpdateDate, needsUpdate } from 'src/utils/date-utils';
+import { needsUpdate, parseLastUpdateDate } from 'src/utils/date-utils';
 @Component({
   selector: 'mr-player-stats',
   templateUrl: './player-stats.component.html',
