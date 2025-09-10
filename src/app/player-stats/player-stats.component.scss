@@ -7,12 +7,15 @@ input {
     flex: 0.1;
     margin-right: 4px;
 }
-
 .player-info-card {
-  color: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   padding: 2rem;
+
+  .stats-section{
+      background-color: color-mix(in srgb, var(--secondary-clr) 20%, transparent);
+     backdrop-filter: blur(4px);
+  }
 }
 
 //Player stats

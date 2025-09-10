@@ -1,0 +1,49 @@
+@mixin snackbar-base($bg, $text) {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
+  border-radius: 18px;
+}
+
+@mixin image-icon-styles {
+  border-radius: 50%;
+  border: 2px solid var(--accent-clr);
+  background: var(--accent-clr);
+  margin: 0 auto;
+}
+
+@mixin hover-effect-base{
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-inset);
+  padding: var(--spacer-sm);
+}
+@mixin hover-effect {
+
+  @include hover-effect-base();
+  transform: translate(20px, 1px) scale(1.1);
+  /* X, Y */
+  @media screen and (max-width: 600px) {
+      transform: translate(0px, 0px) scale(.9);
+  }
+}
+@mixin card-layout{
+  box-shadow: color-mix(in srgb, var(--primary-clr) 10%, transparent);
+  padding: var(--spacer);
+  border-radius: var(--br);
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-bottom: var(--spacer);
+  border: 1px solid var(--accent-hl-clr);
+
+  &:hover {
+    @include hover-effect-sm;
+  }
+}
+
+@mixin hover-effect-sm {
+  //@include hover-effect-base();
+  transform: translate(0px, 1rem) scale(1.0);
+  /* X, Y */
+  @media screen and (max-width: 600px) {
+      transform: translate(0px, 0px) scale(.9);
+  }
+}

@@ -20,6 +20,11 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/marvel-rivals-ui",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "baseHref": "/",
             "index": "src/index.html",
             "polyfills": [

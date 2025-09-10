@@ -1,0 +1,114 @@
+:root{
+      // Font Family
+  --ff: 'Fira Sans', sans-serif;
+
+  // Font Weights
+  --fw-n: 300; 
+  --fw-m: 600;
+  --fw-b: 800;
+
+  //Font Sizes
+  --font-family-base: 'Segoe UI', Arial, sans-serif;
+  --font-size-sm: 0.9rem;
+  --font-size-base: 16px;
+  --font-size-lg: 1.2rem;
+  --font-size-xl-mobile: 1.3rem;
+  --font-size-xxl: 2rem;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --letter-spacing-md: 1px;
+  --line-height-tight: 1.2;
+  --line-height-base: 1.5;
+  --ls: 0.05em;
+
+  //Image sizes
+  --img-icon: 3rem;
+  
+  // Sizes
+  --icon-size-sm: 26px;
+  --icon-size-md: 40px;
+  --icon-size-lg: 80px;
+  --button-width: 68px;
+  --button-height: 42px;
+  --dot-size: 12px;
+  --spinner-size: 64px;
+  --spinner-size-sm: 28px;
+  --input-min-width: 220px;
+  --loading-min-height: 80px;
+  --match-header-height: 11vh;
+
+  // Icons (extended)
+  --icon-size-md: 1.3rem;
+  --icon-size-xxl: 2.5rem;
+
+  // Layout dimensions
+  --leaderboard-min-width: 300px;
+  --hero-image-lg: 100px;
+  --hero-image-sm: 56px;
+  --hero-icon-width: 140px;
+  --hero-image-border-radius: 7%;
+  --search-box-top: 60px;
+ 
+  // Spacing
+  --spacing-xs: 0.25rem;   // 4px
+  --spacing-sm: 0.5rem;    // 8px
+  --spacing-md: 0.75rem;   // 12px
+  --spacing-lg: 1.125rem;  // 18px
+  --spacing-xl: 1.5rem;    // 24px
+  --spacing-xxl: 25px;
+
+    // Spacing (extended)
+  --padding: 4rem;
+  --padding-sm: 1rem;
+  --header-padding-xs: 8px;
+  --header-padding-sm: 16px;
+  --header-padding-md: 20px;
+  --header-padding-lg: 28px;
+  --header-padding-xl: 32px;
+  --header-margin-bottom: 28px;
+  --header-offset: 4rem;
+  --body-margin: 4rem;
+  --input-padding-md: 10px;
+  --input-padding-lg: 15px;
+  --button-padding-lg: 15px;
+  --icon-margin-top: -2px;
+
+  // Shadows
+  --shadow: 2px 1px 1px var(--accent-clr);
+  --shadow-md: 0 4px 8px var(--accent-clr);
+  --shadow-lg: 0 8px 16px var(--accent-clr);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-card: 2px 2px 2px var(--accent-clr);
+  --shadow-inset: inset 0 0 1px 1px var(--accent-clr);
+
+  // Border & Radius
+  --border-width: 1px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --spinner-border-width: 8px;
+  --spinner-border-width-sm: 4px;
+  --border: .3rem;
+  --border-sm: .1rem;
+  --border-width-md: 3px;
+  --border-color: var(--accent-clr);
+
+  // Transitions
+  --transition-fast: all 0.2s ease;
+  --animation-duration: 1s;
+  --animation-duration-fast: 0.8s;
+
+  // Z-index
+  --z-overlay: 9999;
+  --z-header: 9999;
+  // Flex values
+  --flex-small: 0.3;
+  --flex-medium: 0.5;
+  --flex-auto: 1 1 auto;
+
+    // Effects (extended)
+  --drop-shadow-lg: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.667));
+
+}

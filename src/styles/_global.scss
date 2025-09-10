@@ -1,0 +1,371 @@
+@use './abstracts/' as *;
+
+.main-content {
+  padding-top: var(--header-offset);
+  min-height: calc(100vh - var(--header-offset) - var(--footer-height));
+}
+
+body {
+  font-size: var(--font-size-base);
+
+  margin: 0 auto;
+  background: linear-gradient(250deg, var(--secondary-clr) 0%, var(--primary-clr) 50%);
+  color: var(--primary-text-clr);
+}
+
+a.site-header-content {
+  text-decoration: none;
+}
+
+ a[mat-button] {
+      color: var(--primary-text-clr);
+      font-weight: var(--font-weight-medium);  
+      transition: var(--transition-fast);
+      &.active{
+        color: var(--secondary-clr) !important;
+      }
+      &:hover {
+        background: var(--accent-clr) !important;
+      }
+    }
+
+// --- Table Styles ---
+table {
+  width: 100%;
+  margin-top: var(--spacing-xs);
+}
+
+table thead {
+  background: var(--primary-clr);
+}
+
+.stats-section .heroes-table tr:nth-child(odd) {
+  background-color: var(--primary-clr);
+}
+
+.stats-section .heroes-table tr:nth-child(even) {
+  background-color: var(--accent-clr);
+}
+
+table th,
+.stat-label {
+  background: var(--primary-clr);
+  color: var(--primary-text-clr);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-sm);
+}
+
+// --- Icons ---
+.player-icon {
+  @include image-icon-styles;
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
+
+.rank-icon {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+  @include image-icon-styles;
+}
+
+img.role-icon {
+  width: var(--icon-size-sm);
+  height: auto;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: var(--spacing-xs);
+  left: var(--spacing-xs);
+}
+
+img.hero-icon {
+  width: var(--icon-size-md);
+  height: auto;
+  border-radius: var(--border-radius-md);
+  object-fit: cover;
+  align-content: center;
+  padding: var(--spacing-xs);
+  border: var(--border-width) solid var(--error-clr);
+  background: var(--bg-dark);
+}
+
+// --- Buttons ---
+button,
+button[mat-raised-button],
+.mdc-button,
+.mat-mdc-button-base {
+  cursor: pointer;
+}
+
+button {
+  background: var(--accent-clr);
+  display: block;
+  width: var(--button-width) !important;
+  border-radius: var(--border-radius-md);
+  height: var(--button-height) !important;
+}
+
+button.mdc-button.mdc-button--raised.mat-mdc-raised-button.mat-primary.mat-mdc-button-base {
+  height: auto;
+  margin-left: var(--spacing-xs);
+}
+
+// --- Headings ---
+h4 {
+  background: var(--primary-clr);
+  border-radius: var(--border-radius-sm);
+}
+
+.match-header {
+  display: flex;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  height: var(--match-header-height);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  justify-content: center;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+  }
+}
+
+// --- Layout Containers ---
+.vertical-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-section-container {
+  display: flex;
+  align-items: flex-end;
+
+  .search-box-container {
+    flex: var(--flex-small);
+  }
+
+  .stats-section {
+    flex: var(--flex-small);
+        table {
+      background-color: var(--primary-clr);
+      border-radius: var(--border-radius-md);
+    }
+
+    td {
+      text-align: center;
+    }
+  }
+}
+
+.middle-section-container {
+  display: flex;
+  gap: var(--spacing-sm);
+  background-color: color-mix(in srgb, var(--primary-clr) 40%, transparent);
+  backdrop-filter: blur(14px);
+  .stats-section {
+    flex: var(--flex-medium);
+
+    table {
+      background-color: var(--primary-clr);
+      border-radius: var(--border-radius-md);
+    }
+
+    td {
+      text-align: center;
+    }
+  }
+}
+
+// --- Search Components ---
+.search-box-container {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  width: 100%;
+  justify-content: flex-start;
+  align-self: flex-end;
+}
+
+.search-container {
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+
+  form {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+
+    input[matInput] {
+      border: var(--border-width) solid var(--border-clr);
+      border-radius: var(--border-radius-sm);
+      padding: var(--spacing-md) var(--spacing-lg);
+      font-size: var(--font-size-base);
+      transition: var(--transition-fast);
+
+      &:focus {
+        outline: none;
+        border-color: var(--error-clr);
+        box-shadow: var(--focus-shadow);
+      }
+    }
+
+    button {
+      cursor: pointer !important;
+      padding: var(--spacing-sm);
+      position: relative;
+      bottom: var(--spacing-sm);
+    }
+
+    button[mat-raised-button] {
+      background: var(--error-clr);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--border-radius-sm);
+      transition: var(--transition-fast);
+
+      &:hover {
+        background: var(--error-clr-hover);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+input {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: var(--border-width) solid var(--border-clr);
+  border-radius: var(--border-radius-sm);
+  min-width: var(--input-min-width);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-lg);
+  transition: var(--transition-fast);
+
+  &:focus {
+    outline: none;
+    border-color: var(--error-clr);
+    box-shadow: var(--focus-shadow);
+  }
+}
+
+// --- Stats Section ---
+.stats-section {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: inset var(--shadow);
+  text-align: center;
+  border: var(--border-sm) solid var(--border-clr);
+
+  .player-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// --- Status Indicators ---
+.update-dot {
+  display: inline-block;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  margin-left: var(--spacing-md);
+  vertical-align: middle;
+}
+
+.dot-green {
+  background-color: var(--success-clr);
+}
+
+.dot-red {
+  background-color: var(--error-clr);
+}
+
+.victory-row {
+  background: var(--success-bg) !important;
+}
+
+.defeat-row {
+  background: var(--error-bg) !important;
+}
+
+.selected-player {
+  font-weight: bold;
+  background: var(--selected-bg) !important;
+}
+
+// --- Loading States ---
+.fullscreen-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--overlay-bg);
+  z-index: var(--z-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border: var(--spinner-border-width) solid var(--spinner-bg);
+  border-top: var(--spinner-border-width) solid var(--primary-clr);
+  border-radius: 50%;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  animation: spin var(--animation-duration) linear infinite;
+}
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--loading-min-height);
+  font-size: var(--font-size-lg);
+  gap: var(--spacing-md);
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: var(--spinner-size-sm);
+    height: var(--spinner-size-sm);
+    border: var(--spinner-border-width-sm) solid var(--error-clr);
+    border-top: var(--spinner-border-width-sm) solid transparent;
+    border-radius: 50%;
+    animation: spin var(--animation-duration-fast) linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// --- Snackbar Styles ---
+.error-snackbar,
+.mdc-snackbar__surface,
+.mat-mdc-snackbar-surface {
+  @include snackbar-base(var(--error-clr), var(--white));
+}
+
+.success-snackbar {
+  @include snackbar-base(var(--success-clr), var(--white));
+}
+
+// --- Toolbar Styles ---
+.custom-toolbar {
+  background: var(--toolbar-bg) !important;
+
+  .mdc-button:hover {
+    background: var(--toolbar-hover-bg) !important;
+    border-radius: var(--border-radius-sm);
+  }
+}
