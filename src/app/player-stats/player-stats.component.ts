@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerStats } from './data/player-stats.model';
-import { Subject, takeUntil } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
 import { PlayerStatsService } from './services/player-stats-service';
 import { getPlayerImage } from 'src/app/shared/utilities/image-utils';
 import { HeroStats } from './data/hero-stats-model';
@@ -20,7 +20,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   ngUnsubscribe = new Subject();
   searchPlayerName: string = '';
   PlayerName: string = '';
-  loading: boolean = false;
+  isLoading: boolean = false;
   isPlayerUpdated: boolean | null = null;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -29,7 +29,6 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.loading = true;
     this.activatedRoute.params
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((params) => {
@@ -89,8 +88,11 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     return (blocked / (playTime / 60)).toFixed(0);
   }
   onSearchPlayer() {
-    this.loading = true;
+    this.isLoading = true;
     this.playerStatsService.getPlayerStats(this.searchPlayerName)
+      .pipe(
+        finalize(() =>this.isLoading = false)
+      )
       .subscribe({
         next: (playerStats) => {
           const lastUpdateDate = parseLastUpdateDate(playerStats.updates.last_history_update);
@@ -100,30 +102,28 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
             this.updatePlayer();
           }
           this.isPlayerUpdated = lastUpdateDate && !updateNeeded;
-
           this.playerStats = playerStats;
           this.PlayerName = this.searchPlayerName;
-          this.loading = false;
           this.showToast(`Player: ${this.searchPlayerName} found.`, 4000, 'success-snackbar');
         },
         error: (error) => {
           this.handleError("Searched Player", error);
-          this.loading = false;
         }
       })
   }
   updatePlayer() {
     this.showToast(`Updating player check back later: ${this.searchPlayerName}.`, 4000, 'success-snackbar');
-    this.loading = true;
+    this.isLoading = true;
     this.playerStatsService.updatePlayerStats(this.searchPlayerName)
       .subscribe({
         next: (response) => {
           response.message = this.searchPlayerName + " " + response.message
-          this.loading = false;
         },
         error: (error) => {
           this.handleError("Update Player", error);
-          this.loading = false;
+        },
+         complete: () =>{
+          this.isLoading = false;
         }
       })
   }

@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ILeaderBoardPlayer as ILeaderboardPlayer, ILeaderBoardResponse as ILeaderboardResponse } from './data/models/leaderboard.model';
-import { map, Subject, takeUntil } from 'rxjs';
+import { finalize, map, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { LeaderboardService as LeaderboardService } from './services/leaderboard.service';
 
-import { MatDialog } from '@angular/material/dialog';
 import { getImageUrl, getPlayerImage } from 'src/app/shared/utilities/image-utils';
 import { HeroesService } from '../heroes/services/heroes.service';
 import { IHero } from '../heroes/hero/data/models/hero.model';
@@ -39,32 +38,42 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       .subscribe((results) => {
         this.players = results.players;
         this.heroName = results.hero_name;
-        this.fetchHero(this.heroName);
+        this.fetchHeroBannerInfo(this.heroName);
       });
   }
 
   onSearch() {
     if (!this.searchHeroName) return;
-    this.isLoading = true;
     this.fetchPlayers(this.searchHeroName);
-    this.fetchHero(this.searchHeroName);
   }
-  fetchHero(name: string) {
-    this.heroService.getHero(name).pipe(takeUntil(this.ngUnsubscribe)).subscribe((result)=>{
-    this.selectedHero = result;
-    });
+
+  fetchHeroBannerInfo(name: string) {
+    this.isLoading = true;
+    this.heroService.getHero(name.toLowerCase()).pipe(
+      finalize(() => this.isLoading = false)
+    ).subscribe({
+        next: (response) => {
+          this.selectedHero = response;
+        },
+        error: (error) => {
+          console.log("OnSearch: " + error);
+        }
+      });
   }
 
   fetchPlayers(heroName: string) {
-    this.leaderBoardService.getPlayers(heroName).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+    this.isLoading = true;
+    this.leaderBoardService.getPlayers(heroName)
+    .pipe(
+      finalize(() => this.isLoading = false)
+    ).subscribe({
       next: (response) => {
         this.players = response.players;
         this.heroName = heroName;
-        this.isLoading = false;
+        this.fetchHeroBannerInfo(heroName);
       },
       error: () => {
         this.players = [];
-        this.isLoading = false;
         this.selectedHero = undefined;
       }
     });
