@@ -1,7 +1,10 @@
 @mixin snackbar-base($bg, $text) {
-  background-color: var(--color-bg) !important;
-  color: var(--color-text) !important;
+  background-color: $bg !important;
+  color: $text !important;
   border-radius: 18px;
+  position: absolute;
+  top: 8%;
+  right: 0;
 }
 
 @mixin image-icon-styles {

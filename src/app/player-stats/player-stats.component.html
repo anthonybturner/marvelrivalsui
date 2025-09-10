@@ -2,42 +2,13 @@
     <div class="spinner"></div>
 </div>
 <div class="player-info-card">
-    <div class="top-section-container">
-        <div class="search-box-container">
-            <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
-                <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
-                    placeholder="Search Player..." required />
-                <button class="search-player-button" type="submit"
-                    style="display:block; width: 100%; height: auto;">Search</button>
-            </form>
-    </div>
-        <div class="stats-section">
-            <h4>{{PlayerName}} Player Stats <span class="update-dot" [ngClass]="{'dot-green': isPlayerUpdated, 'dot-red': !isPlayerUpdated}"></span></h4>
-            <table class="player-stats-table">
-                <thead>
-                    <tr>
-                        <th>Icon</th>
-                        <th>Level</th>
-                        <th>Rank</th>
-                        <th>Achievements</th>
-                        <th>Platform </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img [src]="getPlayerImage(playerStats?.player?.icon?.player_icon)" alt="Player Icon" class="player-icon" /></td>
-                        <td>{{ playerStats?.player?.level }}</td>
-                        <td>
-                            <div class="rank-table-cell">
-                                <span>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</span><img class="rank-icon" [src]="getPlayerImage(playerStats?.player?.rank?.image ?? undefined)" />
-                            </div>
-                        </td>
-                        <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
-                        <td>{{ playerStats?.player?.info?.login_os }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="search-box-container">
+        <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
+            <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
+                placeholder="Search Player..." required />
+            <button class="search-player-button" type="submit"
+                style="display:block; width: 100%; height: auto;">Search</button>
+        </form>
     </div>
 
     <div class="middle-section-container">
@@ -65,6 +36,36 @@
                         </td>
                         <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.win_count }}</td>
                         <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.update_time }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="stats-section">
+            <h4>{{PlayerName}} Player Stats <span class="update-dot"
+                    [ngClass]="{'dot-green': isPlayerUpdated, 'dot-red': !isPlayerUpdated}"></span></h4>
+            <table class="player-stats-table">
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Level</th>
+                        <th>Rank</th>
+                        <th>Achievements</th>
+                        <th>Platform </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img [src]="getPlayerImage(playerStats?.player?.icon?.player_icon)" alt="Player Icon"
+                                class="player-icon" /></td>
+                        <td>{{ playerStats?.player?.level }}</td>
+                        <td>
+                            <div class="rank-table-cell">
+                                <span>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</span><img class="rank-icon"
+                                    [src]="getPlayerImage(playerStats?.player?.rank?.image ?? undefined)" />
+                            </div>
+                        </td>
+                        <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
+                        <td>{{ playerStats?.player?.info?.login_os }}</td>
                     </tr>
                 </tbody>
             </table>

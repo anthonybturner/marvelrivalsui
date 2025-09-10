@@ -1,7 +1,7 @@
 @use './abstracts/' as *;
 
 .main-content {
-  padding-top: var(--header-offset);
+  padding: calc(var(--header-offset) + 3rem) 0;
   min-height: calc(100vh - var(--header-offset) - var(--footer-height));
 }
 
@@ -162,7 +162,7 @@ h4 {
 
 .middle-section-container {
   display: flex;
-  gap: var(--spacing-sm);
+  justify-content: space-between;
   background-color: color-mix(in srgb, var(--primary-clr) 40%, transparent);
   backdrop-filter: blur(14px);
   .stats-section {
@@ -353,11 +353,13 @@ input {
 .error-snackbar,
 .mdc-snackbar__surface,
 .mat-mdc-snackbar-surface {
-  @include snackbar-base(var(--error-clr), var(--white));
+  @include snackbar-base(var(--error-clr), var(--notification-text-clr));
 }
 
-.success-snackbar {
-  @include snackbar-base(var(--success-clr), var(--white));
+.success-snackbar,
+.mdc-snackbar__surface,
+.mat-mdc-snackbar-surface {
+  @include snackbar-base(var(--success-clr), var(--notification-text-clr));
 }
 
 // --- Toolbar Styles ---

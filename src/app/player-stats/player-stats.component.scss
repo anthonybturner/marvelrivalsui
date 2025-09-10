@@ -13,7 +13,7 @@ input {
   padding: 2rem;
 
   .stats-section{
-      background-color: color-mix(in srgb, var(--secondary-clr) 20%, transparent);
+    background-color: color-mix(in srgb, var(--secondary-clr) 20%, transparent);
      backdrop-filter: blur(4px);
   }
 }

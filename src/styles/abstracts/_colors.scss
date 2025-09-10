@@ -3,6 +3,7 @@
   // Existing colors...
   --secondary-clr: #26b3ff;
   --primary-clr: #f3f3f3;
+  --primary-text-clr: #000;
   --primary-transparent-clr: hsla(0, 0%, 95%, 0.911);
   --accent-clr: hsla(44, 91%, 42%, 0.61);
   --bg-secondary: #0d5994;
@@ -11,7 +12,10 @@
   --overlay-bg: rgba(10, 6, 6, 0.603);
   --toolbar-bg: #123456;
   --toolbar-hover-bg: #222222;
+  --success-clr: green;
+  --error-clr: red;
   --error-clr-hover: #e0122b;
+  --notification-text-clr: #fff;
   --spinner-bg: #f3f3f3;
   // Shadows & Effects
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.18);
