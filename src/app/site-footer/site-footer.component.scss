@@ -71,6 +71,7 @@
 
 @media (max-width: 768px) {
   .site-footer {
+    flex-direction: column;
     font-size: 0.95rem;
     padding: 0 8px;
     min-height: 48px;

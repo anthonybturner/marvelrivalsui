@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, effect, computed } from '@angular/core';
 import { ILeaderBoardPlayer as ILeaderboardPlayer, ILeaderBoardResponse as ILeaderboardResponse } from './data/models/leaderboard.model';
 import { finalize, map, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -15,19 +15,33 @@ import { IHero } from '../heroes/hero/data/models/hero.model';
   styleUrl: './leaderboard.component.scss'
 })
 export class LeaderboardComponent implements OnInit, OnDestroy {
-  players: ILeaderboardPlayer[] = []
 
-  selectedHero: IHero | undefined;
-  searchHeroName: string = '';
-  heroName: string = '';
-  isLoading: boolean = false;
-
+  players = signal<ILeaderboardPlayer[]>([]);
+  selectedHero = signal<IHero | undefined>(undefined);
+  searchHeroName = signal<string>('');
+  heroName = signal<string>('');
+  isLoading = signal<boolean>(false);
+  ngUnsubscribe = new Subject();
   getImageUrl = getImageUrl;
   getPlayerImage = getPlayerImage;
 
-  ngUnsubscribe = new Subject();
+  //Computed
+  hasPlayers = computed( () => this.players().length > 0);
+  displayHeroName = computed(() => this.heroName() || 'Unknown Hero');
+  searchDisabled = computed(() => !this.searchHeroName().trim || this.isLoading());
+  topPlayers = computed(() => this.players().slice(0, 10));
+  playerCount = computed(() => this.players().length);
 
-  constructor(private activatedRoute: ActivatedRoute, private leaderBoardService: LeaderboardService, private heroService: HeroesService) { }
+  constructor(private activatedRoute: ActivatedRoute, private leaderBoardService: LeaderboardService, private heroService: HeroesService) { 
+
+    effect( () =>{//Automatically fetch hero info when heroName changes.
+      const name = this.heroName();
+      if(name){
+        this.fetchHeroBannerInfo(name);
+      }
+    });
+  }
+
 
   ngOnInit(): void {
     this.activatedRoute.data
@@ -36,24 +50,27 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         map((results) => results["resolvedData"] as ILeaderboardResponse)
       )
       .subscribe((results) => {
-        this.players = results.players;
-        this.heroName = results.hero_name;
-        this.fetchHeroBannerInfo(this.heroName);
+        this.players.set(results.players);
+        this.heroName.set(results.hero_name);
       });
   }
 
+  updateSearchHeroName(value: string){
+    this.searchHeroName.set(value);
+  }
+
   onSearch() {
-    if (!this.searchHeroName) return;
-    this.fetchPlayers(this.searchHeroName);
+    if (!this.searchHeroName()) return;
+    this.fetchPlayers(this.searchHeroName());
   }
 
   fetchHeroBannerInfo(name: string) {
-    this.isLoading = true;
+    this.isLoading.set(true);
     this.heroService.getHero(name.toLowerCase()).pipe(
-      finalize(() => this.isLoading = false)
+      finalize(() => this.isLoading.set(false))
     ).subscribe({
         next: (response) => {
-          this.selectedHero = response;
+          this.selectedHero.set(response);
         },
         error: (error) => {
           console.log("OnSearch: " + error);
@@ -62,19 +79,19 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   fetchPlayers(heroName: string) {
-    this.isLoading = true;
+    this.isLoading.set(true);
     this.leaderBoardService.getPlayers(heroName)
     .pipe(
-      finalize(() => this.isLoading = false)
+      finalize(() => this.isLoading.set(false))
     ).subscribe({
       next: (response) => {
-        this.players = response.players;
-        this.heroName = heroName;
+        this.players.set(response.players);
+        this.heroName.set(heroName);
         this.fetchHeroBannerInfo(heroName);
       },
       error: () => {
-        this.players = [];
-        this.selectedHero = undefined;
+        this.players.set([]);
+        this.selectedHero.set(undefined);
       }
     });
   }

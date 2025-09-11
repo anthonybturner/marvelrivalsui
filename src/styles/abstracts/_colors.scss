@@ -17,11 +17,10 @@
   --error-clr-hover: #e0122b;
   --notification-text-clr: #fff;
   --spinner-bg: #f3f3f3;
+
   // Shadows & Effects
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.18);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.18);
-  --focus-shadow: 0 0 0 2px rgba(240, 19, 30, 0.2);
-  
+  --shadow-clr: var(--accent-clr);
+  --drop-shadow-clr: rgba(0, 0, 0, 0.667);
   // Colors for modal (if not already defined)
   --overlay-bg: rgba(0, 0, 0, 0.8);
 }

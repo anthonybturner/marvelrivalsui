@@ -74,14 +74,15 @@
   --input-padding-lg: 15px;
   --button-padding-lg: 15px;
   --icon-margin-top: -2px;
+  --gap: .5rem;
 
   // Shadows
-  --shadow: 2px 1px 1px var(--accent-clr);
-  --shadow-md: 0 4px 8px var(--accent-clr);
-  --shadow-lg: 0 8px 16px var(--accent-clr);
-  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-card: 2px 2px 2px var(--accent-clr);
-  --shadow-inset: inset 0 0 1px 1px var(--accent-clr);
+  --shadow: 2px 1px 1px var(--shadow-clr);
+  --shadow-md: 0 4px 8px var(--shadow-clr);
+  --shadow-lg: 0 8px 16px var(--shadow-clr);
+  --shadow-soft: 0 2px 8px var(--shadow-clr);
+  --shadow-card: 2px 2px 2px var(--shadow-clr);
+  --shadow-inset: inset 0 0 1px 1px var(--shadow-clr);
 
   // Border & Radius
   --border-width: 1px;
@@ -110,7 +111,7 @@
   --flex-auto: 1 1 auto;
 
     // Effects (extended)
-  --drop-shadow-lg: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.667));
+  --drop-shadow-lg: drop-shadow(0 2px 6px var(--drop-shadow-clr));
 
   
   // Animation durations (if not already defined)
