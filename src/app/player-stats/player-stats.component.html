@@ -1,10 +1,14 @@
-<div *ngIf="isLoading" class="fullscreen-loading">
+@if(isLoading()){
+<div class="fullscreen-loading">
     <div class="spinner"></div>
 </div>
+}
 <div class="player-info-card">
     <div class="search-box-container">
         <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
-            <input type="text" class="search-box" name="searchPlayerName" [(ngModel)]="searchPlayerName"
+            <input type="text" class="search-box" name="searchPlayerName" 
+                [value]="searchPlayerName()"
+                (input)="updateSearchPlayerName($any($event.target).value)"
                 placeholder="Search Player..." required />
             <button class="search-player-button" type="submit"
                 style="display:block; width: 100%; height: auto;">Search</button>
@@ -27,22 +31,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let key of getRankSeasonKeys(playerStats?.player?.info?.rank_game_season)">
+                    @for(key of (rankSeasonKeys()); track key){
+                    <tr>
                         <td>{{ key }}</td>
-                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.level }}</td>
-                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.rank_score | number:'1.0-0' }}</td>
-                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.max_level }}</td>
-                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.max_rank_score | number:'1.0-0' }}
-                        </td>
-                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.win_count }}</td>
-                        <td>{{ playerStats?.player?.info?.rank_game_season?.[key]?.update_time }}</td>
+                        <td>{{ playerRankGameSeason()?.[key]?.level }}</td>
+                        <td>{{ playerRankGameSeason()?.[key]?.rank_score | number:'1.0-0' }}</td>
+                        <td>{{ playerRankGameSeason()?.[key]?.max_level }}</td>
+                        <td>{{ playerRankGameSeason()?.[key]?.max_rank_score | number:'1.0-0' }}</td>
+                        <td>{{ playerRankGameSeason()?.[key]?.win_count }}</td>
+                        <td>{{ playerRankGameSeason()?.[key]?.update_time }}</td>
                     </tr>
+                }
                 </tbody>
             </table>
         </div>
         <div class="stats-section">
-            <h4>{{PlayerName}} Player Stats <span class="update-dot"
-                    [ngClass]="{'dot-green': isPlayerUpdated, 'dot-red': !isPlayerUpdated}"></span></h4>
+            <h4>{{playerName()}} Player Stats <span class="update-dot"
+                    [ngClass]="{'dot-green': isPlayerUpdated(), 'dot-red': !isPlayerUpdated()}"></span></h4>
             <table class="player-stats-table">
                 <thead>
                     <tr>
@@ -55,17 +60,17 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><img [src]="getPlayerImage(playerStats?.player?.icon?.player_icon)" alt="Player Icon"
+                        <td><img [src]="getPlayerImage(playerStats()?.player?.icon?.player_icon)" alt="Player Icon"
                                 class="player-icon" /></td>
-                        <td>{{ playerStats?.player?.level }}</td>
+                        <td>{{ playerStats()?.player?.level }}</td>
                         <td>
                             <div class="rank-table-cell">
-                                <span>{{ getPlayerRank(playerStats?.player?.rank?.rank) }}</span><img class="rank-icon"
-                                    [src]="getPlayerImage(playerStats?.player?.rank?.image ?? undefined)" />
+                                <span>{{ getPlayerRank(playerStats()?.player?.rank?.rank) }}</span><img class="rank-icon"
+                                    [src]="getPlayerImage(playerStats()?.player?.rank?.image ?? undefined)" />
                             </div>
                         </td>
-                        <td>{{ playerStats?.player?.info?.completed_achievements }}</td>
-                        <td>{{ playerStats?.player?.info?.login_os }}</td>
+                        <td>{{ playerStats()?.player?.info?.completed_achievements }}</td>
+                        <td>{{ playerStats()?.player?.info?.login_os }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -85,12 +90,12 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ playerStats?.overall_stats?.total_matches }}</td>
-                        <td>{{ playerStats?.overall_stats?.total_wins }}</td>
-                        <td>{{ calculateTotalLosses() }}</td>
-                        <td>{{ calculateWinPercentage() }}</td>
-                        <td>{{ playerStats?.overall_stats?.unranked?.total_kills }}</td>
-                        <td>{{ playerStats?.overall_stats?.ranked?.total_kills }}</td>
+                        <td>{{ playerStats()?.overall_stats?.total_matches }}</td>
+                        <td>{{ playerStats()?.overall_stats?.total_wins }}</td>
+                        <td>{{ totalLosses() }}</td>
+                        <td>{{ winPercentage() }}</td>
+                        <td>{{ playerStats()?.overall_stats?.unranked?.total_kills }}</td>
+                        <td>{{ playerStats()?.overall_stats?.ranked?.total_kills }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -111,7 +116,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let hero of getTopPlayedHeroes() | slice:0:10">
+
+                @for(hero of topPlayedHeroes(); track hero.hero_name){
+                <tr>
                     <td>
                         <div class="hero-table-cell">
                             <img [src]="getPlayerImage(hero.hero_thumbnail)" alt="{{ hero.hero_name }}"
@@ -126,6 +133,7 @@
                     <td>{{ hero.heal | number:'1.0-0' }}</td>
                     <td>{{ getBlockedPerMin(hero.damage_taken, hero.play_time) }}</td>
                 </tr>
+            }
             </tbody>
         </table>
     </div>

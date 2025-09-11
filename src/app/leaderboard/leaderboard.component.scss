@@ -84,34 +84,6 @@
 }
 
 
-/* ===== Loading States (ADD THIS) ===== */
-.fullscreen-loading {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--overlay-bg);
-  z-index: var(--z-overlay);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .spinner {
-    border: var(--spinner-border-width) solid var(--spinner-bg);
-    border-top: var(--spinner-border-width) solid var(--primary-clr);
-    border-radius: 50%;
-    width: var(--spinner-size);
-    height: var(--spinner-size);
-    animation: spin var(--animation-duration) linear infinite;
-  }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 /* ===== Search ===== */
 .hero-search {
   margin-bottom: var(--spacing-lg);

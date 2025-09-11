@@ -21,7 +21,6 @@
       </form>
     </div>
 
-    <!-- Keep your existing hero header structure -->
     @if (selectedHero()) {
     <div class="leaderboard-header">
       <img [src]="getImageUrl(selectedHero()!.imageUrl)" [alt]="selectedHero()!.name" class="hero-image" />
@@ -40,7 +39,7 @@
     </div>
     }
   </div>
-  <!-- Keep your existing leaderboard table component -->
+
   @if(!isLoading() && hasPlayers()){
   <mr-leaderboard-table [players]='players()'></mr-leaderboard-table>
   }

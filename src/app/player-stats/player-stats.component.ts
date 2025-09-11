@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, computed, effect } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerStats } from './data/player-stats.model';
 import { finalize, Subject, takeUntil } from 'rxjs';
@@ -7,6 +7,7 @@ import { getPlayerImage } from 'src/app/shared/utilities/image-utils';
 import { HeroStats } from './data/hero-stats-model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { needsUpdate, parseLastUpdateDate } from 'src/app/shared/utilities/date-utils';
+import { RankGameSeason } from './data/rank-game-season.model';
 @Component({
   selector: 'mr-player-stats',
   templateUrl: './player-stats.component.html',
@@ -15,14 +16,52 @@ import { needsUpdate, parseLastUpdateDate } from 'src/app/shared/utilities/date-
 })
 export class PlayerStatsComponent implements OnInit, OnDestroy {
 
+  // ===== UTILITIES =====
   getPlayerImage = getPlayerImage;
-  playerStats: PlayerStats | null = null;
+  // ===== SIGNALS =====
+  isLoading = signal<boolean>(false);
+  playerStats = signal<PlayerStats | null>(null);
   ngUnsubscribe = new Subject();
-  searchPlayerName: string = '';
-  PlayerName: string = '';
-  isLoading: boolean = false;
-  isPlayerUpdated: boolean | null = null;
+  searchPlayerName = signal<string>('');
+  isPlayerUpdated = signal<boolean | null>(null);
+  // ===== COMPUTED SIGNALS =====
+  topPlayedHeroes = computed(() => {
+    if (!this.playerStats()?.heroes_ranked) return [];
+    return [...this.playerStats()?.heroes_ranked!]
+      .sort((a, b) => b.play_time - a.play_time)
+      .slice(0, 10);
+  });
 
+  totalLosses = computed(() => {
+    if (!this.playerStats()?.overall_stats) return 0;
+    const { total_wins, total_matches } = this.playerStats()?.overall_stats!;
+    return total_matches ? total_matches - total_wins : 0;
+  });
+
+  winPercentage = computed(() => {
+    if (!this.playerStats()?.overall_stats) return '0.00';
+    const { total_wins, total_matches } = this.playerStats()?.overall_stats!;
+    return total_matches ? ((total_wins / total_matches) * 100).toFixed(2) + "%" : '0.00';
+  });
+
+  playerRankGameSeason = computed(() => {
+    return this.playerStats()?.player?.info?.rank_game_season;
+  });
+
+  rankSeasonKeys = computed(() => {
+    const seasonObj = this.playerRankGameSeason();
+    return seasonObj ? Object.keys(seasonObj) : [];
+  });
+
+  playerName = computed(() => {
+    return this.playerStats()?.player?.name || "Unknown Player";
+  })
+
+  searchDisabled = computed(() =>
+    !this.searchPlayerName().trim() || this.isLoading()
+  );
+
+  // ===== CONSTRUCTOR =====
   constructor(private activatedRoute: ActivatedRoute,
     private playerStatsService: PlayerStatsService,
     private snackBar: MatSnackBar
@@ -33,8 +72,8 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((params) => {
         const uid = params['uid'] || 'SilentCoder'; // fallback if no uid
-          this.searchPlayerName = uid;
-          this.onSearchPlayer();
+        this.searchPlayerName.set(uid);
+        this.onSearchPlayer();
       });
   }
   getPlayerRank(rank: string | undefined): string {
@@ -43,31 +82,12 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     return `Rank ${rank}`;
   }
 
-  calculateTotalLosses() {
-    if (!this.playerStats?.overall_stats) return 0;
-    const { total_wins, total_matches } = this.playerStats.overall_stats;
-    return total_matches ? total_matches - total_wins : 0;
-  }
-
-  calculateWinPercentage() {
-    if (!this.playerStats?.overall_stats) return '0.00';
-    const { total_wins, total_matches } = this.playerStats.overall_stats;
-    return total_matches ? ((total_wins / total_matches) * 100).toFixed(2) + "%" : '0.00';
-  }
-
-  getRankSeasonKeys(seasonObj: any): string[] {
-    return seasonObj ? Object.keys(seasonObj) : [];
+  updateSearchPlayerName(name: string) {
+    this.searchPlayerName.set(name);
   }
 
   getWinRate(hero: HeroStats): string {
     return hero.matches ? ((hero.wins / hero.matches) * 100).toFixed(2) : '0.00';
-  }
-
-  getTopPlayedHeroes(): HeroStats[] {
-    if (!this.playerStats?.heroes_ranked) return [];
-    return [...this.playerStats.heroes_ranked]
-      .sort((a, b) => b.play_time - a.play_time)
-      .slice(0, 10);
   }
 
   getTimePlayed(seconds: number): string {
@@ -87,11 +107,12 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     if (!playTime) return '0';
     return (blocked / (playTime / 60)).toFixed(0);
   }
+
   onSearchPlayer() {
-    this.isLoading = true;
-    this.playerStatsService.getPlayerStats(this.searchPlayerName)
+    this.isLoading.set(true);
+    this.playerStatsService.getPlayerStats(this.searchPlayerName())
       .pipe(
-        finalize(() =>this.isLoading = false)
+        finalize(() => this.isLoading.set(false))
       )
       .subscribe({
         next: (playerStats) => {
@@ -101,29 +122,29 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
           if (updateNeeded) {
             this.updatePlayer();
           }
-          this.isPlayerUpdated = lastUpdateDate && !updateNeeded;
-          this.playerStats = playerStats;
-          this.PlayerName = this.searchPlayerName;
-          this.showToast(`Player: ${this.searchPlayerName} found.`, 4000, 'success-snackbar');
+          this.isPlayerUpdated.set(lastUpdateDate && !updateNeeded);
+          this.playerStats.set(playerStats);
+          this.showToast(`Player: ${this.searchPlayerName()} found.`, 4000, 'success-snackbar');
         },
         error: (error) => {
           this.handleError("Searched Player", error);
         }
       })
   }
+
   updatePlayer() {
-    this.showToast(`Updating player check back later: ${this.searchPlayerName}.`, 4000, 'success-snackbar');
-    this.isLoading = true;
-    this.playerStatsService.updatePlayerStats(this.searchPlayerName)
+    this.showToast(`Updating player check back later: ${this.searchPlayerName()}.`, 4000, 'success-snackbar');
+    this.isLoading.set(true);
+    this.playerStatsService.updatePlayerStats(this.searchPlayerName())
+      .pipe(finalize(() => {
+        this.isLoading.set(false);
+      }))
       .subscribe({
         next: (response) => {
-          response.message = this.searchPlayerName + " " + response.message
+          response.message = this.searchPlayerName() + " " + response.message
         },
         error: (error) => {
           this.handleError("Update Player", error);
-        },
-         complete: () =>{
-          this.isLoading = false;
         }
       })
   }

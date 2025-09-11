@@ -316,12 +316,12 @@ input {
 }
 
 .spinner {
-  border: var(--spinner-border-width) solid var(--spinner-bg);
-  border-top: var(--spinner-border-width) solid var(--primary-clr);
-  border-radius: 50%;
   width: var(--spinner-size);
   height: var(--spinner-size);
-  animation: spin var(--animation-duration) linear infinite;
+  border: var(--spinner-border-width) solid var(--spinner-bg);
+  border-top: var(--spinner-border-width) solid var(--accent-clr);
+  border-radius: 50%;
+  animation: spin var(--animation-duration) linear infinite;  
 }
 
 .loading-indicator {
