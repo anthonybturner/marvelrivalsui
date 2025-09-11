@@ -1,28 +1,182 @@
-<div class="maps-list">
-  <div *ngFor="let map of gameMaps" class="map-card">
-    <div class="map-image">
-      <img [src]="getMapImageUrl(map)" alt="{{ map.name }}" />
+<div class="game-maps-container">
+  
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="title-area">
+      <h1>Game Maps</h1>
+      <p class="subtitle">Explore all available battlefields in Marvel Rivals</p>
     </div>
-    <div class="map-info">
-      <div class="map-title">{{ map.name }}</div>
-      <div class="map-id">ID: {{ map.id }}</div>
-      <div class="map-fullname">{{ map.full_name }}</div>
-      <div class="map-meta">
-        <div><span class="map-meta-label">Location</span> {{ map.location }}</div>
-        <div><span class="map-meta-label">Mode</span> {{ map.game_mode }}</div>
-        <div *ngIf="map.is_competitve"><span class="map-meta-label">Competitive</span></div>
-      </div>
-      <p class="map-description">{{ map.description }}</p>
-      <div class="map-links">
-        <ng-container *ngIf="map.video">
-          <div class="video-responsive">
-            <iframe
-              [src]="getVideoUrl(map.video) | safeUrl"
-              frameborder="0"
-              allowfullscreen>
-            </iframe>
+    
+    <div class="search-area">
+      <form #searchForm="ngForm" (ngSubmit)="onSearchMap()">
+        <div class="search-input-group">
+          <input 
+            type="text" 
+            name="searchMap" 
+            [(ngModel)]="searchMapName" 
+            placeholder="Search maps..." 
+            class="search-input">
+          <button type="submit" class="search-button" [disabled]="!searchForm.valid">
+            <span>🔍</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="stats-overview">
+    <div class="stat-card">
+      <div class="stat-number">{{ gameMaps?.length || 0 }}</div>
+      <div class="stat-label">Total Maps</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ getUniqueGameModes().length }}</div>
+      <div class="stat-label">Game Modes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ gameMaps?.length || 0 }}</div>
+      <div class="stat-label">Available Maps</div>
+    </div>
+    <div class="stat-card status-card">
+      <span class="update-dot dot-green"></span>
+      <div class="stat-label">Up to Date</div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs" *ngIf="getUniqueGameModes().length > 0">
+    <button 
+      class="filter-tab" 
+      [class.active]="selectedGameMode === 'all'" 
+      (click)="filterByGameMode('all')">
+      All Maps
+    </button>
+    <button 
+      class="filter-tab" 
+      *ngFor="let mode of getUniqueGameModes()"
+      [class.active]="selectedGameMode === mode" 
+      (click)="filterByGameMode(mode)">
+      {{ mode }}
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading game maps...</p>
+  </div>
+
+  <!-- Maps Grid -->
+  <div class="maps-grid" *ngIf="!isLoading && getFilteredMaps().length > 0">
+    <div 
+      class="map-card" 
+      *ngFor="let map of getFilteredMaps(); let i = index"
+      [class.selected]="selectedMap?.id === map.id"
+      (click)="selectMap(map)">
+      
+      <div class="card-image">
+        <img 
+          [src]="getMapImageUrl(map)" 
+          [alt]="map.name"
+          class="map-image"
+          loading="lazy"
+          (error)="onImageError($event)">
+        <div class="image-overlay">
+          <div class="game-mode-badge" [class]="'mode-' + getGameModeClass(map.game_mode)">
+            {{ map.game_mode }}
           </div>
-        </ng-container>
+        </div>
+      </div>
+      
+      <div class="card-content">
+        <h3 class="map-title">{{ map.name }}</h3>
+        <p class="map-description" *ngIf="map.description">{{ map.description }}</p>
+        
+        <div class="map-details">
+          <div class="detail-item" *ngIf="map.game_mode">
+            <span class="detail-label">Game Mode:</span>
+            <span class="detail-value">{{ map.game_mode }}</span>
+          </div>
+          <div class="detail-item" *ngIf="map.location">
+            <span class="detail-label">Location:</span>
+            <span class="detail-value">{{ map.location }}</span>
+          </div>
+          <div class="detail-item" *ngIf="map.images?.length">
+            <span class="detail-label">Images:</span>
+            <span class="detail-value">{{ map.images.length }} available</span>
+          </div>
+        </div>
+        
+        <div class="card-footer">
+          <div class="status-indicator">
+            <span class="update-dot dot-green"></span>
+            <span class="status-text">Active</span>
+          </div>
+          
+          <button class="view-details-btn" (click)="viewMapDetails(map); $event.stopPropagation()">
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && getFilteredMaps().length === 0">
+    <div class="empty-icon">🗺️</div>
+    <h3>No Maps Found</h3>
+    <p *ngIf="searchMapName">No maps match your search criteria: "{{ searchMapName }}"</p>
+    <p *ngIf="!searchMapName">No game maps are currently available.</p>
+    <button 
+      class="clear-search-btn" 
+      *ngIf="searchMapName" 
+      (click)="clearSearch()">
+      Clear Search
+    </button>
+  </div>
+
+</div>
+
+<!-- Map Details Modal (Optional) -->
+<div class="map-modal" *ngIf="showMapDetails && selectedMapForDetails" (click)="closeMapDetails()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ selectedMapForDetails.name }}</h2>
+      <button class="close-btn" (click)="closeMapDetails()">✕</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="map-images" *ngIf="selectedMapForDetails.images?.length">
+        <img 
+          *ngFor="let image of selectedMapForDetails.images.slice(0, 3)" 
+          [src]="'https://marvelrivalsapi.com' + image" 
+          [alt]="selectedMapForDetails.name"
+          class="detail-image"
+          (error)="onImageError($event)">
+      </div>
+      
+      <div class="map-info">
+        <div class="info-row" *ngIf="selectedMapForDetails.game_mode">
+          <strong>Game Mode:</strong> {{ selectedMapForDetails.game_mode }}
+        </div>
+        <div class="info-row" *ngIf="selectedMapForDetails.location">
+          <strong>Location:</strong> {{ selectedMapForDetails.location }}
+        </div>
+        <div class="info-row" *ngIf="selectedMapForDetails.description">
+          <strong>Description:</strong> {{ selectedMapForDetails.description }}
+        </div>
+        
+        <div class="video-section" *ngIf="selectedMapForDetails.video">
+          <h4>Map Preview</h4>
+          <iframe 
+            [src]="getVideoUrl(selectedMapForDetails.video)" 
+            width="100%" 
+            height="315" 
+            frameborder="0" 
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </div>
   </div>

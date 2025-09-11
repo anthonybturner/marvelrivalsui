@@ -102,6 +102,7 @@
 
   // Z-index
   --z-overlay: 9999;
+  --z-modal: 10000;
   --z-header: 1;
   // Flex values
   --flex-small: 0.3;
@@ -111,4 +112,8 @@
     // Effects (extended)
   --drop-shadow-lg: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.667));
 
+  
+  // Animation durations (if not already defined)
+  --animation-duration: 1s;
+  --animation-duration-fast: 0.3s;
 }

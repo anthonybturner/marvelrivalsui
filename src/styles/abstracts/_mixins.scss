@@ -7,6 +7,12 @@
   right: 0;
 }
 
+@mixin button-text-style-one {
+  background: var(--secondary-clr);
+  color: #fff;
+  text-shadow: #000 1px 1px;
+}
+
 @mixin image-icon-styles {
   border-radius: 50%;
   border: 2px solid var(--accent-clr);
@@ -14,21 +20,24 @@
   margin: 0 auto;
 }
 
-@mixin hover-effect-base{
+@mixin hover-effect-base {
   transition: all 0.3s ease;
   box-shadow: var(--shadow-inset);
   padding: var(--spacer-sm);
 }
+
 @mixin hover-effect {
 
   @include hover-effect-base();
   transform: translate(20px, 1px) scale(1.1);
+
   /* X, Y */
   @media screen and (max-width: 600px) {
-      transform: translate(0px, 0px) scale(.9);
+    transform: translate(0px, 0px) scale(.9);
   }
 }
-@mixin card-layout{
+
+@mixin card-layout {
   box-shadow: color-mix(in srgb, var(--primary-clr) 10%, transparent);
   padding: var(--spacer);
   border-radius: var(--br);
@@ -45,8 +54,9 @@
 @mixin hover-effect-sm {
   //@include hover-effect-base();
   transform: translate(0px, 1rem) scale(1.0);
+
   /* X, Y */
   @media screen and (max-width: 600px) {
-      transform: translate(0px, 0px) scale(.9);
+    transform: translate(0px, 0px) scale(.9);
   }
 }

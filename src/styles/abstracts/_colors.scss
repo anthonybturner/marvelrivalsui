@@ -21,4 +21,7 @@
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.18);
   --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.18);
   --focus-shadow: 0 0 0 2px rgba(240, 19, 30, 0.2);
+  
+  // Colors for modal (if not already defined)
+  --overlay-bg: rgba(0, 0, 0, 0.8);
 }
