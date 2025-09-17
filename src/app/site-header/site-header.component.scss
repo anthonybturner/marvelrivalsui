@@ -15,30 +15,48 @@
   .site-header-content {
     position: relative;
     display: flex;
+    align-content: flex-end;
+    gap: var(--spacing-lg);
+    padding-right: var(--padding-sm);
 
     .logo {
       filter: var(--drop-shadow-lg);
     }
 
     .hamburger {
-      display: flex;
+      display: none;
       flex-direction: column;
-      width: var(--hamburger-size);
-      height: var(--hamburger-size);
+      justify-content: center;
+      align-items: flex-end;
+      width: 40px;
+      height: 40px;
       background: none;
+      border: none;
       cursor: pointer;
-      margin-right: var(--spacing-md);
+
       z-index: var(--z-hamburger);
+      padding: 0;
 
       span {
         display: block;
-        height: var(--hamburger-line-height);
-        width: var(--hamburger-line-width);
-        background: red;
-        color: green;
-        margin: var(--hamburger-line-spacing) 0;
-        border-radius: var(--border-radius-xs);
-        transition: var(--transition-fast);
+        height: 4px;
+        width: 28px;
+        background: var(--primary-text-clr);
+        margin: 2px 0;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+
+      &.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      &.open span:nth-child(2) {
+        opacity: 0;
+      }
+
+      &.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
       }
     }
 
@@ -56,29 +74,48 @@
 
     nav {
       display: flex;
+      width: 100%;
       justify-content: flex-end;
-      align-content: flex-end;
-      gap: var(--spacing-lg);
-      padding-right: var(--padding);
-    }
+      transition: max-height 0.3s, opacity 0.3s;
+      overflow: hidden;
 
+      &.open {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: var(--primary-clr);
+        box-shadow: var(--shadow-lg);
+        border-radius: var(--border-radius-md);
+        padding: var(--spacing-md);
+        z-index: var(--z-header);
+        opacity: 1;
+      }
+    }
 
   }
 }
 
-@media (min-width: 493px) and (max-width: 900px) {
+@media (max-width: 1024px) {
   .site-header-toolbar .site-header-content {
     align-items: flex-start;
+
     .hamburger {
       display: flex;
     }
+
     nav {
       display: none;
+    }
+
+    nav.open {
+      display: flex !important;
     }
   }
 }
 
-@media (min-width: 0px) and (max-width: 492px) {
+@media (min-width: 0px) and (max-width: 480px) {
   .site-header-toolbar .site-header-content {
 
     align-items: flex-start;

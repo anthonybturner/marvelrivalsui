@@ -1,37 +1,44 @@
-
-form{
+form {
   display: flex;
 }
 
 input {
-    flex: 0.1;
-    margin-right: 4px;
+  flex: 0.1;
+  margin-right: 4px;
 }
 
 .stats-section {
-  width: 100%;
   overflow-x: auto;
-  table{
+  gap: 1rem;
+  width: 100%;
+  table {
     width: 100%;
     min-width: 200px;
     border-collapse: collapse;
-    
+
   }
 }
+.player-stats-sections-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: color-mix(in srgb, var(--primary-clr) 40%, transparent);
+  backdrop-filter: blur(14px);
+  gap: 2rem;
 
-.player-info-card {
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  padding: 2rem;
+  .stats-section {
+    flex: var(--flex-medium);
 
-  .stats-section{
-    background-color: color-mix(in srgb, var(--secondary-clr) 20%, transparent);
-     backdrop-filter: blur(4px);
+    table {
+      background-color: var(--primary-clr);
+      border-radius: var(--border-radius-md);
+    }
+    td {
+      text-align: center;
+    }
   }
-}
 
+}
 //Player stats
-
 .player-stats {
   h2 {
     text-align: center;
@@ -47,7 +54,7 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  
+
 }
 
 .stats-flex-row {
@@ -83,22 +90,16 @@ input {
   justify-content: flex-start;
   min-width: 150px; // Ensures enough space for icon + name
 }
-
-//Mobile
-@media ((min-width: 0px) and (max-width: 480px)) {
-  .player-info-card {
+//Tablet
+@media (min-width: 481px) and (max-width: 768px) {
+  .player-stats-sections-container, 
+  .top-heroes-section {
     display: flex;
-    flex-flow: column;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: none;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
   }
-  .player-info-card div{
-    display: block;
-    flex: 1.0;
-    padding: 0.2rem 0;
-  }
-
+  
   .stats-flex-row {
     flex-direction: column;
     gap: 1rem;
@@ -114,8 +115,37 @@ input {
     max-width: 80px;
     font-size: 0.95rem;
   }
-  .hero-table-cell{
-      min-width: 80px; // Ensures enough space for icon + name
+
+  .hero-table-cell {
+    min-width: 134px; // Ensures enough space for icon + name
+  }
+}
+
+//Mobile
+@media ((min-width: 0px) and (max-width: 480px)) {
+  .player-stats-sections-container, 
+  .top-heroes-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .stats-flex-row {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
   }
 
+  .hero-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-name {
+    max-width: 80px;
+    font-size: 0.95rem;
+  }
+
+  .hero-table-cell {
+    min-width: 134px; // Ensures enough space for icon + name
+  }
 }

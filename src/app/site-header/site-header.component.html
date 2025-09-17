@@ -5,7 +5,7 @@
     </a>
     <span class="page-title">{{playerTitle}} {{ pageTitle }}</span>
     <span class="spacer"></span>
-    <nav [class.open]="menuOpen">
+  <nav [class.open]="menuOpen">
       <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
       <a mat-button routerLink="/dev-diaries" routerLinkActive="active">Dev Diaries</a>
       <a mat-button routerLink="/maps" routerLinkActive="active">Game Maps</a>
@@ -13,7 +13,7 @@
       <a mat-button routerLink="/match-history" routerLinkActive="active">Match History</a>
       <a mat-button routerLink="/leaderboard" routerLinkActive="active">Leader Board</a>
     </nav>
-    <button class="hamburger" (click)="menuOpen = !menuOpen" aria-label="Toggle menu">
+    <button class="hamburger" [class.open]="menuOpen" (click)="menuOpen = !menuOpen" aria-label="Toggle menu">
       <span></span>
       <span></span>
       <span></span>

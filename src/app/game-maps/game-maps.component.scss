@@ -1,6 +1,6 @@
 @use './abstracts' as *;
 
-.game-maps-container {
+.container {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--spacing-xl);
@@ -526,7 +526,7 @@
 
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
-  .game-maps-container {
+  .container {
     padding: var(--spacing-lg);
   }
 

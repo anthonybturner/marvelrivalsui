@@ -1,5 +1,5 @@
 /* ===== Leaderboard Container ===== */
-.leaderboard-container {
+.container {
   display: grid;
   grid-template-columns: minmax(var(--leaderboard-min-width), 1fr);
   color: var(--primary-text-clr);

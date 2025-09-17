@@ -93,6 +93,7 @@
   --spinner-border-width-sm: 4px;
   --border: .3rem;
   --border-sm: .1rem;
+  --border-radius-xs: .1rem;
   --border-width-md: 3px;
   --border-color: var(--accent-clr);
 
@@ -109,6 +110,12 @@
   --flex-small: 0.3;
   --flex-medium: 0.5;
   --flex-auto: 1 1 auto;
+
+  --hamburger-size: 2px;
+  --hamburger-margin: 2px;
+  --hamburger-line-height: 4px;
+  --hamburger-line-width: 42px;
+  --z-hamburger: 99999;
 
     // Effects (extended)
   --drop-shadow-lg: drop-shadow(0 2px 6px var(--drop-shadow-clr));
