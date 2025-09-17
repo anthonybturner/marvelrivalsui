@@ -1,52 +1,40 @@
 @use './abstracts/' as *;
 
-.main-content {
-  padding: calc(var(--header-offset) + 3rem) 0;
-  min-height: calc(100vh - var(--header-offset) - var(--footer-height));
-}
-
+/* ===== Layout & Containers ===== */
 body {
+  max-width: 100%;
   font-size: var(--font-size-base);
-
   margin: 0 auto;
-  background: linear-gradient(250deg, var(--secondary-clr) 0%, var(--primary-clr) 50%);
   color: var(--primary-text-clr);
 }
 
-a.site-header-content {
-  text-decoration: none;
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
- a[mat-button] {
-      color: var(--primary-text-clr);
-      font-weight: var(--font-weight-medium);  
-      transition: var(--transition-fast);
-      &.active{
-        color: var(--secondary-clr) !important;
-      }
-      &:hover {
-        background: var(--accent-clr) !important;
-      }
-    }
 
-// --- Table Styles ---
+.main-content,
+.stats-section,
+.middle-section-container,
+.top-section-container {
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+/* ===== Table Styles ===== */
 table {
-  width: 100%;
+  width: 80%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: auto;
+  display: block;
   margin-top: var(--spacing-xs);
 }
 
-table thead {
-  background: var(--primary-clr);
-}
-
-.stats-section .heroes-table tr:nth-child(odd) {
-  background-color: var(--primary-clr);
-}
-
-.stats-section .heroes-table tr:nth-child(even) {
-  background-color: var(--accent-clr);
-}
-
+table thead,
 table th,
 .stat-label {
   background: var(--primary-clr);
@@ -56,27 +44,34 @@ table th,
   border-radius: var(--border-radius-sm);
 }
 
-// --- Icons ---
-.player-icon {
-  @include image-icon-styles;
-  width: var(--icon-size-lg);
-  height: var(--icon-size-lg);
+.stats-section .heroes-table tr:nth-child(odd) {
+  background-color: var(--primary-clr);
+}
+.stats-section .heroes-table tr:nth-child(even) {
+  background-color: var(--accent-clr);
 }
 
+/* ===== Images & Icons ===== */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.player-icon,
 .rank-icon {
+  @include image-icon-styles;
   width: var(--icon-size-lg);
   height: var(--icon-size-lg);
-  @include image-icon-styles;
 }
 
 img.role-icon {
   width: var(--icon-size-sm);
   height: auto;
-  margin: 0;
-  padding: 0;
   position: relative;
   top: var(--spacing-xs);
   left: var(--spacing-xs);
+  margin: 0;
+  padding: 0;
 }
 
 img.hero-icon {
@@ -84,13 +79,13 @@ img.hero-icon {
   height: auto;
   border-radius: var(--border-radius-md);
   object-fit: cover;
-  align-content: center;
   padding: var(--spacing-xs);
   border: var(--border-width) solid var(--error-clr);
   background: var(--bg-dark);
+  align-content: center;
 }
 
-// --- Buttons ---
+/* ===== Buttons ===== */
 button,
 button[mat-raised-button],
 .mdc-button,
@@ -111,7 +106,7 @@ button.mdc-button.mdc-button--raised.mat-mdc-raised-button.mat-primary.mat-mdc-b
   margin-left: var(--spacing-xs);
 }
 
-// --- Headings ---
+/* ===== Headings ===== */
 h4 {
   background: var(--primary-clr);
   border-radius: var(--border-radius-sm);
@@ -133,7 +128,7 @@ h4 {
   }
 }
 
-// --- Layout Containers ---
+/* ===== Flex Layouts ===== */
 .vertical-layout {
   display: flex;
   flex-direction: column;
@@ -146,14 +141,13 @@ h4 {
   .search-box-container {
     flex: var(--flex-small);
   }
-
   .stats-section {
     flex: var(--flex-small);
-        table {
+
+    table {
       background-color: var(--primary-clr);
       border-radius: var(--border-radius-md);
     }
-
     td {
       text-align: center;
     }
@@ -165,6 +159,7 @@ h4 {
   justify-content: space-between;
   background-color: color-mix(in srgb, var(--primary-clr) 40%, transparent);
   backdrop-filter: blur(14px);
+
   .stats-section {
     flex: var(--flex-medium);
 
@@ -172,14 +167,13 @@ h4 {
       background-color: var(--primary-clr);
       border-radius: var(--border-radius-md);
     }
-
     td {
       text-align: center;
     }
   }
 }
 
-// --- Search Components ---
+/* ===== Search Components ===== */
 .search-box-container {
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-md);
@@ -230,7 +224,6 @@ h4 {
         background: var(--error-clr-hover);
         transform: translateY(-1px);
       }
-
       &:active {
         transform: translateY(0);
       }
@@ -254,7 +247,7 @@ input {
   }
 }
 
-// --- Stats Section ---
+/* ===== Stats Section ===== */
 .stats-section {
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-md);
@@ -270,7 +263,7 @@ input {
   }
 }
 
-// --- Status Indicators ---
+/* ===== Status Indicators ===== */
 .update-dot {
   display: inline-block;
   width: var(--dot-size);
@@ -279,29 +272,13 @@ input {
   margin-left: var(--spacing-md);
   vertical-align: middle;
 }
+.dot-green { background-color: var(--success-clr); }
+.dot-red { background-color: var(--error-clr); }
+.victory-row { background: var(--success-bg) !important; }
+.defeat-row { background: var(--error-bg) !important; }
+.selected-player { font-weight: bold; background: var(--selected-bg) !important; }
 
-.dot-green {
-  background-color: var(--success-clr);
-}
-
-.dot-red {
-  background-color: var(--error-clr);
-}
-
-.victory-row {
-  background: var(--success-bg) !important;
-}
-
-.defeat-row {
-  background: var(--error-bg) !important;
-}
-
-.selected-player {
-  font-weight: bold;
-  background: var(--selected-bg) !important;
-}
-
-// --- Loading States ---
+/* ===== Loading States ===== */
 .fullscreen-loading {
   position: fixed;
   top: 0;
@@ -321,7 +298,7 @@ input {
   border: var(--spinner-border-width) solid var(--spinner-bg);
   border-top: var(--spinner-border-width) solid var(--accent-clr);
   border-radius: 50%;
-  animation: spin var(--animation-duration) linear infinite;  
+  animation: spin var(--animation-duration) linear infinite;
 }
 
 .loading-indicator {
@@ -349,7 +326,7 @@ input {
   100% { transform: rotate(360deg); }
 }
 
-// --- Snackbar Styles ---
+/* ===== Snackbar Styles ===== */
 .error-snackbar,
 .mdc-snackbar__surface,
 .mat-mdc-snackbar-surface {
@@ -362,12 +339,30 @@ input {
   @include snackbar-base(var(--success-clr), var(--notification-text-clr));
 }
 
-// --- Toolbar Styles ---
+/* ===== Toolbar Styles ===== */
 .custom-toolbar {
   background: var(--toolbar-bg) !important;
 
   .mdc-button:hover {
     background: var(--toolbar-hover-bg) !important;
     border-radius: var(--border-radius-sm);
+  }
+}
+
+/* ===== Links ===== */
+a.site-header-content {
+  text-decoration: none;
+}
+
+a[mat-button] {
+  color: var(--primary-text-clr);
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-fast);
+
+  &.active {
+    color: var(--secondary-clr) !important;
+  }
+  &:hover {
+    background: var(--accent-clr) !important;
   }
 }

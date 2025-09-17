@@ -7,6 +7,18 @@ input {
     flex: 0.1;
     margin-right: 4px;
 }
+
+.stats-section {
+  width: 100%;
+  overflow-x: auto;
+  table{
+    width: 100%;
+    min-width: 200px;
+    border-collapse: collapse;
+    
+  }
+}
+
 .player-info-card {
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
@@ -73,7 +85,7 @@ input {
 }
 
 //Mobile
-@media (max-width: 600px) {
+@media ((min-width: 0px) and (max-width: 480px)) {
   .player-info-card {
     display: flex;
     flex-flow: column;
@@ -101,6 +113,9 @@ input {
   .hero-name {
     max-width: 80px;
     font-size: 0.95rem;
+  }
+  .hero-table-cell{
+      min-width: 80px; // Ensures enough space for icon + name
   }
 
 }

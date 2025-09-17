@@ -3,13 +3,8 @@
     <a mat-button routerLink="/home" routerLinkActive="active">
       <img class="logo" src="/assets/images/logo.png" alt="Logo" />
     </a>
-    <button class="hamburger" (click)="menuOpen = !menuOpen" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
     <span class="page-title">{{playerTitle}} {{ pageTitle }}</span>
-     <span class="spacer"></span>
+    <span class="spacer"></span>
     <nav [class.open]="menuOpen">
       <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
       <a mat-button routerLink="/dev-diaries" routerLinkActive="active">Dev Diaries</a>
@@ -18,5 +13,10 @@
       <a mat-button routerLink="/match-history" routerLinkActive="active">Match History</a>
       <a mat-button routerLink="/leaderboard" routerLinkActive="active">Leader Board</a>
     </nav>
+    <button class="hamburger" (click)="menuOpen = !menuOpen" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </div>
