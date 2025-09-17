@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IHero } from './hero/data/models/hero.model';
-import { Subject, takeUntil } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
 import { handleImageError, getImageUrl, getRoleColor } from '../shared/utilities/image-utils';
 @Component({
   selector: 'mr-hero',
@@ -24,9 +24,11 @@ export class HeroesComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.activatedRoute.data.pipe(takeUntil(this.ngUnsubscribe)).subscribe((results) => {
+    this.activatedRoute.data.pipe(
+      takeUntil(this.ngUnsubscribe),
+    ).subscribe((results) => {
       this.heroes = results["resolvedData"];
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -36,7 +38,7 @@ export class HeroesComponent implements OnInit, OnDestroy {
 
   onSearch() {
     if (!this.heroName) return;
-    this.isLoading = true;
+    //this.isLoading = true;
   }
 
   onHeroSelected(arg0: string) {

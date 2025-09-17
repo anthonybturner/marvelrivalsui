@@ -1,3 +1,8 @@
+  @if(isLoading){
+  <div class="fullscreen-loading">
+    <div class="spinner"></div>
+  </div>
+  }
 <div class="container">
   
   <!-- Header Section -->
@@ -60,13 +65,7 @@
       {{ mode }}
     </button>
   </div>
-
-  <!-- Loading State -->
-  <div *ngIf="isLoading" class="loading-container">
-    <div class="loading-spinner"></div>
-    <p>Loading game maps...</p>
-  </div>
-
+  
   <!-- Maps Grid -->
   <div class="maps-grid" *ngIf="!isLoading && getFilteredMaps().length > 0">
     <div 

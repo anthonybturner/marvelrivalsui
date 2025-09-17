@@ -124,7 +124,6 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
           }
           this.isPlayerUpdated.set(lastUpdateDate && !updateNeeded);
           this.playerStats.set(playerStats);
-          this.showToast(`Player: ${this.searchPlayerName()} found.`, 4000, 'success-snackbar');
         },
         error: (error) => {
           this.handleError("Searched Player", error);
