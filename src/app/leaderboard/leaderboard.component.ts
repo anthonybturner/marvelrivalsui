@@ -87,7 +87,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.players.set(response.players);
         this.heroName.set(heroName);
-        this.fetchHeroBannerInfo(heroName);
       },
       error: () => {
         this.players.set([]);
