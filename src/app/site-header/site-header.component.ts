@@ -36,4 +36,8 @@ export class SiteHeaderComponent {
             this.pageTitle = data['pageTitle'] || 'Home';
         });
     }
+
+    closeMenu(): void {
+        this.menuOpen = false;
+    }
 }

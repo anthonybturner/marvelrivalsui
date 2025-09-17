@@ -6,12 +6,12 @@
     <span class="page-title">{{playerTitle}} {{ pageTitle }}</span>
     <span class="spacer"></span>
   <nav [class.open]="menuOpen">
-      <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
-      <a mat-button routerLink="/dev-diaries" routerLinkActive="active">Dev Diaries</a>
-      <a mat-button routerLink="/maps" routerLinkActive="active">Game Maps</a>
-      <a mat-button routerLink="/heroes" routerLinkActive="active">Heroes</a>
-      <a mat-button routerLink="/match-history" routerLinkActive="active">Match History</a>
-      <a mat-button routerLink="/leaderboard" routerLinkActive="active">Leader Board</a>
+      <a mat-button routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
+      <a mat-button routerLink="/dev-diaries" routerLinkActive="active" (click)="closeMenu()">Dev Diaries</a>
+      <a mat-button routerLink="/maps" routerLinkActive="active" (click)="closeMenu()">Game Maps</a>
+      <a mat-button routerLink="/heroes" routerLinkActive="active" (click)="closeMenu()">Heroes</a>
+      <a mat-button routerLink="/match-history" routerLinkActive="active" (click)="closeMenu()">Match History</a>
+      <a mat-button routerLink="/leaderboard" routerLinkActive="active" (click)="closeMenu()">Leader Board</a>
     </nav>
     <button class="hamburger" [class.open]="menuOpen" (click)="menuOpen = !menuOpen" aria-label="Toggle menu">
       <span></span>
