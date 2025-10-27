@@ -1,0 +1,31 @@
+<div class="stats-section">
+    <h4>{{playerInfo.name}} Player Stats <span class="update-dot"
+            [ngClass]="{'dot-green': isPlayerUpdated(), 'dot-red': !isPlayerUpdated()}"></span></h4>
+    <table class="player-stats-table">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Level</th>
+                <th>Rank</th>
+                <th>Achievements</th>
+                <th>Platform </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img [src]="playerInfo.image" alt="Player Icon"
+                        class="player-icon" /></td>
+                <td>{{ playerInfo.level }}</td>
+                <td>
+                    <div class="rank-table-cell">
+                        <span>{{playerInfo.rank}}</span><img
+                            class="rank-icon"
+                            [src]="playerInfo.rankImage" />
+                    </div>
+                </td>
+                <td>{{ playerInfo.completedAchievements }}</td>
+                <td>{{ playerInfo.loginOs }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
