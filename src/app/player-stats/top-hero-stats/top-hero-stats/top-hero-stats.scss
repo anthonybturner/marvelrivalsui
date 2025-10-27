@@ -1,0 +1,22 @@
+.hero-table-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  min-width: 150px; // Ensures enough space for icon + name
+}
+
+
+//Tablet
+@media (min-width: 481px) and (max-width: 768px) {
+  .hero-table-cell {
+    min-width: 134px; // Ensures enough space for icon + name
+  }
+}
+
+//Mobile
+@media ((min-width: 0px) and (max-width: 480px)) {
+  .hero-table-cell {
+    min-width: 134px; // Ensures enough space for icon + name
+  }
+}

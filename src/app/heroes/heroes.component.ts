@@ -10,12 +10,12 @@ import { handleImageError, getImageUrl, getRoleColor } from '../shared/utilities
   styleUrl: './heroes.component.scss'
 })
 export class HeroesComponent implements OnInit, OnDestroy {
-
-
-  heroes: IHero[] = []
-  ngUnsubscribe = new Subject();
+  heroes: IHero[] = [];
+  filteredHeroes: IHero[] = [];
+  selectedHero: IHero | null = null;
   isLoading: boolean = false;
-  heroName: string = '';
+  searchTerm: string = '';
+  ngUnsubscribe = new Subject();
 
   handleImageError = handleImageError;
   getImageUrl = getImageUrl;
@@ -28,6 +28,7 @@ export class HeroesComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe),
     ).subscribe((results) => {
       this.heroes = results["resolvedData"];
+      this.filteredHeroes = this.heroes;
     });
   }
 
@@ -37,10 +38,17 @@ export class HeroesComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    if (!this.heroName) return;
-    //this.isLoading = true;
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      this.filteredHeroes = this.heroes;
+      return;
+    }
+    this.filteredHeroes = this.heroes.filter(hero =>
+      hero.name.toLowerCase().includes(term)
+    );
   }
 
-  onHeroSelected(arg0: string) {
+  selectHero(hero: IHero) {
+    this.selectedHero = hero;
   }
 }

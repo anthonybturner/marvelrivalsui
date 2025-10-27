@@ -8,6 +8,10 @@ import { HeroStats } from './data/hero-stats-model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { needsUpdate, parseLastUpdateDate } from 'src/app/shared/utilities/date-utils';
 import { RankGameSeason } from './data/rank-game-season.model';
+import { PlayerInfoStats } from './player-info/player-info-stats/player-info-stats';
+import { OverallInfoStatsType, PlayerInfoStatsType } from '../shared/types/types';
+
+
 @Component({
   selector: 'mr-player-stats',
   templateUrl: './player-stats.component.html',
@@ -19,6 +23,25 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   // ===== UTILITIES =====
   getPlayerImage = getPlayerImage;
   // ===== SIGNALS =====
+  playerInfoStats: PlayerInfoStatsType = {
+    name: "",
+    rank: "",
+    completedAchievements: "",
+    image: "",
+    level: "",
+    loginOs: "",
+    rankImage: "",
+  };
+
+  overallInfoStats: OverallInfoStatsType = {
+    totalMatches: 0,
+    totalWins: 0,
+    totalLosses: 0,
+    winPercentage: "",
+    unrankedTotalKills: 0,
+    rankedTotalKills: 0,
+  }
+
   isLoading = signal<boolean>(false);
   playerStats = signal<PlayerStats | null>(null);
   ngUnsubscribe = new Subject();
@@ -54,6 +77,7 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
   });
 
   playerName = computed(() => {
+
     return this.playerStats()?.player?.name || "Unknown Player";
   })
 
@@ -86,27 +110,6 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
     this.searchPlayerName.set(name);
   }
 
-  getWinRate(hero: HeroStats): string {
-    return hero.matches ? ((hero.wins / hero.matches) * 100).toFixed(2) : '0.00';
-  }
-
-  getTimePlayed(seconds: number): string {
-    if (!seconds) return '0m';
-    const mins = Math.floor(seconds / 60);
-    const hrs = Math.floor(mins / 60);
-    const remMins = mins % 60;
-    return hrs ? `${hrs}h ${remMins}m` : `${remMins}m`;
-  }
-
-  getKDRatio(kills: number, deaths: number): string {
-    if (!deaths) return kills ? kills.toFixed(2) : '0.00';
-    return (kills / deaths).toFixed(2);
-  }
-
-  getBlockedPerMin(blocked: number, playTime: number): string {
-    if (!playTime) return '0';
-    return (blocked / (playTime / 60)).toFixed(0);
-  }
 
   onSearchPlayer() {
     this.isLoading.set(true);
@@ -124,6 +127,24 @@ export class PlayerStatsComponent implements OnInit, OnDestroy {
           }
           this.isPlayerUpdated.set(lastUpdateDate && !updateNeeded);
           this.playerStats.set(playerStats);
+          this.playerInfoStats = {
+            name: playerStats.player?.name ?? '',
+            rank: playerStats.player.rank.rank,
+            image: getPlayerImage(playerStats.player.icon.player_icon),
+            level: playerStats.player.level,
+            loginOs: playerStats.player.info.login_os,
+            rankImage: getPlayerImage(playerStats.player.rank.image ?? ''),
+            completedAchievements: playerStats.player.info.completed_achievements
+          }
+
+          this.overallInfoStats = {
+            totalMatches: playerStats.overall_stats.total_matches,
+            totalWins: playerStats.overall_stats.total_wins,
+            totalLosses: this.totalLosses(),
+            winPercentage: this.winPercentage(),
+            unrankedTotalKills: playerStats.overall_stats.unranked.total_kills,
+            rankedTotalKills: playerStats.overall_stats.ranked.total_kills
+          }
         },
         error: (error) => {
           this.handleError("Searched Player", error);

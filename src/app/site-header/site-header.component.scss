@@ -123,11 +123,10 @@
         }
         
         &.logout-btn {
-          background: var(--error-clr);
           color: var(--primary-text-clr);
           
           &:hover {
-            background: var(--error-clr-hover);
+            background: var(--accent-clr);
             transform: translateY(-1px);
           }
         }

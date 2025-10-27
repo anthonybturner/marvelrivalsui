@@ -1,0 +1,2 @@
+"@angular/material": "^20.3.7",
+"@angular/cdk": "^20.3.7",

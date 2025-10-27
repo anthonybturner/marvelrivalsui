@@ -5,9 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, 
-    children:[
-      
-    ]
+    children:[]
   },
   {
     path: ':uid', component: DashboardComponent,

@@ -1,32 +1,33 @@
-.vertical-layout.dark-red {
-  background: #1a0a0a;
-  color: #fff;
-  border-radius: 12px;
-  padding: 18px;
+
+.heroes-section {
+  background: var(--primary-transparent-clr);
+  color: var(--primary-text-clr);
+  border-radius: var(--border-radius-md);
+  padding: var(--padding-md);
   min-height: 100vh;
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .heroes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); // smaller cards
-  gap: 58px;
-  margin: 8px 0;
-  padding: 8px 0;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin: var(--spacing-xs) 0;
+  padding: var(--spacing-xs) 0;
 }
 
 .heroes-container {
-  background: #2a0d13;
-  border-radius: 8px;
+  background: var(--primary-clr);
+  border-radius: var(--border-radius-md);
   padding: 0;
-  box-shadow: 0 2px 10px rgba(80,0,0,0.22);
+  box-shadow: var(--shadow-md);
   cursor: pointer;
   border: 2px solid transparent;
   transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
 
   &:hover, &.selected {
-    border: 2px solid #f0131e;
-    box-shadow: 0 6px 18px rgba(240,19,30,0.12);
+    border: 2px solid var(--accent-clr);
+    box-shadow: var(--shadow-lg);
     transform: translateY(-2px) scale(1.04);
   }
 }
@@ -34,16 +35,16 @@
 // Small detail card styles for mr-hero-details-card
 mr-hero-details-card {
   display: block;
-  background: #1a0a0a;
-  border-radius: 6px;
-  padding: 10px 8px;
-  color: #fff;
-  box-shadow: 0 1px 4px rgba(80,0,0,0.18);
+  background: var(--primary-transparent-clr);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--primary-text-clr);
+  box-shadow: var(--shadow-sm);
   min-width: 0;
   min-height: 0;
 
   .hero-name, h3 {
-    color: #f0131e;
+    color: var(--accent-clr);
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 2px;
@@ -51,31 +52,53 @@ mr-hero-details-card {
 
   .hero-meta {
     font-size: 0.85em;
-    color: #bbb;
+    color: var(--border-clr);
     margin-bottom: 4px;
   }
 
   .hero-role {
     padding: 2px 7px;
     border-radius: 3px;
-    font-size: 0.8em;
-    font-weight: bold;
-    background: #a3131e;
-    color: #fff;
-  }
-
-  .hero-abilities {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 4px;
-    .ability-icon img {
-      width: 18px;
-      height: 18px;
-      border-radius: 3px;
-      border: 1px solid #a33;
-    }
   }
 }
+
+// Search container and button
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.search-form {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.search-btn {
+  background: var(--accent-clr);
+  color: var(--primary-text-clr);
+  border-radius: var(--border-radius-md);
+  height: var(--button-height);
+  min-width: var(--button-width);
+}
+
+.no-results {
+  text-align: center;
+  color: var(--error-clr);
+  margin-top: var(--spacing-lg);
+  font-size: 1.1rem;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+}
+// Removed invalid/unclosed block at end of file
+
 
 
 .loading-spinner {

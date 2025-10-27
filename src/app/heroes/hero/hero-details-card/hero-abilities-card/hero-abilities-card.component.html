@@ -14,8 +14,8 @@
                     </div>
                     <div class="ability" *ngIf="!ability.isCollab">
                         <img mat-list-icon [matTooltip]="getDescription(ability)"
-                            [src]="getImageUrl(ability.icon, 'ability')" [alt]="ability.name + ' icon'"
-                            (error)="handleImageError($event, 'ability')"> &nbsp; {{ability.name}}
+                             [alt]="ability.name + ' icon'" 
+                            (error)="handleImageError($event, 'ability')"> &nbsp; {{ability.name}} 
                     </div>
                     <div mat-line class="ability-type">{{ ability.type }}</div>
                 </mat-list-item>

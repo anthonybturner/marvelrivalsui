@@ -1,21 +1,22 @@
-@if(isLoading){
-<div class="fullscreen-loading">
-  <div class="spinner"></div>
-</div>
-}
-<div class="vertical-layout dark-red">
-  <div class="search-container dark-red">
-    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
-      <input matInput name="heroName" [(ngModel)]="heroName" (keyup.enter)="onSearch()" placeholder="Enter hero name"
-        required>
-      <button mat-raised-button color="primary" type="submit">Search</button>
+<section class="main-content heroes-section">
+  <div class="search-container">
+    <form (ngSubmit)="onSearch()" class="search-form" autocomplete="off">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search Heroes</mat-label>
+        <input matInput [(ngModel)]="searchTerm" name="searchTerm" placeholder="Type a hero name..." required />
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" class="search-btn">Search</button>
     </form>
   </div>
-  <div class="heroes-grid small-cards">
-    <div class="heroes-container small-card" *ngFor="let hero of heroes" (click)="onHeroSelected(hero.name)"
-      tabindex="0" [class.selected]="(hero)?.name === hero.name">
-      <mr-hero-details-card [hero]="hero" class="small-card"></mr-hero-details-card>
-    </div>
-    <mat-spinner *ngIf="isLoading" diameter="40" class="loading-spinner"></mat-spinner>
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="48"></mat-spinner>
   </div>
-</div>
+  <div *ngIf="!isLoading" class="heroes-grid">
+    <div *ngFor="let hero of filteredHeroes" class="heroes-container" [class.selected]="selectedHero === hero" (click)="selectHero(hero)">
+      <mr-hero-details-card [hero]="hero"></mr-hero-details-card>
+    </div>
+    <div *ngIf="filteredHeroes.length === 0" class="no-results">
+      <span>No heroes found.</span>
+    </div>
+  </div>
+</section>
