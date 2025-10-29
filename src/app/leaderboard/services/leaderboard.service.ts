@@ -9,13 +9,13 @@ import { environment } from 'src/environments/environment';
 })
 export class LeaderboardService {
 
-  private baseUrl: string = environment.remoteApiUrl + "v1/";
+  private baseUrl: string = environment.remoteApiUrl + "v2/";
   private http = inject(HttpClient);
 
   getPlayers(heroName: any): Observable<ILeaderboardResponse> {
     const url = `${this.baseUrl}heroes/leaderboard/${heroName}`; // Added endpoint path
     const headers = new HttpHeaders({
-      'x-api-key': '27fe50d87b5dbebd1ab01589b08a2e00d3c6058a07097c0d6ee47a84e8f4c329',
+      'x-api-key': environment.apiKey,
       'Content-Type': 'application/json'
     });
     return this.http.get<ILeaderboardResponse>(url, { headers });

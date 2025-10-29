@@ -18,7 +18,7 @@ export class GameMapsService {
 
   constructor() {
 
-      this.getMaps().subscribe({
+    this.getMaps().subscribe({
       next: (response) => {
         this.maps = response.maps;
         this.mapsSubject.next(this.maps);
@@ -28,11 +28,11 @@ export class GameMapsService {
       }
     });
   }
-  
+
   getMaps(): Observable<IGameMapsResponse> {
     const url = `${this.baseUrl}game-maps`;
     const headers = new HttpHeaders({
-      'x-api-key': '27fe50d87b5dbebd1ab01589b08a2e00d3c6058a07097c0d6ee47a84e8f4c329',
+      'x-api-key': environment.apiKey,
       'Content-Type': 'application/json'
     });
 
@@ -41,7 +41,7 @@ export class GameMapsService {
         this.maps = response;
         this.mapsSubject.next(this.maps);
         return {
-          maps : this.maps,
+          maps: this.maps,
           total_maps: this.maps.length
         } as IGameMapsResponse;
       })
@@ -49,8 +49,8 @@ export class GameMapsService {
   }
 
   getMap(map_id: number): IGameMap | undefined {
-      const found = this.maps.find(m => m.id == map_id);
-      return found ? found : undefined;
+    const found = this.maps.find(m => m.id == map_id);
+    return found ? found : undefined;
   }
   getMapNameById(map_id: any): any {
     const found = this.maps.find(m => m.id == map_id);

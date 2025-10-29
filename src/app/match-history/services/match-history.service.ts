@@ -41,9 +41,9 @@ export class MatchHistoryService {
 
   getPlayerHistory(playerGUID: string): Observable<IMatchHistoryItem[]> {
     const headers = new HttpHeaders({
-          'x-api-key': '27fe50d87b5dbebd1ab01589b08a2e00d3c6058a07097c0d6ee47a84e8f4c329',
-          'Content-Type': 'application/json'
-        });
+      'x-api-key': environment.apiKey,
+      'Content-Type': 'application/json'
+    });
     const url = `${this.baseUrl}match-history/${playerGUID}`;
     return this.http.get<IMatchHistoryItem[]>(url, { headers });
   }
