@@ -16,7 +16,6 @@
       "prefix": "mr",
       "architect": {
         "build": {
-          "sourceMap": true,
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/marvel-rivals-ui",

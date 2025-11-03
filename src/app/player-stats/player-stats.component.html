@@ -1,11 +1,11 @@
 <div class="container">
     @if(isLoading()){
-    <div class="fullscreen-loading">
-        <div class="spinner"></div>
-    </div>
+        <div class="fullscreen-loading">
+            <div class="spinner"></div>
+        </div>
     }
-    <header>
-        <div class="search-box-container">
+    <main>
+         <div class="search-box-container">
             <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
                 <input type="text" class="search-box" name="searchPlayerName" [value]="searchPlayerName()"
                     (input)="updateSearchPlayerName($any($event.target).value)" placeholder="Search Player..."
@@ -14,132 +14,13 @@
                     style="display:block; width: 100%; height: auto;">Search</button>
             </form>
         </div>
-    </header>
-    <main>
-        <div class="player-stats-sections-container">
-            <div class="stats-section">
-                <h4>Rank Game Season</h4>
-                <table class="rank-season-table">
-                    <thead>
-                        <tr>
-                            <th>Season</th>
-                            <th>Level</th>
-                            <th>Rank Score</th>
-                            <th>Max Level</th>
-                            <th>Max Score</th>
-                            <th>Wins</th>
-                            <th>Last Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for(key of (rankSeasonKeys()); track key){
-                        <tr>
-                            <td>{{ key }}</td>
-                            <td>{{ playerRankGameSeason()?.[key]?.level }}</td>
-                            <td>{{ playerRankGameSeason()?.[key]?.rank_score | number:'1.0-0' }}</td>
-                            <td>{{ playerRankGameSeason()?.[key]?.max_level }}</td>
-                            <td>{{ playerRankGameSeason()?.[key]?.max_rank_score | number:'1.0-0' }}</td>
-                            <td>{{ playerRankGameSeason()?.[key]?.win_count }}</td>
-                            <td>{{ playerRankGameSeason()?.[key]?.update_time }}</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div class="stats-section">
-                <h4>{{playerName()}} Player Stats <span class="update-dot"
-                        [ngClass]="{'dot-green': isPlayerUpdated(), 'dot-red': !isPlayerUpdated()}"></span></h4>
-                <table class="player-stats-table">
-                    <thead>
-                        <tr>
-                            <th>Icon</th>
-                            <th>Level</th>
-                            <th>Rank</th>
-                            <th>Achievements</th>
-                            <th>Platform </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><img [src]="getPlayerImage(playerStats()?.player?.icon?.player_icon)" alt="Player Icon"
-                                    class="player-icon" /></td>
-                            <td>{{ playerStats()?.player?.level }}</td>
-                            <td>
-                                <div class="rank-table-cell">
-                                    <span>{{ getPlayerRank(playerStats()?.player?.rank?.rank) }}</span><img
-                                        class="rank-icon"
-                                        [src]="getPlayerImage(playerStats()?.player?.rank?.image ?? undefined)" />
-                                </div>
-                            </td>
-                            <td>{{ playerStats()?.player?.info?.completed_achievements }}</td>
-                            <td>{{ playerStats()?.player?.info?.login_os }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="stats-section">
-                <h4>Overall Stats</h4>
-                <table class="overall-stats-table">
-                    <thead>
-                        <tr>
-                            <th>Matches</th>
-                            <th>Wins</th>
-                            <th>Losses</th>
-                            <th>Win Percentage</th>
-                            <th>Unranked Kills</th>
-                            <th>Ranked Kills</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ playerStats()?.overall_stats?.total_matches }}</td>
-                            <td>{{ playerStats()?.overall_stats?.total_wins }}</td>
-                            <td>{{ totalLosses() }}</td>
-                            <td>{{ winPercentage() }}</td>
-                            <td>{{ playerStats()?.overall_stats?.unranked?.total_kills }}</td>
-                            <td>{{ playerStats()?.overall_stats?.ranked?.total_kills }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="player-stats-container">
+            <mr-player-info-stats [playerInfo]=playerInfoStats/>
+            <mr-overall-info-stats [overallInfo] = overallInfoStats />
         </div>
+        <mr-rank-season-stats [seasonKey]="rankSeasonKeys"  [season]="playerRankGameSeason"/>
         <div class="top-heroes-section">
-            <div class="stats-section">
-                <h4>Top Heroes</h4>
-                <table class="heroes-table">
-                    <thead>
-                        <tr>
-                            <th>Hero</th>
-                            <th>WR</th>
-                            <th>Time Played</th>
-                            <th>K/D Ratio</th>
-                            <th>Damage</th>
-                            <th>Healing</th>
-                            <th>Blocked/Min</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @for(hero of topPlayedHeroes(); track hero.hero_name){
-                        <tr>
-                            <td>
-                                <div class="hero-table-cell">
-                                    <img [src]="getPlayerImage(hero.hero_thumbnail)" alt="{{ hero.hero_name }}"
-                                        class="hero-icon" />
-                                    <span class="hero-name">{{ hero.hero_name }}</span>
-                                </div>
-                            </td>
-                            <td>{{ getWinRate(hero) }}%</td>
-                            <td>{{ getTimePlayed(hero.play_time) }}</td>
-                            <td>{{ getKDRatio(hero.kills, hero.deaths) }}</td>
-                            <td>{{ hero.damage | number:'1.0-0' }}</td>
-                            <td>{{ hero.heal | number:'1.0-0' }}</td>
-                            <td>{{ getBlockedPerMin(hero.damage_taken, hero.play_time) }}</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+           <mr-top-hero-stats [topPlayedHeroes] = topPlayedHeroes()/>
         </div>
     </main>
 </div>

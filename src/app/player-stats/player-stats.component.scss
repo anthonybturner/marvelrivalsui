@@ -18,12 +18,11 @@ input {
 
   }
 }
-.player-stats-sections-container {
+.player-stats-container {
   display: flex;
-  justify-content: space-between;
   background-color: color-mix(in srgb, var(--primary-clr) 40%, transparent);
   backdrop-filter: blur(14px);
-  gap: 2rem;
+  gap: 1rem;
 
   .stats-section {
     flex: var(--flex-medium);
@@ -47,14 +46,6 @@ input {
     width: 100%;
     font-size: 1.5rem;
   }
-}
-
-.rank-table-cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
 }
 
 .stats-flex-row {
@@ -83,16 +74,9 @@ input {
   vertical-align: middle;
 }
 
-.hero-table-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: flex-start;
-  min-width: 150px; // Ensures enough space for icon + name
-}
 //Tablet
 @media (min-width: 481px) and (max-width: 768px) {
-  .player-stats-sections-container, 
+  .player-stats-container, 
   .top-heroes-section {
     display: flex;
     flex-direction: column;
@@ -115,15 +99,11 @@ input {
     max-width: 80px;
     font-size: 0.95rem;
   }
-
-  .hero-table-cell {
-    min-width: 134px; // Ensures enough space for icon + name
-  }
 }
 
 //Mobile
 @media ((min-width: 0px) and (max-width: 480px)) {
-  .player-stats-sections-container, 
+  .player-stats-container, 
   .top-heroes-section {
     display: flex;
     flex-direction: column;
@@ -143,9 +123,5 @@ input {
   .hero-name {
     max-width: 80px;
     font-size: 0.95rem;
-  }
-
-  .hero-table-cell {
-    min-width: 134px; // Ensures enough space for icon + name
   }
 }

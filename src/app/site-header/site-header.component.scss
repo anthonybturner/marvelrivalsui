@@ -72,12 +72,65 @@
       flex: var(--flex-auto);
     }
 
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-right: var(--spacing-md);
+
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--accent-clr);
+      }
+
+      .user-name {
+        color: var(--primary-text-clr);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+      }
+    }
+
     nav {
       display: flex;
       width: 100%;
       justify-content: flex-end;
       transition: max-height 0.3s, opacity 0.3s;
       overflow: hidden;
+      align-items: center;
+      gap: var(--spacing-sm);
+
+      .auth-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        border-radius: var(--border-radius-sm);
+        font-weight: var(--font-weight-medium);
+        transition: var(--transition-fast);
+        
+        &.login-btn {
+          background: var(--success-clr);
+          color: var(--primary-text-clr);
+          
+          &:hover {
+            background: var(--success-clr-hover);
+            transform: translateY(-1px);
+          }
+        }
+        
+        &.logout-btn {
+          color: var(--primary-text-clr);
+          
+          &:hover {
+            background: var(--accent-clr);
+            transform: translateY(-1px);
+          }
+        }
+      }
 
       &.open {
         display: flex !important;
@@ -91,6 +144,11 @@
         padding: var(--spacing-md);
         z-index: var(--z-header);
         opacity: 1;
+        
+        .auth-btn {
+          width: 100%;
+          margin-top: var(--spacing-sm);
+        }
       }
     }
 
@@ -100,6 +158,10 @@
 @media (max-width: 1024px) {
   .site-header-toolbar .site-header-content {
     align-items: flex-start;
+
+    .user-info {
+      display: none;
+    }
 
     .hamburger {
       display: flex;

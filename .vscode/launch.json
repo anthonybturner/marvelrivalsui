@@ -20,6 +20,14 @@
             "webRoot": "${workspaceFolder}"
         },
         {
+            "name": "ng serve debug Edge",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:4200",
+            "preLaunchTask": "npm: start",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "name": "ng test",
             "type": "node",
             "request": "launch",
@@ -27,6 +35,29 @@
             "args": ["test"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
+        },
+       {
+            "name": "Launch Edge against localhost",
+            "type": "msedge",
+            "request": "launch",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "trace": true,
+            "userDataDir": "${workspaceFolder}/.vscode/edge-user-data",
+            "runtimeArgs": [
+                "--disable-web-security",
+                "--disable-features=VizDisplayCompositor"
+            ]
+        },
+        {
+            "name": "Attach to Edge",
+            "type": "msedge",
+            "request": "attach",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "timeout": 30000
         }
     ]
 }

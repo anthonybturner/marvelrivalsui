@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'mr-dashboard',
@@ -9,13 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DashboardComponent implements OnInit, OnDestroy{
 
-  constructor(private activatedRoute: ActivatedRoute) {}
-  userId: string | undefined;
+  constructor() {}
   ngOnInit() {
-    // Initialization logic here
-    this.activatedRoute.params.subscribe(params => {
-      this.userId = params['uid'];
-    });
   }
 
   ngOnDestroy() {

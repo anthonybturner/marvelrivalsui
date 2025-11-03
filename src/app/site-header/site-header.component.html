@@ -5,14 +5,28 @@
     </a>
     <span class="page-title">{{playerTitle}} {{ pageTitle }}</span>
     <span class="spacer"></span>
-  <nav [class.open]="menuOpen">
-      <a mat-button routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
-      <a mat-button routerLink="/dev-diaries" routerLinkActive="active" (click)="closeMenu()">Dev Diaries</a>
-      <a mat-button routerLink="/maps" routerLinkActive="active" (click)="closeMenu()">Game Maps</a>
-      <a mat-button routerLink="/heroes" routerLinkActive="active" (click)="closeMenu()">Heroes</a>
-      <a mat-button routerLink="/match-history" routerLinkActive="active" (click)="closeMenu()">Match History</a>
-      <a mat-button routerLink="/leaderboard" routerLinkActive="active" (click)="closeMenu()">Leader Board</a>
+    
+    <!-- User info and auth buttons -->
+    @if (isAuthenticated && user) {
+      <div class="user-info">
+        <img [src]="user.picture || '/assets/images/default-avatar.svg'" [alt]="user.name" class="user-avatar">
+        <span class="user-name">{{ user.name }}</span>
+      </div>
+    }
+    
+    <nav [class.open]="menuOpen">
+      @if (isAuthenticated) {
+        <a mat-button routerLink="/dashboards" routerLinkActive="active" (click)="closeMenu()">Dashboard</a>
+        <a mat-button routerLink="/dev-diaries" routerLinkActive="active" (click)="closeMenu()">Dev Diaries</a>
+        <a mat-button routerLink="/maps" routerLinkActive="active" (click)="closeMenu()">Game Maps</a>
+        <a mat-button routerLink="/match-history" routerLinkActive="active" (click)="closeMenu()">Match History</a>
+        <a mat-button routerLink="/leaderboard" routerLinkActive="active" (click)="closeMenu()">Leader Board</a>
+        <button mat-button class="auth-btn logout-btn" (click)="logout()">Logout</button>
+      } @else {
+        <button mat-button class="auth-btn login-btn" (click)="login()">Login</button>
+      }
     </nav>
+    
     <button class="hamburger" [class.open]="menuOpen" (click)="menuOpen = !menuOpen" aria-label="Toggle menu">
       <span></span>
       <span></span>

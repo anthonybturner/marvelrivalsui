@@ -11,6 +11,7 @@ import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from "./site-footer/site-footer.component";
 import { DevDiariesComponent } from './dev-diaries/dev-diaries.component';
 import { PlayerStatsComponent } from './player-stats/player-stats.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { PlayerStatsComponent } from './player-stats/player-stats.component';
     RouterModule,
     AppRoutingModule,
     SharedModule,
+    OAuthModule.forRoot()
 ],
   providers: [
   ],
