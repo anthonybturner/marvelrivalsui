@@ -5,6 +5,16 @@
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
 A fan-made Angular web application for **Marvel Rivals**, featuring hero rosters, team synergies, and news.
+## Development Notes
+
+This project is **actively being refactored** to align with Angular performance best practices.  
+Any non-performant patterns, such as **function calls within templates**, are intentionally being replaced with:
+
+- **Angular Signals**
+- **Async pipe–driven observables**
+- Improved **change detection strategies**
+
+These updates are part of an ongoing effort to demonstrate **clean architecture, performance awareness, and modern Angular patterns** in a real-world application.
 
 ---
 
@@ -115,4 +125,5 @@ text
    - Pipeline config embedded in the README.
    - Branching strategy table for Bitbucket workflows.
 3. **Concise Yet Comprehensive**: Covers setup, development, and deployment in one scroll.
+
 4. **No Placeholder Sections**: Every part serves a purpose (no "Coming Soon" unless necessary).
