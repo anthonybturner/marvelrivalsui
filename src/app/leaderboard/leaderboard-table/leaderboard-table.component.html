@@ -4,9 +4,11 @@
   <ng-container matColumnDef="rank">
     <th mat-header-cell *matHeaderCellDef (click)="sortData('rank')">
       Rank
-      <span class="sort-arrow" *ngIf="sortColumn === 'rank'">
-        {{sortAscending ? '▲' : '▼'}}
-      </span>
+      @if (sortColumn === 'rank') {
+        <span class="sort-arrow">
+          {{sortAscending ? '▲' : '▼'}}
+        </span>
+      }
     </th>
     <td mat-cell *matCellDef="let player">
       <span class="rank-badge">#{{player.info.rank_season.rank_score}}</span>
@@ -55,10 +57,11 @@
   <ng-container matColumnDef="winRate">
     <th mat-header-cell *matHeaderCellDef (click)="sortData('winRate')">Win %</th>
     <td mat-cell *matCellDef="let player">
-      <ng-container *ngIf="player.matches; else noMatches">
+      @if (player.matches) {
         {{ ((player.wins / player.matches) * 100) | number:'1.0-2' }}%
-      </ng-container>
-      <ng-template #noMatches>0%</ng-template>
+      } @else {
+        0%
+      }
     </td>
   </ng-container>
 

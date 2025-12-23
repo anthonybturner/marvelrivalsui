@@ -1,32 +1,36 @@
 <div class="details-card">
-    <div class="header-col">
-        <mat-card-header>
-            <mat-card-title>{{hero.name | titlecase}}</mat-card-title>
-            <mat-card-subtitle>
-                <img [src]="getRoleImage(hero.role)" alt="{{hero.role}} icon" class="role-icon">
-            </mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image class="detail-portrait" [src]="getImageUrl(hero.imageUrl, 'hero')"
-            [alt]="hero.name + ' full portrait'">
-    </div>
-    <div class="content-col">
-        <mat-card-content>
-            <div><b>Real name:</b> {{ hero.real_name }}</div>
-            <div><b>Attack type:</b> {{ hero.attack_type }}</div>
-            <div>
-                <b>Team:</b>
-                <span *ngFor="let team of hero?.team">
-                    {{ team }}
-                </span>
-            </div>
-            <div class="bio"> <b>Bio:</b> {{ hero.bio }}</div>
-            <div class="difficulty-rating">
-                <span>Difficulty:</span>
-                <mat-icon *ngFor="let star of [1,2,3,4,5]">
-                    {{ star <= +(hero.difficulty || 0) ? 'star' : 'star_border' }} </mat-icon>
-            </div>
-        </mat-card-content>
-    </div>
+  <div class="header-col">
+    <mat-card-header>
+      <mat-card-title>{{hero.name | titlecase}}</mat-card-title>
+      <mat-card-subtitle>
+        <img [src]="getRoleImage(hero.role)" alt="{{hero.role}} icon" class="role-icon">
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="detail-portrait" [src]="getImageUrl(hero.imageUrl, 'hero')"
+      [alt]="hero.name + ' full portrait'">
+  </div>
+  <div class="content-col">
+    <mat-card-content>
+      <div><b>Real name:</b> {{ hero.real_name }}</div>
+      <div><b>Attack type:</b> {{ hero.attack_type }}</div>
+      <div>
+        <b>Team:</b>
+        @for (team of hero?.team; track team) {
+          <span>
+            {{ team }}
+          </span>
+        }
+      </div>
+      <div class="bio"> <b>Bio:</b> {{ hero.bio }}</div>
+      <div class="difficulty-rating">
+        <span>Difficulty:</span>
+        @for (star of [1,2,3,4,5]; track star) {
+          <mat-icon>
+          {{ star <= +(hero.difficulty || 0) ? 'star' : 'star_border' }} </mat-icon>
+        }
+      </div>
+    </mat-card-content>
+  </div>
 </div>
 <!-- Hero Abilities -->
 <mr-hero-abilities-card [abilities]="hero.abilities"></mr-hero-abilities-card>

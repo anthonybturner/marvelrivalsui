@@ -1,30 +1,29 @@
 <!-- Abilities -->
 <mat-accordion (click)="$event.stopPropagation()" class="abilities-accordion">
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>Abilities ({{ abilities.length }})</mat-panel-title>
-        </mat-expansion-panel-header>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Abilities ({{ abilities.length }})</mat-panel-title>
+    </mat-expansion-panel-header>
 
-        <cdk-virtual-scroll-viewport itemSize="80" class="abilities-viewport" style="height:300px;">
-            <mat-list>
-                <mat-list-item *cdkVirtualFor="let ability of abilities">
-                    <ng-container *ngIf="ability.isCollab; else normalAbility">
-                        <div class="ability">
-                            <mat-icon [matTooltip]="getDescription(ability)" aria-hidden="false" aria-label="collab">groups</mat-icon>
-                            <span class="ability-name">{{ ability.name }}</span>
-                        </div>
-                    </ng-container>
-                    <ng-template #normalAbility>
-                        <div class="ability">
-                            <img mat-list-icon [matTooltip]="getDescription(ability)" [src]="getImageUrl(ability.icon, 'ability')"
-                                [alt]="ability.name + ' icon'" (error)="handleImageError($event, 'ability')">
-                            <span class="ability-name">{{ ability.name }}</span>
-                        </div>
-                    </ng-template>
+    <cdk-virtual-scroll-viewport itemSize="80" class="abilities-viewport" style="height:300px;">
+      <mat-list>
+        <mat-list-item *cdkVirtualFor="let ability of abilities">
+          @if (ability.isCollab) {
+            <div class="ability">
+              <mat-icon [matTooltip]="getDescription(ability)" aria-hidden="false" aria-label="collab">groups</mat-icon>
+              <span class="ability-name">{{ ability.name }}</span>
+            </div>
+          } @else {
+            <div class="ability">
+              <img mat-list-icon [matTooltip]="getDescription(ability)" [src]="getImageUrl(ability.icon, 'ability')"
+                [alt]="ability.name + ' icon'" (error)="handleImageError($event, 'ability')">
+              <span class="ability-name">{{ ability.name }}</span>
+            </div>
+          }
 
-                    <div mat-line class="ability-type">{{ ability.type }}</div>
-                </mat-list-item>
-            </mat-list>
-        </cdk-virtual-scroll-viewport>
-    </mat-expansion-panel>
+          <div mat-line class="ability-type">{{ ability.type }}</div>
+        </mat-list-item>
+      </mat-list>
+    </cdk-virtual-scroll-viewport>
+  </mat-expansion-panel>
 </mat-accordion>

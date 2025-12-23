@@ -1,20 +1,20 @@
 <div class="dev-diaries-container">
-  
+
   <!-- Header Section -->
   <div class="header-section">
     <div class="title-area">
       <h1>Developer Diaries</h1>
       <p class="subtitle">Stay updated with the latest Marvel Rivals development news</p>
     </div>
-    
+
     <div class="search-area">
       <form #searchForm="ngForm" (ngSubmit)="onSearchDiary()">
         <div class="search-input-group">
-          <input 
-            type="text" 
-            name="searchDiary" 
-            [(ngModel)]="searchDiaryTitle" 
-            placeholder="Search articles..." 
+          <input
+            type="text"
+            name="searchDiary"
+            [(ngModel)]="searchDiaryTitle"
+            placeholder="Search articles..."
             class="search-input">
           <button type="submit" class="search-button" [disabled]="!searchForm.valid">
             <span>🔍</span>
@@ -46,82 +46,88 @@
 
   <!-- Filter Tabs -->
   <div class="filter-tabs">
-    <button 
-      class="filter-tab" 
-      [class.active]="selectedCategory === 'all'" 
+    <button
+      class="filter-tab"
+      [class.active]="selectedCategory === 'all'"
       (click)="filterByCategory('all')">
       All Articles
     </button>
-    <button 
-      class="filter-tab" 
-      [class.active]="selectedCategory === 'Updates'" 
+    <button
+      class="filter-tab"
+      [class.active]="selectedCategory === 'Updates'"
       (click)="filterByCategory('Updates')">
       Updates
     </button>
-    <button 
-      class="filter-tab" 
-      [class.active]="selectedCategory === 'Balance'" 
+    <button
+      class="filter-tab"
+      [class.active]="selectedCategory === 'Balance'"
       (click)="filterByCategory('Balance')">
       Balance Changes
     </button>
-    <button 
-      class="filter-tab" 
-      [class.active]="selectedCategory === 'Fixes'" 
+    <button
+      class="filter-tab"
+      [class.active]="selectedCategory === 'Fixes'"
       (click)="filterByCategory('Fixes')">
       Bug Fixes
     </button>
   </div>
 
   <!-- Loading State -->
-  <div *ngIf="isLoading" class="loading-container">
-    <div class="loading-spinner"></div>
-    <p>Loading developer diaries...</p>
-  </div>
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading developer diaries...</p>
+    </div>
+  }
 
   <!-- Articles Grid -->
-  <div class="articles-grid" *ngIf="!isLoading && devDiaries && devDiaries.length > 0">
-    <article 
-      class="diary-card" 
-      *ngFor="let diary of filteredDiaries; let i = index"
-      [class.selected]="selectedDiary?.id === diary.id"
-      (click)="selectDiary(diary)">
-      
-      <div class="card-header">
-        <div class="category-badge" [class]="getCategoryClass(diary.category)">
-
-          {{ getSafeCategory(diary.category) }}
-        </div>
-        <div class="date-info">
-          {{ formatDate(diary.date) }}
-        </div>
-      </div>
-      
-      <div class="card-content">
-        <h3 class="article-title">{{ diary.title }}</h3>
-        <p class="article-overview" *ngIf="diary.overview">{{ diary.overview }}</p>
-        
-        <div class="card-footer">
-          <div class="status-indicator">
+  @if (!isLoading && devDiaries && devDiaries.length > 0) {
+    <div class="articles-grid">
+      @for (diary of filteredDiaries; track diary; let i = $index) {
+        <article
+          class="diary-card"
+          [class.selected]="selectedDiary?.id === diary.id"
+          (click)="selectDiary(diary)">
+          <div class="card-header">
+            <div class="category-badge" [class]="getCategoryClass(diary.category)">
+              {{ getSafeCategory(diary.category) }}
+            </div>
+            <div class="date-info">
+              {{ formatDate(diary.date) }}
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="article-title">{{ diary.title }}</h3>
+            @if (diary.overview) {
+              <p class="article-overview">{{ diary.overview }}</p>
+            }
+            <div class="card-footer">
+              <div class="status-indicator">
             <span class="update-dot" [ngClass]="{
               'dot-green': isRecentUpdate(diary.date), 
               'dot-red': !isRecentUpdate(diary.date)
             }"></span>
-            <span class="status-text">{{ getStatusText(diary.date) }}</span>
+                <span class="status-text">{{ getStatusText(diary.date) }}</span>
+              </div>
+              @if (diary.content) {
+                <button class="read-more-btn">
+                  Read More
+                </button>
+              }
+            </div>
           </div>
-          
-          <button class="read-more-btn" *ngIf="diary.content">
-            Read More
-          </button>
-        </div>
-      </div>
-    </article>
-  </div>
+        </article>
+      }
+    </div>
+  }
 
   <!-- Empty State -->
-  <div class="empty-state" *ngIf="!isLoading && (!devDiaries || devDiaries.length === 0)">
-    <div class="empty-icon">📝</div>
-    <h3>No Developer Diaries Found</h3>
-    <p>Check back later for the latest development updates.</p>
-  </div>
+  @if (!isLoading && (!devDiaries || devDiaries.length === 0)) {
+    <div class="empty-state">
+      <div class="empty-icon">📝</div>
+      <h3>No Developer Diaries Found</h3>
+      <p>Check back later for the latest development updates.</p>
+    </div>
+  }
 
 </div>
