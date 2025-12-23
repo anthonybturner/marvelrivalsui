@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IHero } from './hero/data/models/hero.model';
 import { finalize, Subject, takeUntil } from 'rxjs';
@@ -13,6 +13,7 @@ export class HeroesComponent implements OnInit, OnDestroy {
   heroes: IHero[] = [];
   filteredHeroes: IHero[] = [];
   selectedHero: IHero | null = null;
+  heroName = signal<string>('');
   isLoading: boolean = false;
   searchTerm: string = '';
   ngUnsubscribe = new Subject();

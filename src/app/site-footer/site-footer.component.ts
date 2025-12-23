@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'mr-site-footer',
-  standalone: false,
+  standalone: true,
+  imports: [],
   templateUrl: './site-footer.component.html',
   styleUrl: './site-footer.component.scss'
 })

@@ -7,7 +7,7 @@
     "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
-    },
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.3.7",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.3.7",
-    "@angular/cli": "~20.3.7",
+    "@angular/cli": "^21.0.4",
     "@angular/compiler-cli": "^20.3.7",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.11.0",

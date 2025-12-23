@@ -8,7 +8,7 @@
   <div class="search-container">
     <form (ngSubmit)="onSearch()" #searchForm="ngForm" class="search-box-container">
       <mat-form-field appearance="outline" style="width:100%">
-        <input matInput name="heroName" [(ngModel)]="heroName" (keyup.enter)="onSearch()" placeholder="Enter hero name"
+        <!-- <input matInput name="heroName" [(ngModel)]="heroName()" (keyup.enter)="onSearch()" placeholder="Enter hero name" -->
           required aria-label="Search heroes by name">
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Search</button>
@@ -16,15 +16,15 @@
   </div>
 
   <div class="heroes-grid small-cards">
-    @for (hero of heroes; track hero.name) {
+    <!-- @for (hero of heroes; track hero.name) {
     <div class="heroes-container small-card" (click)="onHeroSelected(hero.name)" tabindex="0">
       <mr-hero-details-card [hero]="hero" class="small-card"></mr-hero-details-card>
     </div>
-    }
+    } -->
     @if (isLoading) {
     <div class="loading-container">
       <mat-spinner diameter="40" class="loading-spinner" aria-hidden="false"></mat-spinner>
     </div>
     }
   </div>
-</section>
+</div>
