@@ -1,16 +1,17 @@
 import { Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'dashboards',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
-    path: 'dashboards',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    data: { pageTitle: 'Dashboard' }
+    path: 'dashboard',
+    component: DashboardComponent,
+    title: 'Dashboard'
   },
     {
     path: 'dev-diaries',

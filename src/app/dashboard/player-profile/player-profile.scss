@@ -1,0 +1,64 @@
+.player-profile-container {
+    display: flex;
+    flex-direction: column;
+    padding: .6rem;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+
+    .profile-header {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        .header-title {
+            display: flex;
+
+            h3 {
+                font-weight: 500;
+            }
+
+            .rank-icon {
+                position: relative;
+                top: 0px;
+                right: 0px;
+                width: 64px;
+                height: auto;
+            }
+        }
+
+        .player-icon {
+            width: 128px;
+            height: auto;
+        }
+
+        .status {
+            right: 4px;
+            top: 4px;
+        }
+    }
+
+
+    .profile-details {
+        .player-name {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .player-updated {
+            background-color: green;
+        }
+
+        .player-not-updated {
+            background-color: red;
+        }
+
+        .player-updated,
+        .player-not-updated {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+    }
+
+}
