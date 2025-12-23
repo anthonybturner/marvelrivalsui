@@ -2,22 +2,22 @@
 <mat-accordion (click)="$event.stopPropagation()" class="abilities-accordion">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>Abilities ({{ abilities.length }})</mat-panel-title>
+      <mat-panel-title>Abilities ({{ abilities().length }})</mat-panel-title>
     </mat-expansion-panel-header>
 
     <cdk-virtual-scroll-viewport itemSize="80" class="abilities-viewport" style="height:300px;">
       <mat-list>
-        <mat-list-item *cdkVirtualFor="let ability of abilities">
+        <mat-list-item *cdkVirtualFor="let ability of abilities();">
           @if (ability.isCollab) {
             <div class="ability">
               <mat-icon [matTooltip]="getDescription(ability)" aria-hidden="false" aria-label="collab">groups</mat-icon>
-              <span class="ability-name">{{ ability.name }}</span>
+              <span class="ability-name">{{ ability?.name }}</span>
             </div>
           } @else {
             <div class="ability">
               <img mat-list-icon [matTooltip]="getDescription(ability)" [src]="getImageUrl(ability.icon, 'ability')"
                 [alt]="ability.name + ' icon'" (error)="handleImageError($event, 'ability')">
-              <span class="ability-name">{{ ability.name }}</span>
+              <span class="ability-name">{{ ability?.name }}</span>
             </div>
           }
 

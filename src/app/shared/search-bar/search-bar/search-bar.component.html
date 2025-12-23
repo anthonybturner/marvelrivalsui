@@ -1,7 +1,9 @@
 <div class="search-container">
 <form (ngSubmit)="onSearch()" #searchForm="">
-    <mat-label>Hero Name</mat-label>
-    <input matInput name="heroName" (keyup.enter)="onSearch()" placeholder="Enter hero name" required>
+    <mat-form-field appearance="outline">
+      <mat-label>Hero Name</mat-label>
+      <input matInput name="heroName" (keyup.enter)="onSearch()" placeholder="Enter hero name" required>
+    </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Search</button>
 </form>
 </div>

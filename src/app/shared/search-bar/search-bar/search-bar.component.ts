@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MatLabel } from '@angular/material/form-field';
+import { MatLabel, MatFormField } from '@angular/material/form-field';
 
 @Component({
   selector: 'mr-search-bar',
-  imports: [MatLabel],
+  imports: [MatLabel, MatFormField],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss'
 })

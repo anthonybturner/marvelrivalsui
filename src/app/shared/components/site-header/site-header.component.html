@@ -1,0 +1,36 @@
+<div class="site-header-toolbar">
+  <div class="site-header-content">
+    <a mat-button routerLink="/home" routerLinkActive="active">
+      <img class="logo" src="/assets/images/logo.png" alt="Logo" />
+    </a>
+    <!-- User info and auth buttons -->
+    <!-- <div class="user-info">
+        <img [src]="user.picture || '/assets/images/default-avatar.svg'" [alt]="user.name" class="user-avatar">
+        <span class="user-name">{{ user.name }}</span>
+      </div> -->
+    <nav [class.open]="menuOpen">
+      <a mat-button routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Rivals Pulse</a>
+      <a mat-button routerLink="/news" routerLinkActive="active" (click)="closeMenu()">News</a>
+      <a mat-button routerLink="/maps" routerLinkActive="active" (click)="closeMenu()">Maps</a>
+      <a mat-button routerLink="/heroes" routerLinkActive="active" (click)="closeMenu()">Heroes</a>
+      <a mat-button routerLink="/tier-list" routerLinkActive="active" (click)="closeMenu()">Tier List</a>
+      
+      <div class="stats-dropdown">
+        <button class="stats-btn">
+          Stats<span class="arrow">▼</span>
+        </button>
+        <div class="stats-menu">
+          <a routerLink="/stats" routerLinkActive="active">Overview</a>
+          <a routerLink="/match-history" routerLinkActive="active">Match History</a>
+          <a routerLink="/leaderboards" routerLinkActive="active">Leaderboards</a>
+        </div>
+      </div>
+    </nav>
+
+    <button class="hamburger" [class.open]="menuOpen" (click)="menuOpen = !menuOpen" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</div>

@@ -13,35 +13,25 @@ export const routes: Routes = [
     component: DashboardComponent,
     title: 'Dashboard'
   },
-    {
-    path: 'dev-diaries',
-    loadChildren: () => import('./dev-diaries/dev-diaries.module').then(m => m.DevDiariesModule),
-    data: { pageTitle: 'Dev Diaries' }
-  },
   {
     path: 'news',
-    loadChildren: () => import('./news/news.module').then(m => m.NewsModule),
+    loadComponent: () => import('./news/news.component').then(m => m.NewsComponent),
     data: { pageTitle: 'News' }
   },
   {
     path: 'maps',
-    loadChildren: () => import('./game-maps/game-maps.module').then(m => m.GameMapsModule),
-    data: { pageTitle: 'Game Maps' }
+    loadComponent: () => import('./maps/game-maps.component').then(m=>m.GameMapsComponent),
+    title: 'Rivals Maps'
   },
   {
     path: 'heroes',
-    loadChildren: () => import('./heroes/heroes.module').then(m => m.HeroesModule),
-    data: { pageTitle: 'Heroes' }
+    loadComponent: () => import('./heroes/heroes.component').then(m=>m.HeroesComponent),
+    title: 'Heroes'
   },
   {
-    path: 'leaderboard',
-    loadChildren: () => import('./leaderboard/leaderboard.module').then(m => m.LeaderboardModule),
-    data: { pageTitle: 'Leaderboards' }
-  },
-  {
-    path: 'match-history',
-    loadChildren: () => import('./match-history/match-history.module').then(m => m.MatchHistoryModule),
-    data: { pageTitle: 'Match History' }
+    path: 'stats',
+    loadComponent: () => import('./features/stats/stats-overview').then(m=>m.StatsOverviewComponent) ,
+    title: "Stats Overview"
   },
   {
     path: '',

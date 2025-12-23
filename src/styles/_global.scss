@@ -1,5 +1,7 @@
 @use './abstracts/' as *;
-
+* {
+  box-sizing: border-box;
+}
 /* ===== Layout & Containers ===== */
 body {
   max-width: 100%;
@@ -89,6 +91,55 @@ img.hero-icon {
   background: var(--bg-dark);
   align-content: center;
 }
+/* Anchor tag styles */
+a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  
+  &:visited {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &:hover {
+    color: #ff006e;
+  }
+}
+
+/* Button-style anchor tags */
+a[mat-button] {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:visited {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &:hover {
+    border-color: #ff006e;
+    color: #ff006e !important;
+    text-decoration: none;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, #ff006e 0%, #fb5607 100%);
+    border-color: transparent;
+    color: white !important;
+    box-shadow: 0 8px 24px rgba(255, 0, 110, 0.3);
+  }
+} 
 
 /* ===== Buttons ===== */
 button,
@@ -169,19 +220,16 @@ h4 {
 
 
 input {
-  width: 100%;
-  padding: var(--spacing-md) var(--spacing-lg);
-  border: var(--border-width) solid var(--border-clr);
   border-radius: var(--border-radius-sm);
   min-width: var(--input-min-width);
   font-size: var(--font-size-base);
   margin-bottom: var(--spacing-lg);
   transition: var(--transition-fast);
   box-sizing: border-box;
-
+  padding: var(--input-padding-md);
   &:focus {
     outline: none;
-    border-color: var(--error-clr);
+    border-color: var(--accent-clr);
     box-shadow: var(--focus-shadow);
   }
 }
@@ -291,19 +339,6 @@ input {
 /* ===== Links ===== */
 a.site-header-content {
   text-decoration: none;
-}
-
-a[mat-button] {
-  color: var(--primary-text-clr);
-  font-weight: var(--font-weight-medium);
-  transition: var(--transition-fast);
-
-  &.active {
-    color: var(--secondary-clr) !important;
-  }
-  &:hover {
-    background: var(--accent-clr) !important;
-  }
 }
 
 //Mobile

@@ -1,34 +1,31 @@
+.heroes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-.heroes-section {
-  background: var(--primary-transparent-clr);
-  color: var(--primary-text-clr);
-  border-radius: var(--border-radius-md);
-  padding: var(--padding-md);
-  min-height: 100vh;
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
+  .heroes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xs) 0;
+    padding: var(--spacing-xs) 0;
+  }
 
-.heroes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-lg);
-  margin: var(--spacing-xs) 0;
-  padding: var(--spacing-xs) 0;
-}
+  .heroes-container {
+    background: var(--primary-clr);
+    border-radius: var(--border-radius-md);
+    padding: 0;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
 
-.heroes-container {
-  background: var(--primary-clr);
-  border-radius: var(--border-radius-md);
-  padding: 0;
-  box-shadow: var(--shadow-md);
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
-
-  &:hover, &.selected {
-    border: 2px solid var(--accent-clr);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px) scale(1.04);
+    &:hover,
+    &.selected {
+      border: 2px solid var(--accent-clr);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px) scale(1.04);
+    }
   }
 }
 
@@ -43,7 +40,8 @@ mr-hero-details-card {
   min-width: 0;
   min-height: 0;
 
-  .hero-name, h3 {
+  .hero-name,
+  h3 {
     color: var(--accent-clr);
     font-size: 1rem;
     font-weight: 700;
@@ -97,6 +95,7 @@ mr-hero-details-card {
   align-items: center;
   min-height: 120px;
 }
+
 // Removed invalid/unclosed block at end of file
 
 
@@ -114,13 +113,15 @@ mr-hero-details-card {
 }
 
 @media (max-width: 768px) {
-  .vertical-layout {
+  .heroes-container {
     padding: 8px;
   }
+
   .heroes-grid {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
+
   .search-container form {
     flex-direction: column;
     align-items: stretch;

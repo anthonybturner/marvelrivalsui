@@ -9,11 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class HeroesService {
 
-  private baseUrl: string = environment.apiUrl;
+  private baseUrl: string = environment.remoteApiUrl;
   private http = inject(HttpClient);
 
   getHeroes(): Observable<IHero[]> {
-    const url = `${this.baseUrl}heroes`; // Added endpoint path
+    const url = `${this.baseUrl}v1/heroes`; // Added endpoint path
     const headers = new HttpHeaders({
       'x-api-key': environment.apiKey,
       'Content-Type': 'application/json'

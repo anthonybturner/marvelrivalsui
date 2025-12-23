@@ -1,0 +1,127 @@
+form {
+  display: flex;
+}
+
+input {
+  flex: 0.1;
+  margin-right: 4px;
+}
+
+.stats-section {
+  overflow-x: auto;
+  gap: 1rem;
+  width: 100%;
+  table {
+    width: 100%;
+    min-width: 200px;
+    border-collapse: collapse;
+
+  }
+}
+.player-stats-container {
+  display: flex;
+  background-color: color-mix(in srgb, var(--primary-clr) 40%, transparent);
+  backdrop-filter: blur(14px);
+  gap: 1rem;
+
+  .stats-section {
+    flex: var(--flex-medium);
+
+    table {
+      background-color: var(--primary-clr);
+      border-radius: var(--border-radius-md);
+    }
+    td {
+      text-align: center;
+    }
+  }
+
+}
+//Player stats
+.player-stats {
+  h2 {
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    font-size: 1.5rem;
+  }
+}
+
+.stats-flex-row {
+  background: #f5d8344b;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+//Heroes data
+.heroes-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-icon {
+  width: 72px;
+  height: 72px;
+  background: #222;
+
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+//Tablet
+@media (min-width: 481px) and (max-width: 768px) {
+  .player-stats-container, 
+  .top-heroes-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .stats-flex-row {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .hero-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-name {
+    max-width: 80px;
+    font-size: 0.95rem;
+  }
+}
+
+//Mobile
+@media ((min-width: 0px) and (max-width: 480px)) {
+  .player-stats-container, 
+  .top-heroes-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .stats-flex-row {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .hero-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-name {
+    max-width: 80px;
+    font-size: 0.95rem;
+  }
+}

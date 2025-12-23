@@ -1,0 +1,208 @@
+@if(isLoading){
+  <div class="fullscreen-loading">
+    <div class="spinner"></div>
+  </div>
+}
+<div class="container">
+
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="title-area">
+      <h1>Game Maps</h1>
+      <p class="subtitle">Explore all available battlefields in Marvel Rivals</p>
+    </div>
+
+    <div class="search-area">
+      <form #searchForm="ngForm" (ngSubmit)="onSearchMap()">
+        <div class="search-input-group">
+          <input
+            type="text"
+            name="searchMap"
+            [(ngModel)]="searchMapName"
+            placeholder="Search maps..."
+            class="search-input">
+          <button type="submit" class="search-button" [disabled]="!searchForm.valid">
+            <span>🔍</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="stats-overview">
+    <div class="stat-card">
+      <div class="stat-number">{{ gameMaps.length || 0 }}</div>
+      <div class="stat-label">Total Maps</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ getUniqueGameModes().length }}</div>
+      <div class="stat-label">Game Modes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ gameMaps.length || 0 }}</div>
+      <div class="stat-label">Available Maps</div>
+    </div>
+    <div class="stat-card status-card">
+      <span class="update-dot dot-green"></span>
+      <div class="stat-label">Up to Date</div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  @if (getUniqueGameModes().length > 0) {
+    <div class="filter-tabs">
+      <button
+        class="filter-tab"
+        [class.active]="selectedGameMode() === 'all'"
+        (click)="filterByGameMode('all')">
+        All Maps
+      </button>
+      @for (mode of getUniqueGameModes(); track mode) {
+        <button
+          class="filter-tab"
+          [class.active]="selectedGameMode() === mode"
+          (click)="filterByGameMode(mode)">
+          {{ mode }}
+        </button>
+      }
+    </div>
+  }
+
+  <!-- Maps Grid -->
+
+    <div class="maps-grid">
+      @for (map of gameMaps() || []; track map.id;) {
+        <div
+          class="map-card"
+          [class.selected]="selectedMap?.id === map.id"
+          (click)="selectMap(map)">
+          <div class="card-image">
+            <img
+              [src]="getMapImageUrl(map)"
+              [alt]="map.name"
+              class="map-image"
+              loading="lazy"
+              (error)="onImageError($event)">
+            <div class="image-overlay">
+              <div class="game-mode-badge" [class]="'mode-' + getGameModeClass(map.game_mode)">
+                {{ map.game_mode }}
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="map-title">{{ map.name }}</h3>
+            @if (map.description) {
+              <p class="map-description">{{ map.description }}</p>
+            }
+            <div class="map-details">
+              @if (map.game_mode) {
+                <div class="detail-item">
+                  <span class="detail-label">Game Mode:</span>
+                  <span class="detail-value">{{ map.game_mode }}</span>
+                </div>
+              }
+              @if (map.location) {
+                <div class="detail-item">
+                  <span class="detail-label">Location:</span>
+                  <span class="detail-value">{{ map.location }}</span>
+                </div>
+              }
+              @if (map.images.length) {
+                <div class="detail-item">
+                  <span class="detail-label">Images:</span>
+                  <span class="detail-value">{{ map.images.length }} available</span>
+                </div>
+              }
+            </div>
+            <div class="card-footer">
+              <div class="status-indicator">
+                <span class="update-dot dot-green"></span>
+                <span class="status-text">Active</span>
+              </div>
+              <button class="view-details-btn" (click)="viewMapDetails(map); $event.stopPropagation()">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  
+
+  <!-- Empty State -->
+  @if (!isLoading && gameMaps().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🗺️</div>
+      <h3>No Maps Found</h3>
+      @if (searchMapName) {
+        <p>No maps match your search criteria: "{{ searchMapName }}"</p>
+      }
+      @if (!searchMapName) {
+        <p>No game maps are currently available.</p>
+      }
+      @if (searchMapName) {
+        <button
+          class="clear-search-btn"
+          (click)="clearSearch()">
+          Clear Search
+        </button>
+      }
+    </div>
+  }
+
+</div>
+
+<!-- Map Details Modal (Optional) -->
+@if (showMapDetails && selectedMapForDetails) {
+  <div class="map-modal" (click)="closeMapDetails()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ selectedMapForDetails.name }}</h2>
+        <button class="close-btn" (click)="closeMapDetails()">✕</button>
+      </div>
+      <div class="modal-body">
+        @if (selectedMapForDetails.images.length) {
+          <div class="map-images">
+            @for (image of selectedMapForDetails.images.slice(0, 3); track image) {
+              <img
+                [src]="'https://marvelrivalsapi.com' + image"
+                [alt]="selectedMapForDetails.name"
+                class="detail-image"
+                (error)="onImageError($event)">
+            }
+          </div>
+        }
+        <div class="map-info">
+          @if (selectedMapForDetails.game_mode) {
+            <div class="info-row">
+              <strong>Game Mode:</strong> {{ selectedMapForDetails.game_mode }}
+            </div>
+          }
+          @if (selectedMapForDetails.location) {
+            <div class="info-row">
+              <strong>Location:</strong> {{ selectedMapForDetails.location }}
+            </div>
+          }
+          @if (selectedMapForDetails.description) {
+            <div class="info-row">
+              <strong>Description:</strong> {{ selectedMapForDetails.description }}
+            </div>
+          }
+          @if (selectedMapForDetails.video) {
+            <div class="video-section">
+              <h4>Map Preview</h4>
+              <iframe
+                [src]="getVideoUrl(selectedMapForDetails.video)"
+                width="100%"
+                height="315"
+                frameborder="0"
+                allowfullscreen>
+              </iframe>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

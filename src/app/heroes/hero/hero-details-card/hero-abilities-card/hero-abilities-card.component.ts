@@ -1,17 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { getImageUrl,handleImageError } from 'src/app/shared/utilities/image-utils';
 import { IHeroAbility } from '../../../hero/data/models/hero.model';
+import { MaterialModule } from 'src/app/shared/material/material.module';
+import { CdkFixedSizeVirtualScroll, CdkVirtualScrollViewport, ScrollingModule } from "@angular/cdk/scrolling";
 
 
 @Component({
   selector: 'mr-hero-abilities-card',
-  standalone: false,
+  standalone: true,
   templateUrl: './hero-abilities-card.component.html',
-  styleUrl: './hero-abilities-card.component.scss'
+  styleUrl: './hero-abilities-card.component.scss',
+  imports: [MaterialModule, CdkVirtualScrollViewport, ScrollingModule]
 })
 export class HeroAbilitiesCardComponent {
 
-  @Input() abilities!: IHeroAbility[];
+  abilities = input<IHeroAbility[]>([]);
   getImageUrl = getImageUrl;
   handleImageError = handleImageError;
 

@@ -1,0 +1,18 @@
+<div class="player-profile-container">
+    <div class="profile-header">
+        <div class="header-title">
+        <h3>Player Profile</h3>
+        <img class="rank-icon" [src]="rankedIcon()" alt="ranked icon" />
+        </div>
+        <img class="player-icon" [src]="playerIcon()" alt="Player Icon" />
+        <span class="status" [ngClass]="playerUpdated() ? 'player-updated': 'player-not-updated'"></span>
+    </div>
+    <div class="profile-details">
+        <h3 class="player-name">{{playerName()}}</h3>
+        <div><span class="label">UID</span> {{ playerUID() }}</div>
+        <div><span class="label">Level</span> {{ playerLevel() }}</div>
+        <div><span class="label">Rank</span> {{playerRank()}} </div>
+        <div><span class="label">Achievements</span> {{ playerAchievements() }}</div>
+        <div><span class="label">Platform</span> {{ playerPlatform() }}</div>
+    </div>
+</div>

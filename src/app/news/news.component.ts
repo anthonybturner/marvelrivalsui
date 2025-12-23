@@ -5,7 +5,7 @@ import { map, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'mr-news',
-  standalone: false,
+  standalone: true,
   templateUrl: './news.component.html',
   styleUrl: './news.component.scss'
 })

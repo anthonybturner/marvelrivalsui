@@ -1,0 +1,335 @@
+// ==========================================
+// NEWS PAGE STYLES - FRESH DESIGN
+// ==========================================
+
+$primary-color: #ff006e;
+$secondary-color: #fb5607;
+$dark-bg: #0f0f0f;
+$card-bg: #1a1a2e;
+$text-primary: #ffffff;
+$text-secondary: #b0b0b0;
+$border-color: rgba(255, 255, 255, 0.1);
+
+.news-wrapper {
+  width: 100%;
+  background-color: $dark-bg;
+  color: $text-primary;
+}
+
+// ==========================================
+// HERO SECTION
+// ==========================================
+.news-hero {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  margin-bottom: 80px;
+
+  @media (max-width: 768px) {
+    height: 400px;
+    margin-bottom: 60px;
+  }
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4);
+  }
+}
+
+.hero-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    padding: 0 30px;
+  }
+}
+
+.hero-text {
+  max-width: 700px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin-bottom: 32px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+.hero-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(255, 0, 110, 0.4);
+  }
+}
+
+// ==========================================
+// MAIN CONTENT
+// ==========================================
+.news-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+// ==========================================
+// FILTER TABS
+// ==========================================
+.filter-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+  padding-bottom: 30px;
+  border-bottom: 1px solid $border-color;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+    gap: 8px;
+  }
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid $border-color;
+  color: $text-secondary;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: max-content;
+
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    border-color: transparent;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+}
+
+// ==========================================
+// NEWS LIST
+// ==========================================
+.news-list {
+  margin-bottom: 80px;
+}
+
+.news-item {
+  padding: 40px 0;
+  border-bottom: 1px solid $border-color;
+  transition: all 0.3s ease;
+
+  &:hover {
+    .article-title {
+      color: $primary-color;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 0;
+  }
+}
+
+.article-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.article-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.article-excerpt {
+  font-size: 16px;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin: 12px 0 20px 0;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.article-date {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+.article-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+// ==========================================
+// LOAD MORE
+// ==========================================
+.load-more {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  border-top: 1px solid $border-color;
+}
+
+.load-more-btn {
+  background: transparent;
+  border: 2px solid $border-color;
+  color: $text-secondary;
+  padding: 14px 40px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    border-color: transparent;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 0, 110, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ==========================================
+// RESPONSIVE
+// ==========================================
+@media (max-width: 768px) {
+  .news-content {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .article-meta {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+

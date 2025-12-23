@@ -1,0 +1,26 @@
+<div class="container">
+    @if(isLoading()){
+        <div class="fullscreen-loading">
+            <div class="spinner"></div>
+        </div>
+    }
+    <main>
+         <div class="search-box-container">
+            <form #searchForm="ngForm" (ngSubmit)="onSearchPlayer()">
+                <input type="text" class="search-box" name="searchPlayerName" [value]="searchPlayerName()"
+                    (input)="updateSearchPlayerName($any($event.target).value)" placeholder="Search Player..."
+                    required />
+                <button class="search-player-button" type="submit"
+                    style="display:block; width: 100%; height: auto;">Search</button>
+            </form>
+        </div>
+        <div class="player-stats-container">
+            <mr-player-info-stats [playerInfo]=playerInfoStats/>
+            <mr-overall-info-stats [overallInfo] = overallInfoStats />
+        </div>
+        <mr-rank-season-stats [seasonKey]="rankSeasonKeys"  [season]="playerRankGameSeason"/>
+        <div class="top-heroes-section">
+           <mr-top-hero-stats [topPlayedHeroes] = topPlayedHeroes()/>
+        </div>
+    </main>
+</div>
