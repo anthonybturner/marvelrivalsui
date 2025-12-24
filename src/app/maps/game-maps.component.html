@@ -70,13 +70,12 @@
   }
 
   <!-- Maps Grid -->
-
     <div class="maps-grid">
       @for (map of gameMaps() || []; track map.id;) {
         <div
           class="map-card"
-          [class.selected]="selectedMap?.id === map.id"
-          (click)="selectMap(map)">
+          [class.selected]="selectedMap()?.id === map.id"
+          (click)="onSelectMap(map)">
           <div class="card-image">
             <img
               [src]="getMapImageUrl(map)"
@@ -120,9 +119,6 @@
                 <span class="update-dot dot-green"></span>
                 <span class="status-text">Active</span>
               </div>
-              <button class="view-details-btn" (click)="viewMapDetails(map); $event.stopPropagation()">
-                View Details
-              </button>
             </div>
           </div>
         </div>
@@ -153,47 +149,51 @@
 
 </div>
 
+@if(selectedMap()){
+  <ng-container *ngTemplateOutlet="mapDetailsModal"></ng-container>
+}
+
 <!-- Map Details Modal (Optional) -->
-@if (showMapDetails && selectedMapForDetails) {
+  <ng-template #mapDetailsModal>
   <div class="map-modal" (click)="closeMapDetails()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2>{{ selectedMapForDetails.name }}</h2>
+        <h2>{{ selectedMap()?.name }}</h2>
         <button class="close-btn" (click)="closeMapDetails()">✕</button>
       </div>
       <div class="modal-body">
-        @if (selectedMapForDetails.images.length) {
+        @if (selectedMap()?.images?.length) {
           <div class="map-images">
-            @for (image of selectedMapForDetails.images.slice(0, 3); track image) {
+            @for (image of selectedMap()?.images?.slice(0, 3); track image) {
               <img
                 [src]="'https://marvelrivalsapi.com' + image"
-                [alt]="selectedMapForDetails.name"
+                [alt]="selectedMap()?.name"
                 class="detail-image"
                 (error)="onImageError($event)">
             }
           </div>
         }
         <div class="map-info">
-          @if (selectedMapForDetails.game_mode) {
+          @if (selectedMap()?.game_mode) {
             <div class="info-row">
-              <strong>Game Mode:</strong> {{ selectedMapForDetails.game_mode }}
+              <strong>Game Mode:</strong> {{ selectedMap()?.game_mode }}
             </div>
           }
-          @if (selectedMapForDetails.location) {
+          @if (selectedMap()?.location) {
             <div class="info-row">
-              <strong>Location:</strong> {{ selectedMapForDetails.location }}
+              <strong>Location:</strong> {{ selectedMap()?.location }}
             </div>
           }
-          @if (selectedMapForDetails.description) {
+          @if (selectedMap()?.description) {
             <div class="info-row">
-              <strong>Description:</strong> {{ selectedMapForDetails.description }}
+              <strong>Description:</strong> {{ selectedMap()?.description }}
             </div>
           }
-          @if (selectedMapForDetails.video) {
+          @if (selectedMap()?.video) {
             <div class="video-section">
               <h4>Map Preview</h4>
               <iframe
-                [src]="getVideoUrl(selectedMapForDetails.video)"
+                [src]="getVideoUrl(selectedMap()?.video ?? '')"
                 width="100%"
                 height="315"
                 frameborder="0"
@@ -205,4 +205,4 @@
       </div>
     </div>
   </div>
-}
+  </ng-template>

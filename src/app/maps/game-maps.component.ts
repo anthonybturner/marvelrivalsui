@@ -5,6 +5,7 @@ import { IGameMap, IGameMapsResponse } from './data/game-maps.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GameMapsService } from './services/game-maps.service';
+import { CdkNoDataRow } from "@angular/cdk/table";
 
 @Component({
   selector: 'mr-game-maps',
@@ -16,17 +17,14 @@ import { GameMapsService } from './services/game-maps.service';
 
 export class GameMapsComponent implements OnInit, OnDestroy {
 
-
   ngUnsubscribe = new Subject();
   gameMaps = signal<IGameMap[]>([]);
   searchMapName: string = '';
   selectedGameMode = signal<string>('all');
-  selectedMap: IGameMap | null = null;
+  selectedMap = signal<IGameMap | undefined>(undefined);
   isLoading: boolean = false;
-  showMapDetails: boolean = false;
-  selectedMapForDetails: IGameMap | null = null;
 
-  constructor(private activatedRoute: ActivatedRoute, private gameMapsSerivce: GameMapsService) { }
+  constructor(private gameMapsSerivce: GameMapsService) { }
 
   getMapImageUrl(map: IGameMap) {
     const priorities = ['premium', 'large'];
@@ -55,11 +53,12 @@ export class GameMapsComponent implements OnInit, OnDestroy {
       this.isLoading = false;
     })
   }
-  getUniqueGameModes(): string[] {
-    //const modes = new Set(this.gameMaps().map(map => map.game_mode).filter(Boolean));
-    //return Array.from(modes);
-    return [];
-  }
+  getUniqueGameModes = computed(()=>{
+    const gameMaps = this.gameMaps();
+    if(!gameMaps) return [];
+    const modes = new Set(gameMaps.map(map => map.game_mode).filter(Boolean));
+    return Array.from(modes);
+  });
 
   filterByGameMode(gameMode: string) {
     this.selectedGameMode.set(gameMode);
@@ -86,18 +85,16 @@ export class GameMapsComponent implements OnInit, OnDestroy {
     return filteredMaps;
   })
 
-  selectMap(map: IGameMap) {
-    this.selectedMap = map;
+  onSelectMap(map:IGameMap){
+    this.selectedMap.set(map);
   }
 
   viewMapDetails(map: IGameMap) {
-    this.selectedMapForDetails = map;
-    this.showMapDetails = true;
+    this.selectedMap.set(map);
   }
 
   closeMapDetails() {
-    this.showMapDetails = false;
-    this.selectedMapForDetails = null;
+    this.selectedMap.set(undefined);
   }
 
   onSearchMap() {
